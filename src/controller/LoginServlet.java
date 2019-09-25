@@ -17,13 +17,45 @@ import dto.UserDTO;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	// 直接アクセスがあった場合は index.jsp に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-		dispatcher.forward(request, response);
+
+		String a = request.getParameter("register");
+		if("register".equals(a)) {
+
+			String loginId = request.getParameter("loninId");
+			String password = request.getParameter("passwprd");
+			String userName = request.getParameter("userName");
+			String icon = request.getParameter("icon");
+			String profile = request.getParameter("purofile");
+
+
+
+			// ログイン認証を行い、ユーザ情報を取得
+			DBManager dbm = new DBManager();
+			UserDTO user = dbm.getLoginUser(loginId, password);
+
+			UserDTO userDTO = new UserDTO(loginId, password, userName, icon, profile);
+
+			// ユーザ情報を取得できたら、書き込み内容リストを取得
+			ArrayList<ShoutDTO> list = dbm.getShoutList();
+			HttpSession session = request.getSession();
+
+			// ログインユーザ情報、書き込み内容リストとしてセッションに保存
+			session.setAttribute("user", user);
+			session.setAttribute("shouts", list);
+
+			// 処理の転送先を top.jsp に指定
+			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
+			dispatch.forward(request, response);
+
+
+		}else {
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	// index.jsp の「ログイン」ボタンから呼び出される

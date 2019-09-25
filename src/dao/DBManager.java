@@ -130,4 +130,31 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+
+	public void register(String loginId, String userName, String password, String icon, String profile) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+				conn = getConnection();
+
+				String sql = "INSERT INTO users(loginId, userName, password, icon, profile) VALUES(?, ?, ?, ?, ?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, loginId);
+				pstmt.setString(2, userName);
+				pstmt.setString(3, password);
+				pstmt.setString(4, icon);
+				pstmt.setString(5, profile);
+
+				pstmt.executeUpdate();
+
+		}finally{
+
+				close(conn);
+				close(pstmt);
+
+		}
+
+
+	}
 }
