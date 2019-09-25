@@ -54,6 +54,7 @@
 						</tr>
 					</c:if>
 				</table>
+				<h6>初めてのご利用ですか？</h6><a href="Register.jsp">ご登録はこちら</a>
 			</form>
 		</div>
 	</div>
