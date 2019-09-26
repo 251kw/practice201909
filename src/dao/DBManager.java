@@ -55,6 +55,7 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
+	//loginIdの重複チェックメソッド
 	public boolean registerCheck(String loginId) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -72,11 +73,12 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(1, loginId);
 			rset = pstmt.executeQuery();
 
-			// 検索結果があれば
+			// 検索結果を取得し分岐させる
 			if (rset.next()) {
-				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				//検索結果があれば重複になるのでresultにfalseを代入
 				result = false;
 			}else {
+				//検索結果がなければ重複ではないのでresultにtrueを代入
 				result = true;
 			}
 		} catch (SQLException e) {
@@ -170,13 +172,14 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
+	//ユーザー情報をDBに登録する
 	public void register(String loginId, String userName, String password, String icon, String profile) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 				conn = getConnection();
-
+				//インサート分の実行
 				String sql = "INSERT INTO users(loginId, userName, password, icon, profile) VALUES(?, ?, ?, ?, ?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, loginId);
@@ -188,7 +191,7 @@ public class DBManager extends SnsDAO {
 				pstmt.executeUpdate();
 
 		}finally{
-
+			// データベース切断処理
 				close(conn);
 				close(pstmt);
 
@@ -196,4 +199,125 @@ public class DBManager extends SnsDAO {
 
 
 	}
+
+	public UserDTO userNameSearch(String userNameSearch) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+
+		String sql = "SELECT * FROM users WHERE userName='%?%'";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, userNameSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
+
+	}
+
+	public UserDTO loginIdSearch(String loginIdSearch) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+
+		String sql = "SELECT * FROM users WHERE loginId='%?%'";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, loginIdSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
+
+	}
+
+	public UserDTO profileSearch(String profileSearch) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+
+		String sql = "SELECT * FROM users WHERE profile='%?%'";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, profileSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
+
+	}
+
 }

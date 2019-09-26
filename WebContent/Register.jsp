@@ -24,6 +24,7 @@
 		</div>
 	</div>
 
+	<%--会員情報入力フォーム --%>
 	<div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
 		<form action="Register" method="post">
@@ -51,24 +52,22 @@
 				</tr>
 				<tr>
 					<th><span class="icon-note2 pe-2x pe-va"></span>&nbsp;自己紹介</th>
-					<td><textarea rows="5" cols="20" name="profile" value="${param.profile}" class="form-control"></textarea></td>
+					<td><textarea rows="5" cols="20" name="profile" class="form-control">${param.profile}</textarea></td>
 				</tr>
 
 				<tr>
 					<td colspan="2" class="text-center"><input type="submit" value="OK" class="btn"></td>
 				</tr>
+				<%--アラートがあるか確認 --%>
 				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
 						<tr>
 							<%-- リクエストスコープの alert の値を出力 --%>
 							<td colspan="2" class="color-error text-left"><c:out
 									value="${requestScope.alert}" /></td>
 						</tr>
-
 						<tr>
 						</tr>
 					</c:if>
-
-
 				</table>
 			</form>
 		</div>

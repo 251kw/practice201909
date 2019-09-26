@@ -33,6 +33,7 @@
 				</tr>
 
 				<tr>
+					<%--Hiddenで値をLoginに渡す --%>
 					<td colspan="2" class="text-center"><input type="hidden" name="loginId" value="${loginId}">
 					<input type="hidden" name="password" value="${password}">
 					<input type="hidden" name="userName" value="${userName}">

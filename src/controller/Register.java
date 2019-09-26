@@ -28,10 +28,10 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
-
+		//ユーザー情報をパラメータより取得し変数に代入
 		String loginId = (String)request.getParameter("loginId");
 		String userName = (String)request.getParameter("userName");
 		String password = (String)request.getParameter("password");
@@ -39,7 +39,7 @@ public class Register extends HttpServlet {
 		String profile = (String)request.getParameter("profile");
 		String message = null;
 
-
+		//入力チェック
 		if(loginId == null || loginId.equals("")) {
 			message = "ログインIDが未入力です";
 			request.setAttribute("alert", message);
@@ -69,24 +69,29 @@ public class Register extends HttpServlet {
 			dispatch.forward(request, response);
 
 		}else {
+			//DBManagerのオブジェクト生成
 			DBManager dbm = new DBManager();
+
+			//registerCheckメソッドでloginIdの重複チェック
 			if(dbm.registerCheck(loginId)) {
 
-
+				//ユーザー情報をAttributeにセット
 				request.setAttribute("loginId", loginId);
 				request.setAttribute("userName", userName);
 				request.setAttribute("password", password);
 				request.setAttribute("icon", icon);
 				request.setAttribute("profile", profile);
 
+				//RegisterChech.jspに転送
 				RequestDispatcher dispatch = request.getRequestDispatcher("RegisterCheck.jsp");
 				dispatch.forward(request, response);
 
 			}else {
-
+				//結果がfalseの場合エラーメッセージをAttributeにセット
 				message = "すでに使われているログインIDです";
 				request.setAttribute("alert", message);
 
+				//Register.jsｐに戻す
 				RequestDispatcher dispatch = request.getRequestDispatcher("Register.jsp");
 				dispatch.forward(request, response);
 

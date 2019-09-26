@@ -22,10 +22,12 @@
 			<strong class="color-main">登録内容確認</strong>
 		</div>
 	</div>
+	<%--文字化け防止 --%>
 	<% request.setCharacterEncoding("UTF-8"); %>
 	<div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
 		<form action="RegisterLogic" method="post">
+		<%--入力された値をパラメータで取得し表示 --%>
 			<table border="1" class="table">
 				<tr>
 					<th><label for="loginId"><span class="icon-headphones pe-2x pe-va"></span>&nbsp;ログインID</label></th>
@@ -51,15 +53,25 @@
 					<td>${param.profile}</td>
 				</tr>
 				<tr>
+					<%--Hiddenでユーザー情報をRegisterLogicに渡す--%>
 					<td colspan="2" class="text-center">
 					<input type="hidden" name="loginId" value="${param.loginId}">
 					<input type="hidden" name="password" value="${param.password}">
 					<input type="hidden" name="userName" value="${param.userName}">
 					<input type="hidden" name="icon" value="${param.icon}">
 					<input type="hidden" name="profile" value="${param.profile}">
-					<input type="submit" value="登録" class="btn"></td>
+					<input type="submit" value="登録" class="btn btn-warning"></td>
 				</tr>
 				</table>
+			</form>
+			<%--戻るボタンを押したとき、Register.jspに転送し、Hiddenでパラメータを渡す --%>
+			<form action="Register.jsp" class="text-center">
+				<input type="hidden" name="loginId" value="${param.loginId}">
+				<input type="hidden" name="password" value="${param.password}">
+				<input type="hidden" name="userName" value="${param.userName}">
+				<input type="hidden" name="icon" value="${param.icon}">
+				<input type="hidden" name="profile" value="${param.profile}">
+				<input type="submit" value="戻る" class="btn">
 			</form>
 		</div>
 	</div>

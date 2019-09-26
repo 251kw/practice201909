@@ -20,19 +20,21 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
-
+		//registerCompleatからのアクセスか判定
 		String a = request.getParameter("register");
 		if("register".equals(a)) {
 
+			//ユーザデータをパラメータより取得
 			String loginId = request.getParameter("loginId");
 			String password = request.getParameter("password");
 			String profile = request.getParameter("profile");
 			String userName = request.getParameter("userName");
 			String icon = request.getParameter("icoi");
 
+			//UserDTOのフィールドに追加
 			UserDTO userDTO = new UserDTO(loginId, password, userName, icon, profile);
 
 			// ログイン認証を行い、ユーザ情報を取得
@@ -54,15 +56,15 @@ public class LoginServlet extends HttpServlet {
 
 
 		}else {
-
+			//aがnullならindexに飛ばす
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
 
 	// index.jsp の「ログイン」ボタンから呼び出される
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		//ログインIdとパスワードをパラメータから受け取る
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 		RequestDispatcher dispatcher = null;

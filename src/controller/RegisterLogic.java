@@ -33,11 +33,11 @@ public class RegisterLogic extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
 
-
+		//ユーザー情報をパラメータより取得
 		String loginId = (String)request.getParameter("loginId");
 		String userName = (String)request.getParameter("userName");
 		String password = (String)request.getParameter("password");
@@ -46,21 +46,24 @@ public class RegisterLogic extends HttpServlet {
 
 
 		try {
-
+			//DBManagerのオブジェクト生成
 			DBManager dbm = new DBManager();
+
+			//registerメソッドで情報をDBに登録
 			dbm.register(loginId, userName, password, icon, profile);
 
 		} catch (SQLException e) {
 				e.printStackTrace();
 
 		}
-
+		//ユーザー情報をAttributeにセット
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("userName", userName);
 		request.setAttribute("password", password);
 		request.setAttribute("icon", icon);
 		request.setAttribute("profile", profile);
 
+		//RegistrationComplete.jspに転送
 		RequestDispatcher dispatch = request.getRequestDispatcher("RegistrationComplete.jsp");
 		dispatch.forward(request, response);
 	}
