@@ -1,4 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,21 +26,21 @@
 
 	<div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
-		<form action="RegisterLogic" method="post">
+		<form action="Register" method="post">
 			<table border="1" class="table">
 				<tr>
 					<th><label for="loginId"><span class="icon-headphones pe-2x pe-va"></span>&nbsp;ログインID</label></th>
-					<td><input type="text" name="loginId" id="loginId" class="form-control"></td>
+					<td><input type="text" name="loginId" id="loginId" value="${param.loginId}" class="form-control"></td>
 				</tr>
 
 				<tr>
 					<th><label for="userName"><span class="icon-smile pe-2x pe-va"></span>&nbsp;名前</label></th>
-					<td><input type="text" name="userName" id="userName" class="form-control"></td>
+					<td><input type="text" name="userName" id="userName" value="${param.userName}" class="form-control"></td>
 				</tr>
 
 				<tr>
 					<th><label for="password"><span class="icon-note pe-2x pe-va"></span>&nbsp;パスワード</label></th>
-					<td><input type="password" name="password" id="password" class="form-control"></td>
+					<td><input type="password" name="password" id="password" value="${param.password}" class="form-control"></td>
 				</tr>
 				<tr>
 					<th><span class="icon-users pe-2x pe-va"></span>&nbsp;アイコン</th>
@@ -49,12 +51,24 @@
 				</tr>
 				<tr>
 					<th><span class="icon-note2 pe-2x pe-va"></span>&nbsp;自己紹介</th>
-					<td><textarea rows="5" cols="20" name="profile" class="form-control"></textarea></td>
+					<td><textarea rows="5" cols="20" name="profile" value="${param.profile}" class="form-control"></textarea></td>
 				</tr>
 
 				<tr>
 					<td colspan="2" class="text-center"><input type="submit" value="OK" class="btn"></td>
 				</tr>
+				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left"><c:out
+									value="${requestScope.alert}" /></td>
+						</tr>
+
+						<tr>
+						</tr>
+					</c:if>
+
+
 				</table>
 			</form>
 		</div>

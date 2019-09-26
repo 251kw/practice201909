@@ -39,7 +39,7 @@
 
 				<tr>
 					<th><label for="pass"><span class="icon-note pe-2x pe-va"></span>&nbsp;パスワード</label></th>
-					<td>${param.pass}</td>
+					<td>${param.password}</td>
 				</tr>
 				<tr>
 					<th><span class="icon-users pe-2x pe-va"></span>&nbsp;アイコン</th>
@@ -51,7 +51,13 @@
 					<td>${param.profile}</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="text-center"><input type="hidden" name="register" value="register"><input type="submit" value="登録" class="btn"></td>
+					<td colspan="2" class="text-center">
+					<input type="hidden" name="loginId" value="${param.loginId}">
+					<input type="hidden" name="password" value="${param.password}">
+					<input type="hidden" name="userName" value="${param.userName}">
+					<input type="hidden" name="icon" value="${param.icon}">
+					<input type="hidden" name="profile" value="${param.profile}">
+					<input type="submit" value="登録" class="btn"></td>
 				</tr>
 				</table>
 			</form>

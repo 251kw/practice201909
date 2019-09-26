@@ -21,22 +21,24 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+
+
 		String a = request.getParameter("register");
 		if("register".equals(a)) {
 
-			String loginId = request.getParameter("loninId");
-			String password = request.getParameter("passwprd");
+			String loginId = request.getParameter("loginId");
+			String password = request.getParameter("password");
+			String profile = request.getParameter("profile");
 			String userName = request.getParameter("userName");
-			String icon = request.getParameter("icon");
-			String profile = request.getParameter("purofile");
+			String icon = request.getParameter("icoi");
 
-
+			UserDTO userDTO = new UserDTO(loginId, password, userName, icon, profile);
 
 			// ログイン認証を行い、ユーザ情報を取得
 			DBManager dbm = new DBManager();
 			UserDTO user = dbm.getLoginUser(loginId, password);
 
-			UserDTO userDTO = new UserDTO(loginId, password, userName, icon, profile);
 
 			// ユーザ情報を取得できたら、書き込み内容リストを取得
 			ArrayList<ShoutDTO> list = dbm.getShoutList();

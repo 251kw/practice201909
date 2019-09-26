@@ -27,17 +27,19 @@
 	<div style="width: 40%" class="container padding-y-5">
 		<form action="login" method="get">
 			<table border="1" class="table">
+				<% request.setCharacterEncoding("UTF-8");  %>
 				<tr>
 					<td>ようこそ ${param.userName} さん
 				</tr>
 
 				<tr>
-					<td colspan="2" class="text-center"><input type="hidden" name="loginId" value="${param.loginId}">
-					<input type="hidden" name="password" value="${param.password}">
-					<input type="hidden" name="userName" value="${param.userName}">
-					<input type="hidden" name="icon" value="${param.icon}">
-					<input type="hidden" name="userName" value="${param.userName}">
-					<input type="hidden" name="profile" value="${param.profile}">
+					<td colspan="2" class="text-center"><input type="hidden" name="loginId" value="${loginId}">
+					<input type="hidden" name="password" value="${password}">
+					<input type="hidden" name="userName" value="${userName}">
+					<input type="hidden" name="icon" value="${icon}">
+					<input type="hidden" name="userName" value="${userName}">
+					<input type="hidden" name="profile" value="${profile}">
+					<input type="hidden" name="register" value="register">
 					<input type="submit" value="トップへ" class="btn"></td>
 				</tr>
 				</table>

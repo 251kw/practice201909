@@ -23,6 +23,7 @@ public class RegisterLogic extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//直接アクセスされた場合はindex.jspに飛ばす
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 
@@ -36,6 +37,7 @@ public class RegisterLogic extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 
+
 		String loginId = (String)request.getParameter("loginId");
 		String userName = (String)request.getParameter("userName");
 		String password = (String)request.getParameter("password");
@@ -43,19 +45,23 @@ public class RegisterLogic extends HttpServlet {
 		String profile = (String)request.getParameter("profile");
 
 
-			try {
+		try {
 
-				DBManager dbm = new DBManager();
-				dbm.register(loginId, userName, password, icon, profile);
+			DBManager dbm = new DBManager();
+			dbm.register(loginId, userName, password, icon, profile);
 
-			} catch (SQLException e) {
+		} catch (SQLException e) {
 				e.printStackTrace();
 
-			}
+		}
 
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("userName", userName);
+		request.setAttribute("password", password);
+		request.setAttribute("icon", icon);
+		request.setAttribute("profile", profile);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("RegistrationComplete.jsp");
 		dispatch.forward(request, response);
 	}
-
 }
