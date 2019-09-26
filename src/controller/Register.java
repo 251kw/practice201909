@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DBManager;
+
 /**
  * Servlet implementation class Register
  */
@@ -67,19 +69,28 @@ public class Register extends HttpServlet {
 			dispatch.forward(request, response);
 
 		}else {
-			RequestDispatcher dispatch = request.getRequestDispatcher("RegisterCheck.jsp");
-			dispatch.forward(request, response);
+			DBManager dbm = new DBManager();
+			if(dbm.registerCheck(loginId)) {
 
 
-			request.setAttribute("loginId", loginId);
-			request.setAttribute("userName", userName);
-			request.setAttribute("password", password);
-			request.setAttribute("icon", icon);
-			request.setAttribute("profile", profile);
+				request.setAttribute("loginId", loginId);
+				request.setAttribute("userName", userName);
+				request.setAttribute("password", password);
+				request.setAttribute("icon", icon);
+				request.setAttribute("profile", profile);
 
+				RequestDispatcher dispatch = request.getRequestDispatcher("RegisterCheck.jsp");
+				dispatch.forward(request, response);
 
+			}else {
+
+				message = "すでに使われているログインIDです";
+				request.setAttribute("alert", message);
+
+				RequestDispatcher dispatch = request.getRequestDispatcher("Register.jsp");
+				dispatch.forward(request, response);
+
+			}
 		}
-
 	}
-
 }

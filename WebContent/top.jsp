@@ -45,6 +45,22 @@
 	</div>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
+			<strong class="color-main">会員情報の検索</strong>
+		</div>
+	</div>
+	<div class="padding-y-5 text-center">
+		<div style="width: 40%" class="container padding-y-5 text-right">
+			<form action="Search.jsp" method="post">
+				<table class="table">
+					<tr>
+						<td><input class="btn" type="submit" value="会員検索" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	<div class="padding-y-5 text-center">
+		<div style="width: 40%" class="container padding-y-5 text-left">
 			<strong class="color-main">今の気持ちを叫ぼう</strong>
 		</div>
 	</div>
