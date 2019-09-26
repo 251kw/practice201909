@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+<%
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charaset=UTF-8");
+    %>
 	<%-- ユーザー登録 --%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
@@ -32,19 +36,19 @@
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<td class="color-main text-left">ログインID</td>
 						<td class="text-left"><input class="form-control" type="text"
-							name="loginId" value="" size="20" /></td>
+							name="loginId" value="${param.loginId}" size="20" /></td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前は password --%>
 						<td class="color-main text-left">パスワード</td>
 						<td class="text-left"><input class="form-control"
-							type="password" name="password" value="" size="20" /></td>
+							type="password" name="password" value="${param.password}" size="20" /></td>
 					</tr>
 					<tr>
 						<%-- 氏名は userName --%>
 						<td class="color-main text-left">氏名</td>
 						<td class="text-left"><input class="form-control" type="text"
-							name="userName" value="" size="20" /></td>
+							name="userName" value="${param.userName}" size="20" /></td>
 					</tr>
 					<tr>
 						<%-- アイコンはicon --%>
@@ -59,12 +63,16 @@
 						<%-- プロフィールは profile --%>
 						<td class="color-main text-left">プロフィール</td>
 						<td class="text-left"><input class="form-control" type="text"
-							name="profile" value="" size="20" /></td>
+							name="profile" value="${param.profile}" size="20" /></td>
 					</tr>
 					<tr>
 						<%--入力情報をRegisterservletに送信 --%>
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" value="ユーザーアカウント作成" /></td>
+						<td colspan="2" class="text-right"><input type="hidden" name="loginId" value="${param.loginId}">
+                            <input type="hidden" name="password" value="${param.password}">
+                            <input type="hidden" name="userName" value="${param.userName}">
+                            <input type="hidden" name="icon" value="${param.icon}"> <input
+                            type="hidden" name="profile" value="${param.profile}"> <input
+                            type="submit" value="ユーザーアカウント作成" /></td>
 						<%-- リクエストスコープに alert があれば --%>
 						<c:if
 							test="${requestScope.alert != null && requestScope.alert != ''}">
