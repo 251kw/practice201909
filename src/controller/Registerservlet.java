@@ -26,8 +26,14 @@ public class Registerservlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//文字化け対策
+		request.setCharacterEncoding("UTF-8");
+
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
+		String userName = request.getParameter("userName");
+		String icon = request.getParameter("icon");
+		String profile = request.getParameter("profile");
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
@@ -44,7 +50,7 @@ public class Registerservlet extends HttpServlet {
 		} else {
 			// 取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
 			DBManager dbm = new DBManager();
-			boolean result = dbm.registerUser(loginId);
+			boolean result = dbm.Determine(loginId);
 			if (result == false) {
 				message = "ログインIDはすでに使用されています別のログインIDを入力してください";
 
@@ -53,9 +59,15 @@ public class Registerservlet extends HttpServlet {
 				// index.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("Register.jsp");
 				dispatcher.forward(request, response);
+			} else {
+				// ユーザー情報をDBに登録
+				dbm.registerUser(loginId, password, userName, icon, profile);
+
+				// RegistrationComplete.jsp に処理を転送
+				dispatcher = request.getRequestDispatcher("RegistrationComplete.jsp");
+				dispatcher.forward(request, response);
 			}
-
 		}
-	}
 
+	}
 }
