@@ -131,9 +131,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	/* 取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
-	 * 同じログインIDがなければログインIDとパスワードをBDに登録。
-	 */
+	 //取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
 	public boolean Determine(String loginId) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -167,14 +165,15 @@ public class DBManager extends SnsDAO {
 		return result;
 
 	}
+	//会員情報をDBに登録
 	public boolean registerUser(
 			String loginId, String password, String userName, String icon, String profile) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
+		Connection conn = null;// データベース接続情報
+		PreparedStatement pstmt = null;// SQL 管理情報
+        boolean result = false;
 
-		boolean result = false;
 		try {
-			conn = getConnection();
+			conn = getConnection();// データベース接続情報取得
 
 			// INSERT 文の登録と実行
 			String sql = "INSERT INTO users(loginId,password,userName, icon, profile) VALUES(?, ?, ?, ?,?)";

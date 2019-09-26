@@ -11,11 +11,13 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+	<%-- ユーザー登録 --%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>ユーザー登録</h1>
 		</div>
 	</div>
+	<%--アカウント作成 --%>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
 			<strong>アカウントを作成</strong>
@@ -54,12 +56,13 @@
 						</select></td>
 					</tr>
 					<tr>
-                        <%-- プロフィールは profile --%>
-                        <td class="color-main text-left">プロフィール</td>
-                        <td class="text-left"><input class="form-control" type="text"
-                            name="profile" value="" size="20" /></td>
-                    </tr>
+						<%-- プロフィールは profile --%>
+						<td class="color-main text-left">プロフィール</td>
+						<td class="text-left"><input class="form-control" type="text"
+							name="profile" value="" size="20" /></td>
+					</tr>
 					<tr>
+						<%--入力情報をRegisterservletに送信 --%>
 						<td colspan="2" class="text-right"><input class="btn"
 							type="submit" value="ユーザーアカウント作成" /></td>
 						<%-- リクエストスコープに alert があれば --%>
