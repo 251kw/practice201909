@@ -200,12 +200,13 @@ public class DBManager extends SnsDAO {
 
 	}
 
-	public UserDTO userNameSearch(String userNameSearch) {
+	public ArrayList<UserDTO> userNameSearch(String userNameSearch) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
 		ResultSet rset = null;             // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
 
-		String sql = "SELECT * FROM users WHERE userName='%?%'";
+		String sql = "SELECT * FROM users WHERE userName=?";
 		UserDTO user = null;    // 登録ユーザ情報
 
 		try {
@@ -218,15 +219,13 @@ public class DBManager extends SnsDAO {
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば
-			if (rset.next()) {
-				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
-				user = new UserDTO();
-				user.setLoginId(rset.getString(2));
-				user.setPassword(rset.getString(3));
-				user.setUserName(rset.getString(4));
-				user.setIcon(rset.getString(5));
-				user.setProfile(rset.getString(6));
-			}
+				while(rset.next()) {
+					// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+					user = new UserDTO();
+					user.setUserName(rset.getString(4));
+				}
+				searchResultList.add(user);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -236,7 +235,7 @@ public class DBManager extends SnsDAO {
 			close(conn);
 		}
 
-		return user;
+		return searchResultList;
 
 	}
 
