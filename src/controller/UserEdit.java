@@ -44,12 +44,14 @@ public class UserEdit extends HttpServlet {
 			ArrayList<UserDTO> userList = dbm.getUserInformation(loginId);
 
 			UserDTO user = userList.get(0);
+			String userId = user.getUserId();
 			String loginIdChange = user.getLoginId();
 			String passwordChange = user.getPassword();
 			String userNameChange = user.getUserName();
 			String idonChange = user.getIcon();
 			String profileChange = user.getProfile();
 
+			request.setAttribute("userId", userId);
 			request.setAttribute("loginIdChange", loginIdChange);
 			request.setAttribute("passwordChange", passwordChange);
 			request.setAttribute("userNameChange", userNameChange);

@@ -23,9 +23,9 @@ public class LoginServlet extends HttpServlet {
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
-		//registerCompleatからのアクセスか判定
-		String a = request.getParameter("register");
-		if("register".equals(a)) {
+		//Compleat系からのアクセスか判定
+		String a = request.getParameter("Compleat");
+		if("Compleat".equals(a)) {
 
 			//ユーザデータをパラメータより取得
 			String loginId = request.getParameter("loginId");

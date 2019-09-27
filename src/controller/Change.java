@@ -23,15 +23,24 @@ public class Change extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+	}
+
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
 		//ユーザー情報をパラメータより取得し変数に代入
-		String loginId = (String)request.getParameter("loginId");
-		String userName = (String)request.getParameter("userName");
-		String password = (String)request.getParameter("password");
-		String icon = (String)request.getParameter("icon");
-		String profile = (String)request.getParameter("profile");
+		String userId = request.getParameter("userId");
+		String loginId = request.getParameter("loginId");
+		String userName = request.getParameter("userName");
+		String password = request.getParameter("password");
+		String icon =request.getParameter("icon");
+		String profile = request.getParameter("profile");
 		String message = null;
 
 		//入力チェック
@@ -39,28 +48,28 @@ public class Change extends HttpServlet {
 			message = "ログインIDが未入力です";
 			request.setAttribute("alert", message);
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("Register.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
 		}else if(userName == null || userName.equals("")) {
 			message = "名前が未入力です";
 			request.setAttribute("alert", message);
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("Register.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
 		}else if(password == null || password.equals("")) {
 			message = "パスワードが未入力です";
 			request.setAttribute("alert", message);
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("Register.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
 		}else if(profile == null || profile.equals("")) {
 			message = "自己紹介が未入力です";
 			request.setAttribute("alert", message);
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("Register.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
 		}else {
@@ -71,13 +80,14 @@ public class Change extends HttpServlet {
 			if(dbm.registerCheck(loginId)) {
 
 				//ユーザー情報をAttributeにセット
+				request.setAttribute("userId", userId);
 				request.setAttribute("loginId", loginId);
 				request.setAttribute("userName", userName);
 				request.setAttribute("password", password);
 				request.setAttribute("icon", icon);
 				request.setAttribute("profile", profile);
 
-				//RegisterChech.jspに転送
+				//ChangeCheck.jspに転送
 				RequestDispatcher dispatch = request.getRequestDispatcher("ChangeCheck.jsp");
 				dispatch.forward(request, response);
 
@@ -92,13 +102,6 @@ public class Change extends HttpServlet {
 
 			}
 		}
-	}
-
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

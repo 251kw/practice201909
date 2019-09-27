@@ -40,7 +40,7 @@
 					<input type="hidden" name="icon" value="${icon}">
 					<input type="hidden" name="userName" value="${userName}">
 					<input type="hidden" name="profile" value="${profile}">
-					<input type="hidden" name="register" value="register">
+					<input type="hidden" name="Compleat" value="Compleat">
 					<input type="submit" value="トップへ" class="btn"></td>
 				</tr>
 				</table>

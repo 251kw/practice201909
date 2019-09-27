@@ -201,20 +201,21 @@ public class DBManager extends SnsDAO {
 	}
 
 	//ユーザー情報の更新
-	public void change(String loginId, String userName, String password, String icon, String profile) throws SQLException {
+	public void change(String loginId, String userName, String password, String icon, String profile, String userId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 				conn = getConnection();
 				//インサート分の実行
-				String sql = "UPDATE users SET loginId=?, userName=?, password=?, icon=?, profile=?)";
+				String sql = "UPDATE users SET loginId=?, userName=?, password=?, icon=?, profile=? WHERE userId=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, loginId);
 				pstmt.setString(2, userName);
 				pstmt.setString(3, password);
 				pstmt.setString(4, icon);
 				pstmt.setString(5, profile);
+				pstmt.setString(6, userId);
 
 				pstmt.executeUpdate();
 
@@ -578,9 +579,9 @@ public class DBManager extends SnsDAO {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
 		ResultSet rset = null;             // 検索結果
-		ArrayList<UserDTO> userInfomationList = new ArrayList<>();
+		ArrayList<UserDTO> list = new ArrayList<>();
 
-		String sql = "SELECT * FROM users WHERE longiId ?";
+		String sql = "SELECT * FROM users WHERE loginId=?";
 		UserDTO user = null;    // 登録ユーザ情報
 
 		try {
@@ -596,14 +597,15 @@ public class DBManager extends SnsDAO {
 			if (rset.next()) {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				user = new UserDTO();
+				user.setUserId(rset.getString(1));
 				user.setLoginId(rset.getString(2));
 				user.setPassword(rset.getString(3));
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 
-				//リストに追加
-				userInfomationList.add(user);
+				list.add(user);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -614,7 +616,7 @@ public class DBManager extends SnsDAO {
 			close(conn);
 		}
 
-		return userInfomationList;
+		return list;
 
 	}
 
