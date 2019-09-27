@@ -22,23 +22,23 @@
 		<div style="width: 40%" class="container padding-y-5 text-center">
 				検索結果<span class="icon-search"></span>
 
-				<table class="table table-striped table-bordered table-hover text-center">
+				<table class="table text-center" >
 
 			        <tr>
-			            <th><input type="checkbox" name="allSelect"></th>
+			            <th><input type="checkbox" name="allSelect" class="text-center"></th>
 			            <th>ユーザー名</th>
 			            <th>編集</th>
 			            <th>削除</th>
 			        </tr>
 
+			        <c:forEach var="name" items="${searchResult}">
 			        <tr>
-			        <c:forEach var="name" items="${unSearchResult}">
 			            <td><input type="checkbox" name="Select"></td>
 			            <td>${name.userName}</td>
 			            <td><form action="UserEdit" method="post"><input type="hidden" name="change" value="edit"><input type="submit" value="編集"></form></td>
 			            <td><form action="UserEdit" method="post"><input type="submit" value="削除"></form></td>
-					</c:forEach>
 			        </tr>
+					</c:forEach>
 				</table>
 		</div>
 	</div>

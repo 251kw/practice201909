@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.StringUtils;
+
 import dao.DBManager;
 import dto.UserDTO;
 
@@ -22,43 +24,56 @@ public class SeachLogic extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
+		//検索項目に入力された値の取得
 		String userNameSearch = request.getParameter("userNameSearch");
 		String loginIdSearch = request.getParameter("loginIdSearch");
 		String profileSearch = request.getParameter("profileSearch");
 
+		//DBManagerのオブジェクト生成
 		DBManager dbm = new DBManager();
-		UserDTO user = new UserDTO();
 
+		//ユーザー名で検索された場合
+		if (!(StringUtils.isNullOrEmpty(userNameSearch))) {
 
-		if(userNameSearch != null) {
-
+			//listにuserNameSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.userNameSearch(userNameSearch);
-				request.setAttribute("unSearchResult", list);
+			request.setAttribute("searchResult", list);
 
-				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
-				dispatch.forward(request, response);
-
-			}
-
-
-		if(loginIdSearch != null) {
-
-			ArrayList<UserDTO> list = dbm.userNameSearch(loginIdSearch);
-			request.setAttribute("liSearchResult", list);
-
+			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-		if(profileSearch != null) {
+		} else if (!(StringUtils.isNullOrEmpty(loginIdSearch))) {
 
-			ArrayList<UserDTO> list = dbm.userNameSearch(profileSearch);
-			request.setAttribute("pfSearchResult", list);
+			//listにloginIdSearchで戻ってきたリストを代入
+			ArrayList<UserDTO> list = dbm.loginIdSearch(loginIdSearch);
 
+			request.setAttribute("searchResult", list);
+
+			//SearchResultへ転送
+			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+			dispatch.forward(request, response);
+		} else if (!(StringUtils.isNullOrEmpty(profileSearch))) {
+
+			//listにprofileSearchで戻ってきたリストを代入
+			ArrayList<UserDTO> list = dbm.profileSearch(profileSearch);
+
+			request.setAttribute("searchResult", list);
+
+			//SearchResultへ転送
+			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+			dispatch.forward(request, response);
+		}else {
+			ArrayList<UserDTO> list = dbm.allSearch();
+
+			request.setAttribute("searchResult", list);
+
+			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
 		}
@@ -67,7 +82,8 @@ public class SeachLogic extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 
 }
