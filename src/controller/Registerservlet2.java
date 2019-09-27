@@ -22,35 +22,36 @@ public class Registerservlet2 extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Register.jsp");
 		dispatcher.forward(request, response);
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		//文字化け対策
-				request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		//登録確認情報を取得
+		String loginId = request.getParameter("loginId");
+		String password = request.getParameter("password");
+		String userName = request.getParameter("userName");
+		String icon = request.getParameter("icon");
+		String profile = request.getParameter("profile");
+		String button1 = request.getParameter("button1");
+		String button2 = request.getParameter("button2");
 
-				String loginId = request.getParameter("loginId");
-				String password = request.getParameter("password");
-				String userName = request.getParameter("userName");
-				String icon = request.getParameter("icon");
-				String profile = request.getParameter("profile");
-				RequestDispatcher dispatcher = null;
-				String button = request.getParameter("button1");
+		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
+		DBManager dbm = new DBManager();//DBMのインスタンスを生成
 
+		//確認で"はい"が取れたらDBに登録
+		if ("btn1".equals(button1)) {
 
-				DBManager dbm = new DBManager();
+			// ユーザー情報をDBに登録
+			dbm.registerUser(loginId, password, userName, icon, profile);
 
-
-				//確認で"はい"が取れたらDBに登録
-				if("btn1".equals(button)) {
-
-				// ユーザー情報をDBに登録
-				dbm.registerUser(loginId, password, userName, icon, profile);
-
-				// RegistrationComplete.jsp に処理を転送
-				dispatcher = request.getRequestDispatcher("RegistrationComplete.jsp");
-				dispatcher.forward(request, response);
-				}else {
-					dispatcher = request.getRequestDispatcher("Register.jsp");
-					dispatcher.forward(request, response);
-				}
+			// RegistrationComplete.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("RegistrationComplete.jsp");
+			dispatcher.forward(request, response);
+		} else if ("btn2".equals(button2)) {
+			dispatcher = request.getRequestDispatcher("Register.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
