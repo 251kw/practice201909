@@ -67,19 +67,22 @@
 							name="profile" value="${param.profile}" size="20" /></td>
 					</tr>
 					<tr>
+						<%--戻るボタン --%>
+						<td><a class="text-left"
+							href="http://localhost:8080/c11/index.jsp">戻る</a></td>
 						<%--入力情報をRegisterservletに送信 --%>
 						<td colspan="2" class="text-right"><input type="submit"
 							value="ユーザーアカウント作成" /></td>
-						<%-- リクエストスコープに alert があれば --%>
-						<c:if
-							test="${requestScope.alert != null && requestScope.alert != ''}">
-							<tr>
-								<%-- リクエストスコープの alert の値を出力 --%>
-								<td colspan="2" class="color-error text-left"><c:out
-										value="${requestScope.alert}" /></td>
-							</tr>
-						</c:if>
 					</tr>
+					<%-- リクエストスコープに alert があれば --%>
+					<c:if
+						test="${requestScope.alert != null && requestScope.alert != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left"><c:out
+									value="${requestScope.alert}" /></td>
+						</tr>
+					</c:if>
 				</table>
 			</form>
 		</div>
