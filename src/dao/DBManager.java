@@ -14,6 +14,8 @@ import dto.UserDTO;
 
 public class DBManager extends SnsDAO {
 
+	private String userName;
+	private Object ps;
 	// ログインID とパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null; // データベース接続情報
@@ -199,6 +201,43 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+	// userNameリストのゲッター
+		public ArrayList<UserDTO> getUserList(String userName) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
 
 
+			ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+
+			try {
+				// SnsDAO クラスのメソッド呼び出し
+				conn = getConnection();
+
+				String searchWord = userName;
+				// SELECT 文の実行
+				String sql = "SELECT * FROM users WHERE userName LIKE '"+searchWord+"%' ";
+				pstmt= conn.prepareStatement(sql);
+				rset = pstmt.executeQuery(sql);
+
+				// 検索結果の数だけ繰り返す
+				while (rset.next()) {
+					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+					UserDTO user = new UserDTO();
+					user.setUserName(rset.getString(4));
+
+					// 書き込み内容をリストに追加
+					list.add(user);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				// データベース切断処理
+				close(rset);
+				close(pstmt);
+				close(conn);
+			}
+
+			return list;
+		}
 }

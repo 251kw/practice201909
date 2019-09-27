@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +40,7 @@ public class SearchProcess extends HttpServlet {
 		// セッションからログインユーザ情報を取得
 		HttpSession session = request.getSession();
 		UserDTO user = (UserDTO) session.getAttribute("user");
-		
+
 		if (userName.equals("")) {
 			// 検索欄未入力なら
 			message = "検索する名前を入力してください";
@@ -50,7 +51,16 @@ public class SearchProcess extends HttpServlet {
 			// index.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("top.jsp");
 			dispatcher.forward(request, response);
-			
+		}else {
+			//名前をDBから検索してtop.jspに表示
+			ArrayList<UserDTO> list = dbm.getUserList(userName);
+
+			//DBからの検索結果をリクエストオブジェクトに保存
+			request.setAttribute("list", list);
+
+			// SearchProcess.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 }
