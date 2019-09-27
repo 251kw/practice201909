@@ -37,8 +37,9 @@ public class SeachLogic extends HttpServlet {
 		//DBManagerのオブジェクト生成
 		DBManager dbm = new DBManager();
 
-		//ユーザー名で検索された場合
-		if (!(StringUtils.isNullOrEmpty(userNameSearch))) {
+		//ユーザー名だけで検索された場合
+		if (!(StringUtils.isNullOrEmpty(userNameSearch)) && StringUtils.isNullOrEmpty(loginIdSearch)
+				&& StringUtils.isNullOrEmpty(profileSearch)) {
 
 			//listにuserNameSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.userNameSearch(userNameSearch);
@@ -48,7 +49,10 @@ public class SeachLogic extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
 
-		} else if (!(StringUtils.isNullOrEmpty(loginIdSearch))) {
+		}
+		//ログインIdだけで検索された場合
+		if (!(StringUtils.isNullOrEmpty(loginIdSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
+				&& StringUtils.isNullOrEmpty(profileSearch)) {
 
 			//listにloginIdSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.loginIdSearch(loginIdSearch);
@@ -58,7 +62,11 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		} else if (!(StringUtils.isNullOrEmpty(profileSearch))) {
+		}
+
+		//自己紹介だけで検索された場合
+		if (!(StringUtils.isNullOrEmpty(profileSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
+				&& StringUtils.isNullOrEmpty(loginIdSearch)) {
 
 			//listにprofileSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.profileSearch(profileSearch);
@@ -68,7 +76,63 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}else {
+
+			}
+		//ユーザー名とログインIdで検索された場合
+		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch)) && StringUtils.isNullOrEmpty(profileSearch)) {
+
+			ArrayList<UserDTO> list = dbm.nameIdSearch(userNameSearch, loginIdSearch);
+
+			request.setAttribute("searchResult", list);
+
+			//SearchResultへ転送
+			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+			dispatch.forward(request, response);
+		}
+
+		//ログインIDと自己紹介で検索された場合
+		if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(StringUtils.isNullOrEmpty(profileSearch)) && StringUtils.isNullOrEmpty(userNameSearch)) {
+
+			ArrayList<UserDTO> list = dbm.idProSearch(loginIdSearch, profileSearch);
+
+			request.setAttribute("searchResult", list);
+
+			//SearchResultへ転送
+			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+			dispatch.forward(request, response);
+		}
+
+		//ユーザー名と自己紹介で検索された場合
+		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(profileSearch)) && StringUtils.isNullOrEmpty(loginIdSearch)) {
+
+			ArrayList<UserDTO> list = dbm.nameProSearch(userNameSearch, profileSearch);
+
+			request.setAttribute("searchResult", list);
+
+			//SearchResultへ転送
+			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+			dispatch.forward(request, response);
+		}
+
+
+		//ユーザー名とログインIdと自己紹介で検索された場合
+		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))) {
+
+			ArrayList<UserDTO> list = dbm.nameIdProSearch(userNameSearch, loginIdSearch, profileSearch);
+
+			request.setAttribute("searchResult", list);
+
+			//SearchResultへ転送
+			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+			dispatch.forward(request, response);
+		}
+
+
+
+
+		//全て空欄だった場合、全件出力
+		if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch) && StringUtils.isNullOrEmpty(profileSearch)){
+
 			ArrayList<UserDTO> list = dbm.allSearch();
 
 			request.setAttribute("searchResult", list);
@@ -77,6 +141,7 @@ public class SeachLogic extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
 		}
+
 	}
 
 	/**

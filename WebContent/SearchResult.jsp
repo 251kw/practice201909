@@ -19,28 +19,34 @@
 	</div>
 
 	<div class="padding-y-5 text-left">
-		<div style="width: 40%" class="container padding-y-5 text-center">
+		<div style="width: 40%" class="container padding-y-5">
 				検索結果<span class="icon-search"></span>
 
-				<table class="table text-center" >
+				<table border="1" class="table text-center">
 
 			        <tr>
-			            <th><input type="checkbox" name="allSelect" class="text-center"></th>
-			            <th>ユーザー名</th>
-			            <th>編集</th>
-			            <th>削除</th>
+			            <th><div class="text-center"><h5><input type="checkbox" name="allSelect"></h5></div></th>
+			            <th><div class="text-center"><h5>ユーザー名</h5></div></th>
+			            <th><div class="text-center"><h5>ログインID</h5></div></th>
+			            <th><div class="text-center"><h5>編集</h5></div></th>
+			            <th><div class="text-center"><h5>削除</h5></div></th>
 			        </tr>
 
 			        <c:forEach var="name" items="${searchResult}">
 			        <tr>
-			            <td><input type="checkbox" name="Select"></td>
+			            <td><input type="checkbox" name="Select[]"></td>
 			            <td>${name.userName}</td>
-			            <td><form action="UserEdit" method="post"><input type="hidden" name="change" value="edit"><input type="submit" value="編集"></form></td>
-			            <td><form action="UserEdit" method="post"><input type="submit" value="削除"></form></td>
+			            <td>${name.loginId}</td>
+			            <td><form action="UserEdit" method="post"><input type="hidden" name="edit" value="change">
+			            <input type="hidden" name="loginId" value="${name.loginId}">
+			            <input type="submit" value="編集"></form></td>
+			            <td><form action="UserEdit" method="post">
+			            <input type="hidden" name="loginId" value="${name.loginId}">
+			            <input type="submit" value="削除"></form></td>
 			        </tr>
 					</c:forEach>
 				</table>
+			</div>
 		</div>
-	</div>
-</body>
+	</body>
 </html>

@@ -206,7 +206,7 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null;             // 検索結果
 		ArrayList<UserDTO> searchResultList = new ArrayList<>();
 
-		String sql = "SELECT * FROM users WHERE userName=?";
+		String sql = "SELECT * FROM users WHERE userName like ?";
 		UserDTO user = null;    // 登録ユーザ情報
 
 		try {
@@ -215,7 +215,7 @@ public class DBManager extends SnsDAO {
 
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
-			pstmt.setString(1,  userNameSearch);
+			pstmt.setString(1, "%" + userNameSearch + "%");
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば
@@ -223,6 +223,8 @@ public class DBManager extends SnsDAO {
 					// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
+					user.setLoginId(rset.getString(2));
+
 					searchResultList.add(user);
 				}
 
@@ -246,7 +248,7 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null;             // 検索結果
 		ArrayList<UserDTO> searchResultList = new ArrayList<>();
 
-		String sql = "SELECT * FROM users WHERE loginId=?";
+		String sql = "SELECT * FROM users WHERE loginId like ?";
 		UserDTO user = null;    // 登録ユーザ情報
 
 		try {
@@ -255,7 +257,7 @@ public class DBManager extends SnsDAO {
 
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
-			pstmt.setString(1, loginIdSearch);
+			pstmt.setString(1, "%" + loginIdSearch + "%");
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば
@@ -263,6 +265,7 @@ public class DBManager extends SnsDAO {
 					// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
+					user.setLoginId(rset.getString(2));
 					searchResultList.add(user);
 				}
 
@@ -286,7 +289,7 @@ public class DBManager extends SnsDAO {
 		ArrayList<UserDTO> searchResultList = new ArrayList<>();
 
 
-		String sql = "SELECT * FROM users WHERE profile=?";
+		String sql = "SELECT * FROM users WHERE profile like ?";
 		UserDTO user = null;    // 登録ユーザ情報
 
 		try {
@@ -295,7 +298,7 @@ public class DBManager extends SnsDAO {
 
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
-			pstmt.setString(1, profileSearch);
+			pstmt.setString(1, "%" + profileSearch + "%");
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば
@@ -303,6 +306,8 @@ public class DBManager extends SnsDAO {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
 				searchResultList.add(user);
 			}
 		} catch (SQLException e) {
@@ -318,6 +323,181 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	public ArrayList<UserDTO> nameIdSearch(String userNameSearch, String loginIdSearch) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+
+		String sql = "SELECT * FROM users WHERE userName like ? AND loginId like ?";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, "%" + userNameSearch + "%");
+			pstmt.setString(2, "%" + loginIdSearch + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while(rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return searchResultList;
+
+	}
+
+
+	public ArrayList<UserDTO> idProSearch(String loginIdSearch, String profileSearch) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+
+		String sql = "SELECT * FROM users WHERE loginId like ? AND profile like ?";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, "%" + loginIdSearch + "%");
+			pstmt.setString(2, "%" + profileSearch + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while(rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return searchResultList;
+
+	}
+
+	//名前と自己紹介をもらってDB検索→リストで返す
+	public ArrayList<UserDTO> nameProSearch(String userNameSearch, String profileSearch) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+
+		String sql = "SELECT * FROM users WHERE userName like ? AND profile like ?";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, "%" + userNameSearch + "%");
+			pstmt.setString(2, "%" + profileSearch + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while(rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return searchResultList;
+
+	}
+
+	//名前とIDと自己紹介をもらって、DB検索→リストで返す
+	public ArrayList<UserDTO> nameIdProSearch(String userNameSearch, String loginIdSearch, String profileSearch) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+
+		String sql = "SELECT * FROM users WHERE userName like ? AND loginId like ? AND profile like ?";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, "%" + userNameSearch + "%");
+			pstmt.setString(2, "%" + loginIdSearch + "%");
+			pstmt.setString(3, "%" + profileSearch + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while(rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return searchResultList;
+
+	}
+
+
+
+
 	public ArrayList<UserDTO> allSearch() {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -325,7 +505,7 @@ public class DBManager extends SnsDAO {
 		ArrayList<UserDTO> searchResultList = new ArrayList<>();
 
 
-		String sql = "SELECT * FROM users ";
+		String sql = "SELECT * FROM users";
 		UserDTO user = null;    // 登録ユーザ情報
 
 		try {
@@ -341,8 +521,10 @@ public class DBManager extends SnsDAO {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
 			}
-			searchResultList.add(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -356,5 +538,46 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	public ArrayList<UserDTO> getUserInformation(String loginId) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		ResultSet rset = null;             // 検索結果
+		ArrayList<UserDTO> userInfomationList = new ArrayList<>();
 
+		String sql = "SELECT * FROM users ";
+		UserDTO user = null;    // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				userInfomationList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return userInfomationList;
+
+	}
 }

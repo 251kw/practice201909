@@ -26,7 +26,8 @@
 	<div class="padding-y-5 text-left">
 		<div style="width: 40%" class="container padding-y-5 text-left">
 			<form action="SeachLogic" method="get">
-				<table class="table">検索条件<span class="icon-search"></span>
+				<table class="table">
+					検索条件<span class="icon-search"></span>
 					<tr><td>ユーザー名</td><td><input type="text" size="40" name="userNameSearch"></td></tr>
 					<tr><td>ユーザーID</td><td><input type="text" size="40" name="loginIdSearch"></td></tr>
 					<tr><td>自己紹介</td><td><input type="text" size="40" name="profileSearch"></td></tr>
