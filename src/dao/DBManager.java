@@ -200,6 +200,38 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	//ユーザー情報の更新
+	public void change(String loginId, String userName, String password, String icon, String profile) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+				conn = getConnection();
+				//インサート分の実行
+				String sql = "UPDATE users SET loginId=?, userName=?, password=?, icon=?, profile=?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, loginId);
+				pstmt.setString(2, userName);
+				pstmt.setString(3, password);
+				pstmt.setString(4, icon);
+				pstmt.setString(5, profile);
+
+				pstmt.executeUpdate();
+
+		}finally{
+			// データベース切断処理
+				close(conn);
+				close(pstmt);
+
+		}
+
+
+	}
+
+
+
+
+	//ユーザー名をもらってDB検索→リストで返す
 	public ArrayList<UserDTO> userNameSearch(String userNameSearch) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -241,6 +273,7 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	//ログインIdをもらってDB検索→リストで返す
 	public ArrayList<UserDTO> loginIdSearch(String loginIdSearch) {
 
 		Connection conn = null;            // データベース接続情報
@@ -282,6 +315,7 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	//自己紹介をもらってDB検索→リストで返す
 	public ArrayList<UserDTO> profileSearch(String profileSearch) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -323,6 +357,7 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	//名前とログインIdをもらってDB検索→リストで返す
 	public ArrayList<UserDTO> nameIdSearch(String userNameSearch, String loginIdSearch) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -365,7 +400,7 @@ public class DBManager extends SnsDAO {
 
 	}
 
-
+	//ログインIdと自己紹介をもらってDB検索→リストで返す
 	public ArrayList<UserDTO> idProSearch(String loginIdSearch, String profileSearch) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -451,7 +486,7 @@ public class DBManager extends SnsDAO {
 
 	}
 
-	//名前とIDと自己紹介をもらって、DB検索→リストで返す
+	//名前とIDと自己紹介をもらってDB検索→リストで返す
 	public ArrayList<UserDTO> nameIdProSearch(String userNameSearch, String loginIdSearch, String profileSearch) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -497,7 +532,7 @@ public class DBManager extends SnsDAO {
 
 
 
-
+	//BDに入っている全件のユーザー名とログインIdデータをリストで返す
 	public ArrayList<UserDTO> allSearch() {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
@@ -538,13 +573,14 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	//該当するユーザーの全情報をリストに入れて返す
 	public ArrayList<UserDTO> getUserInformation(String loginId) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
 		ResultSet rset = null;             // 検索結果
 		ArrayList<UserDTO> userInfomationList = new ArrayList<>();
 
-		String sql = "SELECT * FROM users ";
+		String sql = "SELECT * FROM users WHERE longiId ?";
 		UserDTO user = null;    // 登録ユーザ情報
 
 		try {
@@ -566,6 +602,7 @@ public class DBManager extends SnsDAO {
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 
+				//リストに追加
 				userInfomationList.add(user);
 			}
 		} catch (SQLException e) {
@@ -580,4 +617,7 @@ public class DBManager extends SnsDAO {
 		return userInfomationList;
 
 	}
+
+
+
 }
