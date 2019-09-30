@@ -25,7 +25,7 @@
 	<div class="padding-y-5 text-center">
 	変更が完了しました
 		<div style="width: 40%" class="container padding-y-5">
-			<form action="login" method="get">
+			<form action="top.jsp" method="get">
 				<%--入力された値をパラメータで取得し表示 --%>
 				<table border="1" class="table">
 					<tr>
@@ -57,9 +57,6 @@
 					<tr>
 						<%--変更内容で再ログインしてトップに戻る--%>
 						<td colspan="2" class="text-center">
-						<input type="hidden"name="Compleat" value="Compleat">
-						<input type="hidden" name="loginId" value="${loginId}">
-						<input type="hidden" name="password" value="${password}">
 						<input type="submit"value="トップへ戻る" class="btn btn-warning"></td>
 					</tr>
 				</table>

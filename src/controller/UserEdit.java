@@ -63,11 +63,28 @@ public class UserEdit extends HttpServlet {
 			dispatch.forward(request, response);
 
 
+		}else if("delete".equals(a)){
+
+			String loginId = request.getParameter("loginId");
+
+			ArrayList<UserDTO> userList = dbm.getUserInformation(loginId);
+
+			UserDTO user = userList.get(0);
+			String loginIdDelete = user.getLoginId();
+			String userNameDelete = user.getUserName();
+			String idonDelete = user.getIcon();
+			String profileDelete = user.getProfile();
+
+			request.setAttribute("loginId", loginIdDelete);
+			request.setAttribute("icon", idonDelete);
+			request.setAttribute("userName", userNameDelete);
+			request.setAttribute("profile", profileDelete);
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("Delete.jsp");
+			dispatch.forward(request, response);
 		}
 
 
-		RequestDispatcher dispatch = request.getRequestDispatcher("Delete.jsp");
-		dispatch.forward(request, response);
 
 
 	}

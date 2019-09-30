@@ -229,6 +229,29 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	//ユーザー情報を削除する
+	public void delete(String loginId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+				conn = getConnection();
+				//インサート分の実行
+				String sql = "DELETE FROM users WHERE loginId=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, loginId);
+
+				pstmt.executeUpdate();
+
+		}finally{
+			// データベース切断処理
+				close(conn);
+				close(pstmt);
+
+		}
+
+
+	}
 
 
 

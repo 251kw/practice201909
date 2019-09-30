@@ -40,7 +40,7 @@
 			            <td><form action="UserEdit" method="post"><input type="hidden" name="edit" value="change">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="submit" value="編集"></form></td>
-			            <td><form action="UserEdit" method="post">
+			            <td><form action="UserEdit" method="post"><input type="hidden" name="edit" value="delete">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="submit" value="削除"></form></td>
 			        </tr>
