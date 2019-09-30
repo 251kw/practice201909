@@ -11,26 +11,38 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-<%
-        request.setCharacterEncoding("UTF-8");
-    %>
-<div class="padding-y-5 text-center">
-	<table style="width: 400px" class="table">
-		<%--繰り返し --%>
-		<tr><c:forEach var="user" items="${searchlist}" varStatus="status">${status.count}:${user.userName}
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
+	<div class="bg-success padding-y-5">
+		<div class="container padding-y-5 text-center">
+			<h1>検索結果</h1>
+		</div>
+	</div>
+	<div class="padding-y-5 text-center">
+		<div style="width: 40%" class="container padding-y-5 text-center">
+			<table style="width: 400px" class="table">
+				<%--繰り返し --%>
+				<tr>
+
+					<td><c:forEach var="user" items="${searchlist}"
+							varStatus="status">${status.count}:${user.userName}
 <form action="./CUI" method="post">
-<input type="hidden" name="userName" value="${user.userName}">
-				<input class="btn" type="submit" value="登録情報変更" />
+								<input type="hidden" name="userName" value="${user.userName}">
+								<input class="btn btn-left" type="submit" value="登録情報変更">
+							</form>
+							<form action="./UD" method="post">
+								<input class="btn btn-right" type="submit" value="削除">
+							</form>
+							<br>
+
+						</c:forEach></td>
+				</tr>
+			</table>
+			<form action="top.jsp" method="post">
+				<input class="btn" type="submit" value="戻る" />
 			</form>
-			<form action="./UD" method="post">
-				<input class="btn" type="submit" value="削除" />
-			</form>
-			<br>
-		</c:forEach></tr>
-	</table>
-	<form action="top.jsp" method="post">
-                <input class="btn" type="submit" value="戻る" />
-            </form>
+		</div>
 	</div>
 </body>
 </html>

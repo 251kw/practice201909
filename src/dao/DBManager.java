@@ -279,4 +279,39 @@ public class DBManager extends SnsDAO {
 
 			return user;
 		}
+
+//会員情報の変更
+public boolean changeUserInformation(
+		String loginId, String password, String userName, String icon, String profile) {
+	Connection conn = null;// データベース接続情報
+	PreparedStatement pstmt = null;// SQL 管理情報
+    boolean result = false;
+
+	try {
+		conn = getConnection();// データベース接続情報取得
+
+		// INSERT 文の登録と実行
+		String sql = "INSERT INTO users(loginId,password,userName, icon, profile) VALUES(?, ?, ?, ?,?)";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1,loginId );
+		pstmt.setString(2,password);
+		pstmt.setString(3,userName);
+		pstmt.setString(4,icon);
+		pstmt.setString(5,profile);
+
+		int cnt = pstmt.executeUpdate();
+		if (cnt == 1) {
+			// INSERT 文の実行結果が１なら登録成功
+			result = true;
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		// データベース切断処理
+		close(pstmt);
+		close(conn);
+	}
+
+	return result;
+}
 }
