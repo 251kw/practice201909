@@ -18,9 +18,9 @@
 		</div>
 	</div>
 
-	<div class="padding-y-5 text-left">
+	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5">
-				検索結果<span class="icon-search"></span>
+				検索結果<span class="icon-search text-cenyer"></span><br>
 
 				<table border="1" class="table text-center">
 
@@ -34,7 +34,7 @@
 
 			        <c:forEach var="name" items="${searchResult}">
 			        <tr>
-			            <td><input type="checkbox" name="Select[]"></td>
+			            <td><input type="checkbox" name="Select[]" value="${name.loginId}"></td>
 			            <td>${name.userName}</td>
 			            <td>${name.loginId}</td>
 			            <td><form action="UserEdit" method="post">
@@ -42,16 +42,31 @@
 			            <input type="hidden" name="nowLoginId" value="${nowLoginId}">
 			            <input type="hidden" name="nowUserId" value="${nowUserId}">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
-			            <input type="submit" value="編集"></form></td>
+			            <input type="submit" class="btn btn-sm" value="編集"></form></td>
 			            <td><form action="UserEdit" method="post">
 			            <input type="hidden" name="edit" value="delete">
 			            <input type="hidden" name="nowLoginId" value="${nowLoginId}">
 			            <input type="hidden" name="nowUserId" value="${nowUserId}">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
-			            <input type="submit" value="削除"></form></td>
+			            <input type="submit" class="btn btn-error btn-sm" value="削除"></form></td>
 			        </tr>
 					</c:forEach>
 				</table>
+				<form action="MultipleDelete" method="get">
+					<div class="padding-y-5 text-left">
+					<input type="hidden" name="deletes" value="deletes">
+					チェックしたユーザーをまとめて<input type="submit" class="btn btn-error btn-sm" value="削除">
+					</div>
+				</form>
+
+
+			<!-- 戻るボタンを押したら1ページ前に戻る -->
+			<form>
+			<div class="padding-y-5 text-left">
+				<input type="button" class="btn" value="戻る" onClick="history.back()">
+				</div>
+			</form>
+
 			</div>
 		</div>
 	</body>

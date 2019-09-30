@@ -22,19 +22,23 @@
 	%>
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-			<form action="Delete" method="get">
+			<form action="MultipleDelete" method="">
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記ユーザーを削除します
+
 				<table class="table table-bordered">
+				<c:forEach var="name" items="${deleteList}">
 					<tr>
 						<td rowspan="2" class="text-center"><span
-							class="${icon} pe-3x pe-va"></span></td>
-						<td width="256">${userName}</td>
+							class="${name.icon} pe-3x pe-va"></span></td>
+						<td width="256">${name.userName}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${profile}</td>
+						<td colspan="2">${name.profile}</td>
 					</tr>
+				</c:forEach>
 				</table>
+				<input type="hidden" name="list" value="${deleteList}">
 				<input type="hidden"name="loginId" value="${loginId}">
 				<input type="hidden" name="userName" value="${userName}">
 				<input type="hidden" name="nowLoginId" value="${nowLoginId}">

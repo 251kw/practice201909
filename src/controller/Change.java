@@ -146,7 +146,7 @@ public class Change extends HttpServlet {
 					request.setAttribute("profileChange", profile);
 
 
-					//Register.jsｐに戻す
+					//Change.jsｐに戻す
 					RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 					dispatch.forward(request, response);
 

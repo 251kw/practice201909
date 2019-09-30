@@ -22,23 +22,27 @@
 	%>
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-			<form action="Delete" method="get">
+			<form action="ShoutDelete" method="post">
 				<%--入力された値をパラメータで取得し表示 --%>
-				下記ユーザーを削除します
-				<table class="table table-bordered">
+				下記の叫びを削除します
+
+				<table class="table table-striped table-bordered">
 					<tr>
 						<td rowspan="2" class="text-center"><span
-							class="${icon} pe-3x pe-va"></span></td>
-						<td width="256">${userName}</td>
+							class="${param.icon} pe-3x pe-va"></span></td>
+						<td>${param.userName}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${profile}</td>
+						<td>${param.date}</td>
 					</tr>
-				</table>
-				<input type="hidden"name="loginId" value="${loginId}">
-				<input type="hidden" name="userName" value="${userName}">
-				<input type="hidden" name="nowLoginId" value="${nowLoginId}">
-				<input type="hidden" name="nowUserId" value="${nowUserId}">
+					<tr>
+						<td colspan="2"><textarea rows="5" class="form-control">${param.writing}</textarea>
+						</td>
+					</tr>
+					</table>
+
+
+				<input type="hidden" name="shoutsId" value="${param.shoutsId}">
 				<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>

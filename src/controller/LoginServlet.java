@@ -42,13 +42,14 @@ public class LoginServlet extends HttpServlet {
 			UserDTO user = dbm.getLoginUser(loginId, password);
 
 
+
 			// ユーザ情報を取得できたら、書き込み内容リストを取得
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
 			HttpSession session = request.getSession();
 
 			// ログインユーザ情報、書き込み内容リストとしてセッションに保存
 			session.setAttribute("user", user);
-			session.setAttribute("shouts", list);
+			request.setAttribute("shouts", list);
 
 			// 処理の転送先を top.jsp に指定
 			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
@@ -90,9 +91,17 @@ public class LoginServlet extends HttpServlet {
 				ArrayList<ShoutDTO> list = dbm.getShoutList();
 				HttpSession session = request.getSession();
 
+				String userName = user.getUserName();
+				String icon = user.getIcon();
+				String profile = user.getProfile();
+
+				request.setAttribute("userName", userName);
+				request.setAttribute("icon", icon);
+				request.setAttribute("profile", profile);
+
 				// ログインユーザ情報、書き込み内容リストとしてセッションに保存
 				session.setAttribute("user", user);
-				session.setAttribute("shouts", list);
+				request.setAttribute("shouts", list);
 
 				// 処理の転送先を top.jsp に指定
 				dispatcher = request.getRequestDispatcher("top.jsp");

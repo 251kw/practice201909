@@ -23,8 +23,6 @@
 			<strong class="color-main">ログインユーザー情報</strong>
 		</div>
 	</div>
-	<%-- セッションスコープにある UserDTO 型のオブジェクトを参照 --%>
-	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
@@ -32,12 +30,12 @@
 				<table class="table table-bordered">
 					<tr>
 						<td rowspan="2" class="text-center"><span
-							class="${user.icon} pe-3x pe-va"></span></td>
-						<td width="256">${user.userName}</td>
+							class="${icon} pe-3x pe-va"></span></td>
+						<td width="256">${userName}</td>
 						<td><input class="btn btn-light" type="submit" value="ログアウト" /></td>
 					</tr>
 					<tr>
-						<td colspan="2">${user.profile}</td>
+						<td colspan="2">${profile}</td>
 					</tr>
 				</table>
 			</form>
@@ -91,9 +89,6 @@
 			<strong class="color-main">みんなの叫び</strong>
 		</div>
 	</div>
-	<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
-	<jsp:useBean id="shouts" scope="session"
-		type="java.util.ArrayList<dto.ShoutDTO>" />
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- リストにある要素の数だけ繰り返し --%>
@@ -109,6 +104,20 @@
 					</tr>
 					<tr>
 						<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="text-center">
+							<c:if test="${user.loginId == shout.loginId}">
+								<form action="ShoutsDeleteCheck.jsp" method="post">
+									<input type="hidden" name="shoutsId" value="${shout.shoutsId}">
+									<input type="hidden" name="icon" value="${shout.icon}">
+									<input type="hidden" name="userName" value="${shout.userName}">
+									<input type="hidden" name="date" value="${shout.date}">
+									<input type="hidden" name="writing" value="${shout.writing}">
+									<input type="submit" class="btn btn-error btn-sm" value="削除">
+								</form>
+							</c:if>
 						</td>
 					</tr>
 				</table>

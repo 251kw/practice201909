@@ -77,10 +77,17 @@
 								value="${requestScope.alert}" /></td>
 						</tr>
 						<tr>
+
 						</tr>
 					</c:if>
 				</table>
 			</form>
+
+			<!-- 戻るボタンを押したら1ページ前に戻る -->
+			<form>
+				<input type="button" class="btn" value="戻る" onClick="history.back()">
+			</form>
+
 			</div>
 		</div>
 </body>

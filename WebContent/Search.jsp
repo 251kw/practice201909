@@ -39,6 +39,12 @@
 
 				<div class="padding-y-5 text-right"><input class="btn btn-success" type="submit" value="検索" /></div>
 			</form>
+
+			<!-- 戻るボタンを押したら1ページ前に戻る -->
+			<form>
+				<input type="button" class="btn" value="戻る" onClick="history.back()">
+			</form>
+
 		</div>
 	</div>
 </body>
