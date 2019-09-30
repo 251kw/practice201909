@@ -11,12 +11,16 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+<%
+        request.setCharacterEncoding("UTF-8");
+    %>
 <div class="padding-y-5 text-center">
 	<table style="width: 400px" class="table">
 		<%--繰り返し --%>
-		<tr><c:forEach var="user" items="${list}" varStatus="status">${status.count}:${user.userName}
-<form action="ChangeUserInformation.jsp" method="post">
-				<input class="btn" type="submit" value="変更" />
+		<tr><c:forEach var="user" items="${searchlist}" varStatus="status">${status.count}:${user.userName}
+<form action="./CUI" method="post">
+<input type="hidden" name="userName" value="${user.userName}">
+				<input class="btn" type="submit" value="登録情報変更" />
 			</form>
 			<form action="./UD" method="post">
 				<input class="btn" type="submit" value="削除" />
@@ -24,6 +28,9 @@
 			<br>
 		</c:forEach></tr>
 	</table>
+	<form action="top.jsp" method="post">
+                <input class="btn" type="submit" value="戻る" />
+            </form>
 	</div>
 </body>
 </html>

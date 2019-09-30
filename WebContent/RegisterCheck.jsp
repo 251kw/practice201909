@@ -51,7 +51,7 @@
 							<input type="hidden" name="icon" value="${param.icon}"> <input
 							type="hidden" name="profile" value="${param.profile}">
 							<%-- 確認ボタン --%>
-							<button type="submit" name="button1" class="btn btn-light"
+							<button type="submit" name="button1" class="btn btn-right"
 								value="btn1">はい</button>
 							<button type="submit" name="button2" class="btn btn-left"
 								value="btn2">いいえ</button></th>

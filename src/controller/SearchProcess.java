@@ -37,10 +37,6 @@ public class SearchProcess extends HttpServlet {
 		DBManager dbm = new DBManager();//DBMのインスタンスを生成
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 
-		// セッションからログインユーザ情報を取得
-		HttpSession session = request.getSession();
-		UserDTO user = (UserDTO) session.getAttribute("user");
-
 		if (userName.equals("")) {
 			// 検索欄未入力なら
 			message = "検索する名前を入力してください";
@@ -53,10 +49,10 @@ public class SearchProcess extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else {
 			//名前をDBから検索してtop.jspに表示
-			ArrayList<UserDTO> list = dbm.getUserList(userName);
-
+			ArrayList<UserDTO> searchlist = dbm.getUserList(userName);
+            HttpSession session = request.getSession();
 			//DBからの検索結果をリクエストオブジェクトに保存
-			request.setAttribute("list", list);
+			session.setAttribute("searchlist", searchlist);
 
 			// SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");

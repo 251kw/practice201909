@@ -68,11 +68,11 @@
 					</tr>
 					<tr>
 						<%--戻るボタン --%>
-						<td><a class="text-left"
+						<td><a class="btn btn-left"
 							href="http://localhost:8080/c11/index.jsp">戻る</a></td>
 						<%--入力情報をRegisterservletに送信 --%>
-						<td colspan="2" class="text-right"><input type="submit"
-							value="ユーザーアカウント作成" /></td>
+						<td><input class="btn btn-right" type="submit"
+							value="ユーザーアカウント作成"></td>
 					</tr>
 					<%-- リクエストスコープに alert があれば --%>
 					<c:if
