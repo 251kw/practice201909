@@ -29,6 +29,26 @@ public class Delete extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 
+		String a = request.getParameter("delete");
+
+		if("loginUserDelete".equals(a)) {
+
+			try {
+
+				dbm.delete(loginId);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			request.setAttribute("userName", userName);
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("LoginUserDeleteComplete.jsp");
+			dispatch.forward(request, response);
+
+
+		}
+
 		try {
 
 			dbm.delete(loginId);

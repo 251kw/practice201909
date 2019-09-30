@@ -63,6 +63,7 @@ public class RegisterLogic extends HttpServlet {
 		request.setAttribute("icon", icon);
 		request.setAttribute("profile", profile);
 
+
 		//RegistrationComplete.jspに転送
 		RequestDispatcher dispatch = request.getRequestDispatcher("RegistrationComplete.jsp");
 		dispatch.forward(request, response);

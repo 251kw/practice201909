@@ -37,6 +37,7 @@ public class DBManager extends SnsDAO {
 			if (rset.next()) {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				user = new UserDTO();
+				user.setUserId(rset.getString(1));
 				user.setLoginId(rset.getString(2));
 				user.setPassword(rset.getString(3));
 				user.setUserName(rset.getString(4));

@@ -32,6 +32,11 @@
 					<tr><td>ユーザーID</td><td><input type="text" size="40" name="loginIdSearch"></td></tr>
 					<tr><td>自己紹介</td><td><input type="text" size="40" name="profileSearch"></td></tr>
 				</table>
+
+					<input type="hidden" name="nowLoginId" value="${param.nowLoginId}">
+					<input type="hidden" name="nowUserId" value="${param.nowUserId}">
+
+
 				<div class="padding-y-5 text-right"><input class="btn btn-success" type="submit" value="検索" /></div>
 			</form>
 		</div>

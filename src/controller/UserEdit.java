@@ -34,13 +34,19 @@ public class UserEdit extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		DBManager dbm = new DBManager();
 
+		//現在のログインユーザーの情報受け取り
+		String nowLoginId = request.getParameter("nowLoginId");
+		String nowUserId = request.getParameter("nowUserId");
+
+
 		String a = request.getParameter("edit");
 
+		//変更か削除か判定
 		if("change".equals(a)) {
 
 			String loginId = request.getParameter("loginId");
 
-
+			//該当ユーザーの全情報をリストでもらう
 			ArrayList<UserDTO> userList = dbm.getUserInformation(loginId);
 
 			UserDTO user = userList.get(0);
@@ -51,6 +57,7 @@ public class UserEdit extends HttpServlet {
 			String idonChange = user.getIcon();
 			String profileChange = user.getProfile();
 
+			//値をセットアトリビュート
 			request.setAttribute("userId", userId);
 			request.setAttribute("loginIdChange", loginIdChange);
 			request.setAttribute("passwordChange", passwordChange);
@@ -58,15 +65,20 @@ public class UserEdit extends HttpServlet {
 			request.setAttribute("idonChange", idonChange);
 			request.setAttribute("profileChange", profileChange);
 
+			//現在のログインユーザーの情報渡す
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
 
+			//Change.jspに転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
-
+		//変更か削除か判定
 		}else if("delete".equals(a)){
 
 			String loginId = request.getParameter("loginId");
 
+			//該当ユーザーの全情報をリストでもらう
 			ArrayList<UserDTO> userList = dbm.getUserInformation(loginId);
 
 			UserDTO user = userList.get(0);
@@ -75,11 +87,26 @@ public class UserEdit extends HttpServlet {
 			String idonDelete = user.getIcon();
 			String profileDelete = user.getProfile();
 
+			//値をセットアトリビュート
 			request.setAttribute("loginId", loginIdDelete);
 			request.setAttribute("icon", idonDelete);
 			request.setAttribute("userName", userNameDelete);
 			request.setAttribute("profile", profileDelete);
 
+			//現在のログインユーザーの情報渡す
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
+
+			//削除するユーザーと現在ログインしているユーザーが同じ場合LoginUserDelete.jspに飛ばす
+			if(loginId.equals(nowLoginId)) {
+
+				RequestDispatcher dispatch = request.getRequestDispatcher("LoginUserDelete.jsp");
+				dispatch.forward(request, response);
+
+
+			}
+
+			//Delete.jspに転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("Delete.jsp");
 			dispatch.forward(request, response);
 		}

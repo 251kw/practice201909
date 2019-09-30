@@ -1,5 +1,4 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,7 +23,7 @@
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<form action="Delete" method="get">
 				<%--入力された値をパラメータで取得し表示 --%>
-				下記ユーザーを削除します
+				下記ユーザーを削除した場合、自動的にログアウトされます
 				<table class="table table-bordered">
 					<tr>
 						<td rowspan="2" class="text-center"><span
@@ -40,6 +39,7 @@
 				<input type="hidden" name="userName" value="${userName}">
 				<input type="hidden" name="nowLoginId" value="${nowLoginId}">
 				<input type="hidden" name="nowUserId" value="${nowUserId}">
+				<input type="hidden" name="delete" value="loginUserDelete">
 				<input type="submit" value="削除" class="btn btn-warning">
 				</td></tr>
 				</table>
@@ -48,9 +48,9 @@
 
 			<%--戻るボタンを押したら1つ前にページに戻る --%>
 			<form>
-				<input type="button" value="戻る" onClick="history.back()">
+				<input type="button" class="btn btn-success" value="戻る" onClick="history.back()">
 			</form>
-					</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -56,7 +56,11 @@
 				<table class="table">
 					<tr>
 					<%--会員検索ボタン --%>
-						<td><input class="btn btn-success" type="submit" value="会員検索" /></td>
+						<td>
+							<input type="hidden" name="nowLoginId" value="${user.loginId}">
+							<input type="hidden" name="nowUserId" value="${user.userId}">
+							<input class="btn btn-success" type="submit" value="会員検索" />
+						</td>
 					</tr>
 				</table>
 			</form>

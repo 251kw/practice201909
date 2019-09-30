@@ -34,6 +34,10 @@ public class SeachLogic extends HttpServlet {
 		String loginIdSearch = request.getParameter("loginIdSearch");
 		String profileSearch = request.getParameter("profileSearch");
 
+		//現在のログインユーザーの情報受け渡し
+		String nowLoginId = request.getParameter("nowLoginId");
+		String nowUserId = request.getParameter("nowUserId");
+
 		//DBManagerのオブジェクト生成
 		DBManager dbm = new DBManager();
 
@@ -44,6 +48,10 @@ public class SeachLogic extends HttpServlet {
 			//listにuserNameSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.userNameSearch(userNameSearch);
 			request.setAttribute("searchResult", list);
+
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
@@ -59,6 +67,10 @@ public class SeachLogic extends HttpServlet {
 
 			request.setAttribute("searchResult", list);
 
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
+
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
@@ -73,17 +85,26 @@ public class SeachLogic extends HttpServlet {
 
 			request.setAttribute("searchResult", list);
 
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
+
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
 
 			}
+
 		//ユーザー名とログインIdで検索された場合
 		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch)) && StringUtils.isNullOrEmpty(profileSearch)) {
 
 			ArrayList<UserDTO> list = dbm.nameIdSearch(userNameSearch, loginIdSearch);
 
 			request.setAttribute("searchResult", list);
+
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
@@ -97,6 +118,10 @@ public class SeachLogic extends HttpServlet {
 
 			request.setAttribute("searchResult", list);
 
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
+
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
@@ -108,6 +133,10 @@ public class SeachLogic extends HttpServlet {
 			ArrayList<UserDTO> list = dbm.nameProSearch(userNameSearch, profileSearch);
 
 			request.setAttribute("searchResult", list);
+
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
@@ -122,13 +151,14 @@ public class SeachLogic extends HttpServlet {
 
 			request.setAttribute("searchResult", list);
 
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
+
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
 		}
-
-
-
 
 		//全て空欄だった場合、全件出力
 		if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch) && StringUtils.isNullOrEmpty(profileSearch)){
@@ -137,6 +167,9 @@ public class SeachLogic extends HttpServlet {
 
 			request.setAttribute("searchResult", list);
 
+			//現在のログインユーザーの情報受け渡し
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowUserId", nowUserId);
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);

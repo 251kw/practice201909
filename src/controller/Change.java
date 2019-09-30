@@ -41,12 +41,20 @@ public class Change extends HttpServlet {
 		String password = request.getParameter("password");
 		String icon =request.getParameter("icon");
 		String profile = request.getParameter("profile");
+
+		String nowLoginId = request.getParameter("nowLoginId");
+
 		String message = null;
 
 		//入力チェック
 		if(loginId == null || loginId.equals("")) {
 			message = "ログインIDが未入力です";
 			request.setAttribute("alert", message);
+
+			request.setAttribute("userNameChange", userName);
+			request.setAttribute("passwordChange", password);
+			request.setAttribute("iconChange", icon);
+			request.setAttribute("profileChange", profile);
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
@@ -55,6 +63,11 @@ public class Change extends HttpServlet {
 			message = "名前が未入力です";
 			request.setAttribute("alert", message);
 
+			request.setAttribute("loginIdChange", loginId);
+			request.setAttribute("passwordChange", password);
+			request.setAttribute("iconChange", icon);
+			request.setAttribute("profileChange", profile);
+
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
@@ -62,12 +75,24 @@ public class Change extends HttpServlet {
 			message = "パスワードが未入力です";
 			request.setAttribute("alert", message);
 
+			request.setAttribute("userNameChange", userName);
+			request.setAttribute("loginIdChange", loginId);
+			request.setAttribute("iconChange", icon);
+			request.setAttribute("profileChange", profile);
+
+
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
 		}else if(profile == null || profile.equals("")) {
 			message = "自己紹介が未入力です";
 			request.setAttribute("alert", message);
+
+			request.setAttribute("userNameChange", userName);
+			request.setAttribute("passwordChange", password);
+			request.setAttribute("iconChange", icon);
+			request.setAttribute("loginIdChange", loginId);
+
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
@@ -77,7 +102,8 @@ public class Change extends HttpServlet {
 			DBManager dbm = new DBManager();
 
 			//registerCheckメソッドでloginIdの重複チェック
-			if(dbm.registerCheck(loginId)) {
+
+			if(loginId.equals(nowLoginId)) {
 
 				//ユーザー情報をAttributeにセット
 				request.setAttribute("userId", userId);
@@ -91,17 +117,41 @@ public class Change extends HttpServlet {
 				RequestDispatcher dispatch = request.getRequestDispatcher("ChangeCheck.jsp");
 				dispatch.forward(request, response);
 
+
 			}else {
-				//結果がfalseの場合エラーメッセージをAttributeにセット
-				message = "すでに使われているログインIDです";
-				request.setAttribute("alert", message);
 
-				//Register.jsｐに戻す
-				RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
-				dispatch.forward(request, response);
+				if(dbm.registerCheck(loginId)) {
 
+					//ユーザー情報をAttributeにセット
+					request.setAttribute("userId", userId);
+					request.setAttribute("loginId", loginId);
+					request.setAttribute("userName", userName);
+					request.setAttribute("password", password);
+					request.setAttribute("icon", icon);
+					request.setAttribute("profile", profile);
+
+					//ChangeCheck.jspに転送
+					RequestDispatcher dispatch = request.getRequestDispatcher("ChangeCheck.jsp");
+					dispatch.forward(request, response);
+
+				}else {
+					//結果がfalseの場合エラーメッセージをAttributeにセット
+					message = "すでに使われているログインIDです";
+					request.setAttribute("alert", message);
+
+					request.setAttribute("loginIdChange", loginId);
+					request.setAttribute("userNameChange", userName);
+					request.setAttribute("passwordChange", password);
+					request.setAttribute("iconChange", icon);
+					request.setAttribute("profileChange", profile);
+
+
+					//Register.jsｐに戻す
+					RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
+					dispatch.forward(request, response);
+
+				}
 			}
 		}
 	}
-
 }

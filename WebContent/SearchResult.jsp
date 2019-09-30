@@ -37,10 +37,16 @@
 			            <td><input type="checkbox" name="Select[]"></td>
 			            <td>${name.userName}</td>
 			            <td>${name.loginId}</td>
-			            <td><form action="UserEdit" method="post"><input type="hidden" name="edit" value="change">
+			            <td><form action="UserEdit" method="post">
+			            <input type="hidden" name="edit" value="change">
+			            <input type="hidden" name="nowLoginId" value="${nowLoginId}">
+			            <input type="hidden" name="nowUserId" value="${nowUserId}">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="submit" value="編集"></form></td>
-			            <td><form action="UserEdit" method="post"><input type="hidden" name="edit" value="delete">
+			            <td><form action="UserEdit" method="post">
+			            <input type="hidden" name="edit" value="delete">
+			            <input type="hidden" name="nowLoginId" value="${nowLoginId}">
+			            <input type="hidden" name="nowUserId" value="${nowUserId}">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="submit" value="削除"></form></td>
 			        </tr>

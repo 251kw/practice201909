@@ -62,7 +62,9 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" class="text-center"><input type="hidden" name="userId" value="${userId}">
+						<td colspan="2" class="text-center">
+						<input type="hidden" name="nowLoginId" value="${loginIdChange}">
+						<input type="hidden" name="userId" value="${userId}">
 						<input type="submit"
 							value="確認" class="btn"></td>
 					</tr>
