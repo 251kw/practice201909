@@ -20,7 +20,7 @@ public class Registerservlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 直接アクセスがあった場合は index.jsp に処理を転送
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Register.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 

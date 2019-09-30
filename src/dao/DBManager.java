@@ -16,6 +16,7 @@ public class DBManager extends SnsDAO {
 
 	private String userName;
 	private Object ps;
+
 	// ログインID とパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null; // データベース接続情報
@@ -133,7 +134,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	 //取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
+	//取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
 	public boolean Determine(String loginId) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -153,7 +154,7 @@ public class DBManager extends SnsDAO {
 			// 検索結果があれば
 			if (rset.next()) {
 				//
-				result=false;
+				result = false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -167,12 +168,13 @@ public class DBManager extends SnsDAO {
 		return result;
 
 	}
+
 	//会員情報をDBに登録
 	public boolean registerUser(
 			String loginId, String password, String userName, String icon, String profile) {
 		Connection conn = null;// データベース接続情報
 		PreparedStatement pstmt = null;// SQL 管理情報
-        boolean result = false;
+		boolean result = false;
 
 		try {
 			conn = getConnection();// データベース接続情報取得
@@ -180,11 +182,11 @@ public class DBManager extends SnsDAO {
 			// INSERT 文の登録と実行
 			String sql = "INSERT INTO users(loginId,password,userName, icon, profile) VALUES(?, ?, ?, ?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,loginId );
-			pstmt.setString(2,password);
-			pstmt.setString(3,userName);
-			pstmt.setString(4,icon);
-			pstmt.setString(5,profile);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, password);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, icon);
+			pstmt.setString(5, profile);
 
 			int cnt = pstmt.executeUpdate();
 			if (cnt == 1) {
@@ -201,117 +203,119 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+
 	// userNameリストのゲッター
-		public ArrayList<UserDTO> getUserList(String userName) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
+	public ArrayList<UserDTO> getUserList(String userName) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 
+		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
 
-			ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
 
-			try {
-				// SnsDAO クラスのメソッド呼び出し
-				conn = getConnection();
+			String searchWord = userName;
+			// SELECT 文の実行
+			String sql = "SELECT * FROM users WHERE userName LIKE '" + searchWord + "%' ";
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery(sql);
 
-				String searchWord = userName;
-				// SELECT 文の実行
-				String sql = "SELECT * FROM users WHERE userName LIKE '"+searchWord+"%' ";
-				pstmt= conn.prepareStatement(sql);
-				rset = pstmt.executeQuery(sql);
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setUserName(rset.getString(4));
 
-				// 検索結果の数だけ繰り返す
-				while (rset.next()) {
-					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-					UserDTO user = new UserDTO();
-					user.setUserName(rset.getString(4));
-
-					// 書き込み内容をリストに追加
-					searchlist.add(user);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(rset);
-				close(pstmt);
-				close(conn);
+				// 書き込み内容をリストに追加
+				searchlist.add(user);
 			}
-
-			return searchlist;
-		}
-		// ログインID とパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
-		public UserDTO getChangeUser(String userName) {
-			Connection conn = null; // データベース接続情報
-			PreparedStatement pstmt = null; // SQL 管理情報
-			ResultSet rset = null; // 検索結果
-
-			String sql = "SELECT * FROM users WHERE userName=?";
-			UserDTO user = null; // 登録ユーザ情報
-
-			try {
-				// データベース接続情報取得
-				conn = getConnection();
-
-				// SELECT 文の登録と実行
-				pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-				pstmt.setString(1, userName);
-				rset = pstmt.executeQuery();
-
-				// 検索結果があれば
-				if (rset.next()) {
-					// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
-					user = new UserDTO();
-					user.setLoginId(rset.getString(2));
-					user.setPassword(rset.getString(3));
-					user.setUserName(rset.getString(4));
-					user.setIcon(rset.getString(5));
-					user.setProfile(rset.getString(6));
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(rset);
-				close(pstmt);
-				close(conn);
-			}
-
-			return user;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
 		}
 
-//会員情報の変更
-public boolean changeUserInformation(
-		String loginId, String password, String userName, String icon, String profile) {
-	Connection conn = null;// データベース接続情報
-	PreparedStatement pstmt = null;// SQL 管理情報
-    boolean result = false;
-
-	try {
-		conn = getConnection();// データベース接続情報取得
-
-		// INSERT 文の登録と実行
-		String sql = "INSERT INTO users(loginId,password,userName, icon, profile) VALUES(?, ?, ?, ?,?)";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1,loginId );
-		pstmt.setString(2,password);
-		pstmt.setString(3,userName);
-		pstmt.setString(4,icon);
-		pstmt.setString(5,profile);
-
-		int cnt = pstmt.executeUpdate();
-		if (cnt == 1) {
-			// INSERT 文の実行結果が１なら登録成功
-			result = true;
-		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		// データベース切断処理
-		close(pstmt);
-		close(conn);
+		return searchlist;
 	}
 
-	return result;
-}
+	// ログインID とパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
+	public UserDTO getChangeUser(String userName) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		String sql = "SELECT * FROM users WHERE userName=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, userName);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
+	}
+
+	//会員情報の変更
+	public boolean ChangeUserInformation(
+			String loginId, String password, String userName, String icon, String profile) {
+		Connection conn = null;// データベース接続情報
+		PreparedStatement pstmt = null;// SQL 管理情報
+		boolean result = false;
+		String searchWord = loginId;//サーチキーワードをloginIdに
+
+		try {
+			conn = getConnection();// データベース接続情報取得
+
+			// UPDATE文の登録と実行
+			String sql = "UPDATE users SET loginId=?,password=?,userName=?, icon=?, profile=? WHERE loginId="+searchWord+"";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, password);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, icon);
+			pstmt.setString(5, profile);
+
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				// UPDATE文の実行結果が１なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
 }
