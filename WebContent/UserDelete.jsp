@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>変更内容確認</title>
+<title>ユーザー削除</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -15,7 +15,7 @@
     %>
     <div class="bg-success padding-y-5">
         <div class="container padding-y-5 text-center">
-            <h1>情報変更</h1>
+            <h1>ユーザー削除</h1>
         </div>
     </div>
     <div class="padding-y-5 text-center">
@@ -56,7 +56,7 @@
                     </tr>
                     <tr>
                         <%-- 内容確認 --%>
-                        <th>この内容でよろしいですか？</th>
+                        <th>本当に削除しますか？</th>
                         <%-- hiddenで情報を送信 --%>
                         <th><input type="hidden" name="loginId"
                             value="${param.loginId}"> <input type="hidden"
@@ -69,6 +69,7 @@
                                 value="はい">はい</button>
                             <button type="submit" name="btn" class="btn btn-left"
                                 value="いいえ">いいえ</button></th>
+
                     </tr>
                 </table>
             </form>
