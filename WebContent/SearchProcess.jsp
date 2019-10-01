@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+<%-- 文字化け対策 --%>
 	<%
 		request.setCharacterEncoding("UTF-8");
 	%>
@@ -28,11 +29,13 @@
 					<tr>
 					    <td><label><input type="checkbox"><font size="5">${user.userName}</font></label></td>
 						<td><form action="./CUI" method="post">
+						<%--CUIservletに情報を渡す為にhiddenで値を格納。登録情報変更ボタン --%>
 								<input type="hidden" name="userName" value="${user.userName}">
 								<input class="btn btn-rigth" type="submit" value="登録情報変更">
 							</form>
 						</td>
 						<td>
+						<%-- 削除ボタン --%>
 							<form action="./UD" method="post">
 								<input class="btn btn-left" type="submit" value="削除">
 							</form>
@@ -40,7 +43,8 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<form action="top.jsp" method="post">
+			<%--検索画面へ --%>
+			<form action="Search.jsp" method="post">
 				<input class="btn" type="submit" value="戻る" />
 			</form>
 		</div>

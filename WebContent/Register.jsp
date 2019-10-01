@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+    <%-- 文字化け対策 --%>
 	<%
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charaset=UTF-8");

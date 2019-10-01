@@ -30,11 +30,7 @@ public class ChangeUserInformation extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String loginId = request.getParameter("loginId");//loginId取得
-		String password = request.getParameter("password");//password取得
 		String userName = request.getParameter("userName");//userName取得
-		String icon = request.getParameter("icon");//icon取得
-		String profile = request.getParameter("profile");//profile取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		String btn = request.getParameter("btn");
 		DBManager dbm = new DBManager();

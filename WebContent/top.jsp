@@ -43,27 +43,20 @@
 			</form>
 		</div>
 	</div>
+	<div class="padding-y-5 text-center">
+        <div style="width: 40%" class="container padding-y-5 text-left">
+            <strong class="color-main">ユーザー検索</strong>
+        </div>
+    </div>
+
 	<div style="width: 40%" class="container padding-y-5">
-		<form action="./SP" method="post">
-			<%-- ユーザー検索 --%>
-			<strong class="color-main">ユーザー検索</strong>
-			<div class="text-left">
-				<input class="form-control" type="text" name="userName" value=""
-					size="20" />
-			</div>
+
+		<form action="Search.jsp" method="post">
 			<%-- ユーザー検索ボタン --%>
-			<input class="btn" type="submit" value="検索" />
+			<input class="btn" type="submit" value="検索画面へ" />
 		</form>
 	</div>
-	<%-- リクエストスコープに alert があれば --%>
-	<div class="padding-y-5 text-center">
-		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
-			<div class="color-error text-center">
-				<%-- リクエストスコープの alert の値を出力 --%>
-				<c:out value="${requestScope.alert}" />
-			</div>
-		</c:if>
-	</div>
+
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
 			<strong class="color-main">今の気持ちを叫ぼう</strong>
