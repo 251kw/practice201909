@@ -164,20 +164,21 @@ public class DBManager extends SnsDAO {
 
 
 	// ログインユーザ情報と書き込み内容を受け取り、リストに追加する
-	public boolean setWriting(UserDTO user, String writing) {
+	public boolean setWriting(String nowLoginId, String nowLoginUser, String nowLoginIcon, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		boolean result = false;
+
 		try {
 			conn = getConnection();
 
 			// INSERT 文の登録と実行
 			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing) VALUES(?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getLoginId());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setString(3, user.getIcon());
+			pstmt.setString(1, nowLoginId);
+			pstmt.setString(2, nowLoginUser);
+			pstmt.setString(3, nowLoginIcon);
 			Calendar calender = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			pstmt.setString(4, sdf.format(calender.getTime()));

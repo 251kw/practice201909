@@ -87,7 +87,14 @@
 						<%-- 今の気持ち入力欄の名前は shout --%>
 						<td><input class="form-control" type="text" name="shout"
 							value="" size="60" /></td>
-						<td><input class="btn" type="submit" value="叫ぶ" /></td>
+							<td>
+							<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+							<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+							<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+							<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+							<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+							<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
+							<input class="btn" type="submit" value="叫ぶ" /></td>
 					</tr>
 				</table>
 			</form>
