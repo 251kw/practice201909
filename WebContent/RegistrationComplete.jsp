@@ -29,14 +29,14 @@
 			<table border="1" class="table">
 				<% request.setCharacterEncoding("UTF-8");  %>
 				<tr>
-					<td>ようこそ ${param.userName} さん
+					<td>ようこそ ${userName} さん
 				</tr>
 
 				<tr>
 					<%--Hiddenで値をLoginに渡す --%>
-					<td colspan="2" class="text-center"><input type="hidden" name="loginId" value="${loginId}">
+					<td colspan="2" class="text-center">
+					<input type="hidden" name="loginId" value="${loginId}">
 					<input type="hidden" name="password" value="${password}">
-					<input type="hidden" name="userName" value="${userName}">
 					<input type="hidden" name="icon" value="${icon}">
 					<input type="hidden" name="userName" value="${userName}">
 					<input type="hidden" name="profile" value="${profile}">

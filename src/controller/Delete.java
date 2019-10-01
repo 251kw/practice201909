@@ -29,6 +29,14 @@ public class Delete extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 
+		//現在のログインユーザーの情報受け取り
+		String nowLoginId = request.getParameter("nowLoginId");
+		String nowLoginUser = request.getParameter("nowLoginUser");
+		String nowLoginUserId = request.getParameter("nowLoginUserId");
+		String nowLoginProfile = request.getParameter("nowLoginProfile");
+		String nowLoginIcon = request.getParameter("nowLoginIcon");
+		String nowLoginPassword = request.getParameter("nowLoginPassword");
+
 		String a = request.getParameter("delete");
 
 		if("loginUserDelete".equals(a)) {
@@ -42,6 +50,15 @@ public class Delete extends HttpServlet {
 			}
 
 			request.setAttribute("userName", userName);
+
+			//現在のログインユーザーの情報渡す
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowLoginUser", nowLoginUser);
+			request.setAttribute("nowLoginUserId", nowLoginUserId);
+			request.setAttribute("nowLoginProfile", nowLoginProfile);
+			request.setAttribute("nowLoginIcon", nowLoginIcon);
+			request.setAttribute("nowLoginPassword", nowLoginPassword);
+
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("LoginUserDeleteComplete.jsp");
 			dispatch.forward(request, response);
@@ -58,6 +75,14 @@ public class Delete extends HttpServlet {
 		}
 
 		request.setAttribute("userName", userName);
+
+		//現在のログインユーザーの情報渡す
+		request.setAttribute("nowLoginId", nowLoginId);
+		request.setAttribute("nowLoginUser", nowLoginUser);
+		request.setAttribute("nowLoginUserId", nowLoginUserId);
+		request.setAttribute("nowLoginProfile", nowLoginProfile);
+		request.setAttribute("nowLoginIcon", nowLoginIcon);
+		request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("DeleteComplete.jsp");
 		dispatch.forward(request, response);

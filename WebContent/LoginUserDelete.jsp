@@ -33,16 +33,19 @@
 					<tr>
 						<td colspan="2">${profile}</td>
 					</tr>
-					<tr>
-				<td colspan="2" class="text-center">
+				</table>
 				<input type="hidden"name="loginId" value="${loginId}">
 				<input type="hidden" name="userName" value="${userName}">
+
 				<input type="hidden" name="nowLoginId" value="${nowLoginId}">
-				<input type="hidden" name="nowUserId" value="${nowUserId}">
+				<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+				<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+				<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+				<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+				<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
+
 				<input type="hidden" name="delete" value="loginUserDelete">
 				<input type="submit" value="削除" class="btn btn-warning">
-				</td></tr>
-				</table>
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>
 

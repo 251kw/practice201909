@@ -36,8 +36,11 @@ public class UserEdit extends HttpServlet {
 
 		//現在のログインユーザーの情報受け取り
 		String nowLoginId = request.getParameter("nowLoginId");
-		String nowUserId = request.getParameter("nowUserId");
-
+		String nowLoginUser = request.getParameter("nowLoginUser");
+		String nowLoginUserId = request.getParameter("nowLoginUserId");
+		String nowLoginProfile = request.getParameter("nowLoginProfile");
+		String nowLoginIcon = request.getParameter("nowLoginIcon");
+		String nowLoginPassword = request.getParameter("nowLoginPassword");
 
 		String a = request.getParameter("edit");
 
@@ -54,20 +57,26 @@ public class UserEdit extends HttpServlet {
 			String loginIdChange = user.getLoginId();
 			String passwordChange = user.getPassword();
 			String userNameChange = user.getUserName();
-			String idonChange = user.getIcon();
+			String iconChange = user.getIcon();
 			String profileChange = user.getProfile();
+			String changeUserLoginId = user.getLoginId();
 
 			//値をセットアトリビュート
 			request.setAttribute("userId", userId);
+			request.setAttribute("changeUserLoginId", changeUserLoginId);
 			request.setAttribute("loginIdChange", loginIdChange);
 			request.setAttribute("passwordChange", passwordChange);
 			request.setAttribute("userNameChange", userNameChange);
-			request.setAttribute("idonChange", idonChange);
+			request.setAttribute("iconChange", iconChange);
 			request.setAttribute("profileChange", profileChange);
 
 			//現在のログインユーザーの情報渡す
 			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowUserId", nowUserId);
+			request.setAttribute("nowLoginUser", nowLoginUser);
+			request.setAttribute("nowLoginUserId", nowLoginUserId);
+			request.setAttribute("nowLoginProfile", nowLoginProfile);
+			request.setAttribute("nowLoginIcon", nowLoginIcon);
+			request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 			//Change.jspに転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
@@ -84,18 +93,22 @@ public class UserEdit extends HttpServlet {
 			UserDTO user = userList.get(0);
 			String loginIdDelete = user.getLoginId();
 			String userNameDelete = user.getUserName();
-			String idonDelete = user.getIcon();
+			String iconDelete = user.getIcon();
 			String profileDelete = user.getProfile();
 
 			//値をセットアトリビュート
 			request.setAttribute("loginId", loginIdDelete);
-			request.setAttribute("icon", idonDelete);
+			request.setAttribute("icon", iconDelete);
 			request.setAttribute("userName", userNameDelete);
 			request.setAttribute("profile", profileDelete);
 
 			//現在のログインユーザーの情報渡す
 			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowUserId", nowUserId);
+			request.setAttribute("nowLoginUser", nowLoginUser);
+			request.setAttribute("nowLoginUserId", nowLoginUserId);
+			request.setAttribute("nowLoginProfile", nowLoginProfile);
+			request.setAttribute("nowLoginIcon", nowLoginIcon);
+			request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 			//削除するユーザーと現在ログインしているユーザーが同じ場合LoginUserDelete.jspに飛ばす
 			if(loginId.equals(nowLoginId)) {

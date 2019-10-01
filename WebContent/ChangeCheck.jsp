@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
@@ -50,23 +54,45 @@
 				<tr>
 					<%--Hiddenでユーザー情報をChangeLogicに渡す--%>
 					<td colspan="2" class="text-center">
-					<input type="hidden" name="userId" value="${param.userId}">
-					<input type="hidden" name="loginId" value="${param.loginId}">
-					<input type="hidden" name="password" value="${param.password}">
-					<input type="hidden" name="userName" value="${param.userName}">
-					<input type="hidden" name="icon" value="${param.icon}">
-					<input type="hidden" name="profile" value="${param.profile}">
+					<input type="hidden" name="changeUserLoginId" value="${changeUserLoginId}">
+					<input type="hidden" name="userId" value="${userId}">
+					<input type="hidden" name="loginId" value="${loginId}">
+					<input type="hidden" name="password" value="${password}">
+					<input type="hidden" name="userName" value="${userName}">
+					<input type="hidden" name="icon" value="${icon}">
+					<input type="hidden" name="profile" value="${profile}">
+
+					<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+					<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+					<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+					<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+					<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+					<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
+
+
 					<input type="submit" value="OK" class="btn btn-warning"></td>
 				</tr>
 				</table>
 			</form>
+
 			<%--戻るボタンを押したとき、Change.jspに転送し、Hiddenでパラメータを渡す --%>
-			<form action="Change.jsp" class="text-center">
-				<input type="hidden" name="loginId" value="${param.loginId}">
-				<input type="hidden" name="password" value="${param.password}">
-				<input type="hidden" name="userName" value="${param.userName}">
+			<form action="ChangeBack" class="text-center" method="post">
+
+				<input type="hidden" name="changeUserLoginId" value="${changeUserLoginId}">
+				<input type="hidden" name="userId" value="${userId}">
+				<input type="hidden" name="loginIdChange" value="${loginId}">
+				<input type="hidden" name="passwordChange" value="${password}">
+				<input type="hidden" name="userNameChange" value="${userName}">
 				<input type="hidden" name="icon" value="${param.icon}">
-				<input type="hidden" name="profile" value="${param.profile}">
+				<input type="hidden" name="profileChange" value="${profile}">
+
+				<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+				<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+				<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+				<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+				<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+				<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
+
 				<input type="submit" value="戻る" class="btn">
 			</form>
 		</div>

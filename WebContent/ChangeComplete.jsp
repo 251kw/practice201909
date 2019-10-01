@@ -25,7 +25,7 @@
 	<div class="padding-y-5 text-center">
 	変更が完了しました
 		<div style="width: 40%" class="container padding-y-5">
-			<form action="Top" method="get">
+			<form action="Top" method="post">
 				<%--入力された値をパラメータで取得し表示 --%>
 				<table border="1" class="table">
 					<tr>
@@ -57,7 +57,13 @@
 					<tr>
 						<%--変更内容で再ログインしてトップに戻る--%>
 						<td colspan="2" class="text-center">
-						<input type="hidden" name="loginId" value="${loginId}">
+
+						<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+						<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+						<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+						<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+						<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+						<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
 						<input type="submit"value="トップへ戻る" class="btn btn-warning"></td>
 					</tr>
 				</table>

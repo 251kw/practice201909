@@ -11,6 +11,11 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
+
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
@@ -30,12 +35,12 @@
 				<table class="table table-bordered">
 					<tr>
 						<td rowspan="2" class="text-center"><span
-							class="${icon} pe-3x pe-va"></span></td>
-						<td width="256">${userName}</td>
+							class="${nowLoginIcon} pe-3x pe-va"></span></td>
+						<td width="256">${nowLoginUser}</td>
 						<td><input class="btn btn-light" type="submit" value="ログアウト" /></td>
 					</tr>
 					<tr>
-						<td colspan="2">${profile}</td>
+						<td colspan="2">${nowLoginProfile}</td>
 					</tr>
 				</table>
 			</form>
@@ -55,8 +60,12 @@
 					<tr>
 					<%--会員検索ボタン --%>
 						<td>
-							<input type="hidden" name="nowLoginId" value="${user.loginId}">
-							<input type="hidden" name="nowUserId" value="${user.userId}">
+							<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+							<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+							<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+							<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+							<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+							<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
 							<input class="btn btn-success" type="submit" value="会員検索" />
 						</td>
 					</tr>
@@ -108,13 +117,20 @@
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
-							<c:if test="${user.loginId == shout.loginId}">
+							<c:if test="${nowLoginId == shout.loginId}">
 								<form action="ShoutsDeleteCheck.jsp" method="post">
 									<input type="hidden" name="shoutsId" value="${shout.shoutsId}">
 									<input type="hidden" name="icon" value="${shout.icon}">
 									<input type="hidden" name="userName" value="${shout.userName}">
 									<input type="hidden" name="date" value="${shout.date}">
 									<input type="hidden" name="writing" value="${shout.writing}">
+
+									<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+									<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+									<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+									<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+									<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+									<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
 									<input type="submit" class="btn btn-error btn-sm" value="削除">
 								</form>
 							</c:if>

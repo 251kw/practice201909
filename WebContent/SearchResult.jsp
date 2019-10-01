@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
@@ -39,14 +43,25 @@
 			            <td>${name.loginId}</td>
 			            <td><form action="UserEdit" method="post">
 			            <input type="hidden" name="edit" value="change">
+			            <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="hidden" name="nowLoginId" value="${nowLoginId}">
-			            <input type="hidden" name="nowUserId" value="${nowUserId}">
+			            <input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+			            <input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+			            <input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+			            <input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+			            <input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="submit" class="btn btn-sm" value="編集"></form></td>
+
 			            <td><form action="UserEdit" method="post">
 			            <input type="hidden" name="edit" value="delete">
+			             <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="hidden" name="nowLoginId" value="${nowLoginId}">
-			            <input type="hidden" name="nowUserId" value="${nowUserId}">
+			            <input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+			            <input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+			            <input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+			            <input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+			            <input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
 			            <input type="hidden" name="loginId" value="${name.loginId}">
 			            <input type="submit" class="btn btn-error btn-sm" value="削除"></form></td>
 			        </tr>

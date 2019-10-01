@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
+
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
@@ -63,10 +67,17 @@
 
 					<tr>
 						<td colspan="2" class="text-center">
-						<input type="hidden" name="nowLoginId" value="${loginIdChange}">
 						<input type="hidden" name="userId" value="${userId}">
-						<input type="submit"
-							value="確認" class="btn"></td>
+						<input type="hidden" name="changeUserLoginId" value="${changeUserLoginId}">
+
+						<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+						<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+						<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+						<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+						<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+						<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
+
+						<input type="submit" value="確認" class="btn"></td>
 					</tr>
 					<%--アラートがあるか確認 --%>
 					<c:if

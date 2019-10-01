@@ -43,6 +43,13 @@
 
 
 				<input type="hidden" name="shoutsId" value="${param.shoutsId}">
+				<input type="hidden" name="nowLoginId" value="${param.nowLoginId}">
+				<input type="hidden" name="nowLoginUser" value="${param.nowLoginUser}">
+				<input type="hidden" name="nowLoginUserId" value="${param.nowLoginUserId}">
+				<input type="hidden" name="nowLoginProfile" value="${param.nowLoginProfile}">
+				<input type="hidden" name="nowLoginIcon" value="${param.nowLoginIcon}">
+				<input type="hidden" name="nowLoginPassword" value="${param.nowLoginPassword}">
+
 				<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>

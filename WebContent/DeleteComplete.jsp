@@ -21,7 +21,7 @@
 	%>
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-			<form action="top.jsp" method="get">
+			<form action="Top" method="get">
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記ユーザーを削除しました
 				<table class="table">
@@ -30,6 +30,14 @@
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
+
+							<input type="hidden" name="nowLoginId" value="${nowLoginId}">
+							<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+							<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+							<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+							<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+							<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
+
 							<input type="submit"value="トップへ戻る" class="btn btn-warning">
 						</td>
 					</tr>

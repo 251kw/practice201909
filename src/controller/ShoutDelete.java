@@ -18,9 +18,6 @@ import dao.DBManager;
 @WebServlet("/ShoutDelete")
 public class ShoutDelete extends HttpServlet {
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,6 +44,21 @@ public class ShoutDelete extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		String nowLoginId = request.getParameter("nowLoginId");
+		String nowLoginUser = request.getParameter("nowLoginUser");
+		String nowLoginUserId = request.getParameter("nowLoginUserId");
+		String nowLoginProfile = request.getParameter("nowLoginProfile");
+		String nowLoginIcon = request.getParameter("nowLoginIcon");
+		String nowLoginPassword = request.getParameter("nowLoginPassword");
+
+
+		request.setAttribute("nowLoginId", nowLoginId);
+		request.setAttribute("nowLoginUser", nowLoginUser);
+		request.setAttribute("nowLoginUserId", nowLoginUserId);
+		request.setAttribute("nowLoginProfile", nowLoginProfile);
+		request.setAttribute("nowLoginIcon", nowLoginIcon);
+		request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 		// 処理の転送先を ShoutsDeleteComplete.jsp に指定
 		RequestDispatcher dispatch = request.getRequestDispatcher("ShoutsDeleteComplete.jsp");

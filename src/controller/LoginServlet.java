@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.ShoutDTO;
@@ -30,12 +29,7 @@ public class LoginServlet extends HttpServlet {
 			//ユーザデータをパラメータより取得
 			String loginId = request.getParameter("loginId");
 			String password = request.getParameter("password");
-			String profile = request.getParameter("profile");
-			String userName = request.getParameter("userName");
-			String icon = request.getParameter("icoi");
 
-			//UserDTOのフィールドに追加
-			UserDTO userDTO = new UserDTO(loginId, password, userName, icon, profile);
 
 			// ログイン認証を行い、ユーザ情報を取得
 			DBManager dbm = new DBManager();
@@ -45,11 +39,24 @@ public class LoginServlet extends HttpServlet {
 
 			// ユーザ情報を取得できたら、書き込み内容リストを取得
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
-			HttpSession session = request.getSession();
 
 			// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-			session.setAttribute("user", user);
 			request.setAttribute("shouts", list);
+
+			String nowLoginId = user.getLoginId();
+			String nowLoginUser = user.getUserName();
+			String nowLoginUserId = user.getUserId();
+			String nowLoginProfile = user.getProfile();
+			String nowLoginIcon = user.getIcon();
+			String nowLoginPassword = user.getPassword();
+
+			request.setAttribute("nowLoginId", nowLoginId);
+			request.setAttribute("nowLoginUser", nowLoginUser);
+			request.setAttribute("nowLoginUserId", nowLoginUserId);
+			request.setAttribute("nowLoginProfile", nowLoginProfile);
+			request.setAttribute("nowLoginIcon", nowLoginIcon);
+			request.setAttribute("nowLoginPassword", nowLoginPassword);
+
 
 			// 処理の転送先を top.jsp に指定
 			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
@@ -65,6 +72,11 @@ public class LoginServlet extends HttpServlet {
 
 	// index.jsp の「ログイン」ボタンから呼び出される
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+
+		//文字化け防止
+		request.setCharacterEncoding("UTF-8");
+
+
 		//ログインIdとパスワードをパラメータから受け取る
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
@@ -89,19 +101,24 @@ public class LoginServlet extends HttpServlet {
 			if (user != null) {
 				// ユーザ情報を取得できたら、書き込み内容リストを取得
 				ArrayList<ShoutDTO> list = dbm.getShoutList();
-				HttpSession session = request.getSession();
-
-				String userName = user.getUserName();
-				String icon = user.getIcon();
-				String profile = user.getProfile();
-
-				request.setAttribute("userName", userName);
-				request.setAttribute("icon", icon);
-				request.setAttribute("profile", profile);
 
 				// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-				session.setAttribute("user", user);
 				request.setAttribute("shouts", list);
+
+				String nowLoginId = user.getLoginId();
+				String nowLoginUser = user.getUserName();
+				String nowLoginUserId = user.getUserId();
+				String nowLoginProfile = user.getProfile();
+				String nowLoginIcon = user.getIcon();
+				String nowLoginPassword =user.getPassword();
+
+				request.setAttribute("nowLoginId", nowLoginId);
+				request.setAttribute("nowLoginUser", nowLoginUser);
+				request.setAttribute("nowLoginUserId", nowLoginUserId);
+				request.setAttribute("nowLoginProfile", nowLoginProfile);
+				request.setAttribute("nowLoginIcon", nowLoginIcon);
+				request.setAttribute("nowLoginPassword", nowLoginPassword);
+
 
 				// 処理の転送先を top.jsp に指定
 				dispatcher = request.getRequestDispatcher("top.jsp");

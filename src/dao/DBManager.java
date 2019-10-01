@@ -430,6 +430,49 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	public ArrayList<UserDTO> iconSearch(String iconSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE icon=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, iconSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return searchResultList;
+
+	}
+
+
+
 	//名前とログインIdをもらってDB検索→リストで返す
 	public ArrayList<UserDTO> nameIdSearch(String userNameSearch, String loginIdSearch) {
 		Connection conn = null; // データベース接続情報
@@ -551,10 +594,130 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 			close(conn);
 		}
-
 		return searchResultList;
-
 	}
+
+	//名前とアイコンをもらって検索→結果をリストで返す
+	public ArrayList<UserDTO> nameIconSearch(String userNameSearch, String iconSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE userName like ? AND icon=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, "%" + userNameSearch + "%");
+			pstmt.setString(2, iconSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		return searchResultList;
+	}
+
+	//IDとアイコンをもらって検索→結果をリストで返す
+	public ArrayList<UserDTO> idIconSearch(String loginIdSearch, String iconSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE loginId like ? AND icon=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, "%" + loginIdSearch + "%");
+			pstmt.setString(2, iconSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		return searchResultList;
+	}
+
+	//自己紹介とアイコンをもらってDB検索→リストで返す
+	public ArrayList<UserDTO> proIconSearch(String profileSearch, String iconSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE profile like ? AND icon=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, "%" + profileSearch + "%");
+			pstmt.setString(2, iconSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		return searchResultList;
+	}
+
+
 
 	//名前とIDと自己紹介をもらってDB検索→リストで返す
 	public ArrayList<UserDTO> nameIdProSearch(String userNameSearch, String loginIdSearch, String profileSearch) {
@@ -594,10 +757,186 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 			close(conn);
 		}
+		return searchResultList;
+	}
+
+	//名前とアイコンと自己紹介をもらってDB検索→リストで返す
+	public ArrayList<UserDTO> nameIconProSearch(String userNameSearch, String iconSearch, String profileSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE userName like ? AND icon=? AND profile like ?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, "%" + userNameSearch + "%");
+			pstmt.setString(2, iconSearch);
+			pstmt.setString(3, "%" + profileSearch + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		return searchResultList;
+	}
+
+
+	//名前とIDと自己紹介をもらってDB検索→リストで返す
+	public ArrayList<UserDTO> idIconNameSearch(String loginIdSearch, String iconSearch, String userNameSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE loginId like ? AND icon=? AND userName like ?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, "%" + loginIdSearch + "%");
+			pstmt.setString(2, iconSearch);
+			pstmt.setString(3, "%" + userNameSearch + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
 
 		return searchResultList;
 
 	}
+
+
+	//名前とIDと自己紹介をもらってDB検索→リストで返す
+	public ArrayList<UserDTO> idProIconSearch(String loginIdSearch,  String profileSearch, String iconSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE loginId like ? AND profile like ? AND icon=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, "%" + loginIdSearch + "%");
+			pstmt.setString(2, "%" + profileSearch + "%");
+			pstmt.setString(3, iconSearch);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return searchResultList;
+
+	}
+
+
+
+	//名前とIDと自己紹介とアイコンをもらってDB検索→リストで返す
+	public ArrayList<UserDTO> nameIdProIconSearch(String userNameSearch, String loginIdSearch, String profileSearch, String iconSearch) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+		ArrayList<UserDTO> searchResultList = new ArrayList<>();
+
+		String sql = "SELECT * FROM users WHERE userName like ? AND loginId like ? AND profile like ? AND icon=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, "%" + userNameSearch + "%");
+			pstmt.setString(2, "%" + loginIdSearch + "%");
+			pstmt.setString(3, "%" + profileSearch + "%");
+			pstmt.setString(4, iconSearch);
+
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserName(rset.getString(4));
+				user.setLoginId(rset.getString(2));
+
+				searchResultList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return searchResultList;
+
+	}
+
+
 
 	//BDに入っている全件のユーザー名とログインIdデータをリストで返す
 	public ArrayList<UserDTO> allSearch() {

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,35 +9,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DBManager;
-
 /**
- * Servlet implementation class ChangeLogic
+ * Servlet implementation class ChangeBack
  */
-@WebServlet("/ChangeLogic")
-public class ChangeLogic extends HttpServlet {
-
+@WebServlet("/ChangeBack")
+public class ChangeBack extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
+		String changeUserLoginId = request.getParameter("changeUserLoginId");
 		String userId = request.getParameter("userId");
-		String loginId = request.getParameter("loginId");
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
+		String loginId = request.getParameter("loginIdChange");
+		String password = request.getParameter("passwordChange");
+		String userName = request.getParameter("userNameChange");
 		String icon = request.getParameter("icon");
-		String profile = request.getParameter("profile");
+		String profile = request.getParameter("profileChange");
+
+		request.setAttribute("changeUserLoginId", changeUserLoginId);
+		request.setAttribute("userId", userId);
+		request.setAttribute("loginIdChange", loginId);
+		request.setAttribute("passwordChange", password);
+		request.setAttribute("userNameChange", userName);
+		request.setAttribute("icon", icon);
+		request.setAttribute("profileChange", profile);
 
 		String nowLoginId = request.getParameter("nowLoginId");
 		String nowLoginUser = request.getParameter("nowLoginUser");
@@ -46,21 +51,6 @@ public class ChangeLogic extends HttpServlet {
 		String nowLoginProfile = request.getParameter("nowLoginProfile");
 		String nowLoginIcon = request.getParameter("nowLoginIcon");
 		String nowLoginPassword = request.getParameter("nowLoginPassword");
-
-
-		try {
-			DBManager dbm = new DBManager();
-			dbm.change(loginId, userName, password, icon, profile, userId);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		request.setAttribute("loginId", loginId);
-		request.setAttribute("userName", userName);
-		request.setAttribute("password", password);
-		request.setAttribute("icon", icon);
-		request.setAttribute("profile", profile);
 
 		request.setAttribute("nowLoginId", nowLoginId);
 		request.setAttribute("nowLoginUser", nowLoginUser);
@@ -70,8 +60,9 @@ public class ChangeLogic extends HttpServlet {
 		request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 
-		//ChangeComplete.jspに転送
-		RequestDispatcher dispatch = request.getRequestDispatcher("ChangeComplete.jsp");
+
+
+		RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 		dispatch.forward(request, response);
 
 	}
