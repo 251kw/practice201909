@@ -243,7 +243,7 @@ public class DBManager extends SnsDAO {
 		return searchlist;
 	}
 
-	// ログインID とパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
+	// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索
 	public UserDTO getChangeUser(String userName) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -295,7 +295,7 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();// データベース接続情報取得
 
 			// UPDATE文の登録と実行
-			String sql = "UPDATE users SET loginId=?,password=?,userName=?, icon=?, profile=? WHERE loginId="+searchWord+"";
+			String sql = "UPDATE users SET loginId=?,password=?,userName=?,icon=?,profile=? WHERE loginId='"+searchWord+"'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, loginId);
 			pstmt.setString(2, password);

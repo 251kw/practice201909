@@ -13,9 +13,14 @@
     <%
         request.setCharacterEncoding("UTF-8");
     %>
+    <div class="bg-success padding-y-5">
+        <div class="container padding-y-5 text-center">
+            <h1>情報変更</h1>
+        </div>
+    </div>
     <div class="padding-y-5 text-center">
         <div style="width: 40%" class="container padding-y-5 text-left">
-            <strong class="color-main">ユーザー情報</strong>
+            <strong>ユーザー情報</strong>
         </div>
     </div>
     <div class="padding-y-5">
@@ -25,19 +30,24 @@
             <%-- 登録情報 --%>
                 <table class="table table-bordered">
                     <tr>
-                        <th>アイコン:${param.icon}</th>
+                    <td class="color-main text-left">アイコン:</td>
+                        <td>${param.icon}</td>
                     </tr>
                     <tr>
-                        <th>氏名:${param.userName}</th>
+                    <td class="color-main text-left">氏名:</td>
+                        <td>${param.userName}</td>
                     </tr>
                     <tr>
-                        <th>ログインID：${param.loginId}</th>
+                    <td class="color-main text-left">ログインID：</td>
+                        <td>${param.loginId}</td>
                     </tr>
                     <tr>
-                        <th>パスワード：${param.password}</th>
+                    <td class="color-main text-left">パスワード：</td>
+                        <td>${param.password}</td>
                     </tr>
                     <tr>
-                        <th>プロフィール：${param.profile}</th>
+                    <td class="color-main text-left">プロフィール：</td>
+                        <td>${param.profile}</td>
                     </tr>
                     <tr>
                         <%-- 内容確認 --%>

@@ -19,25 +19,26 @@
 			<h1>検索結果</h1>
 		</div>
 	</div>
+
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-			<table style="width: 400px" class="table">
+			<table style="width: 600px" class="table">
 				<%--繰り返し --%>
-				<tr>
-
-					<td><c:forEach var="user" items="${searchlist}"
-							varStatus="status">${status.count}:${user.userName}
-<form action="./CUI" method="post">
+				<c:forEach var="user" items="${searchlist}">
+					<tr>
+					    <td><label><input type="checkbox"><font size="5">${user.userName}</font></label></td>
+						<td><form action="./CUI" method="post">
 								<input type="hidden" name="userName" value="${user.userName}">
-								<input class="btn btn-left" type="submit" value="登録情報変更">
+								<input class="btn btn-rigth" type="submit" value="登録情報変更">
 							</form>
+						</td>
+						<td>
 							<form action="./UD" method="post">
-								<input class="btn btn-right" type="submit" value="削除">
+								<input class="btn btn-left" type="submit" value="削除">
 							</form>
-							<br>
-
-						</c:forEach></td>
-				</tr>
+						</td>
+					</tr>
+				</c:forEach>
 			</table>
 			<form action="top.jsp" method="post">
 				<input class="btn" type="submit" value="戻る" />

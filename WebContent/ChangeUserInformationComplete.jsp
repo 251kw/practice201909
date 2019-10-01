@@ -17,13 +17,12 @@
 		</div>
 	</div>
 	<%--トップページに戻る --%>
-	<div class="bg-success padding-y-5">
-		<div class="container padding-y-5 text-center">
-			<form action="top.jsp" method="post">
+	<form action="top.jsp" method="post">
+			<div class="padding-y-5 text-center">
 				<input class="btn" type="submit" value="戻る" />
-			</form>
-		</div>
-	</div>
+			</div>
+	</form>
+
 
 </body>
 </html>

@@ -26,23 +26,23 @@
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<td class="color-main text-left">ログインID</td>
-						<td class="color-main text-left">${user.loginId}
+						<td class="color-main text-left">${user2.loginId}
 						<input type="hidden" name="loginId"
-                            value="${user.loginId}">
+                            value="${user2.loginId}">
 						</td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前は password --%>
 						<td class="color-main text-left">パスワード</td>
 						<td class="text-left"><input class="form-control"
-							type="password" name="password" value="${user.password}"
+							type="password" name="password" value="${user2.password}"
 							size="20" /></td>
 					</tr>
 					<tr>
 						<%-- 氏名は userName --%>
 						<td class="color-main text-left">氏名</td>
 						<td class="text-left"><input class="form-control" type="text"
-							name="userName" value="${user.userName}" size="20" /></td>
+							name="userName" value="${user2.userName}" size="20" /></td>
 					</tr>
 					<tr>
 						<%-- アイコンはicon --%>
@@ -57,7 +57,7 @@
 						<%-- プロフィールは profile --%>
 						<td class="color-main text-left">プロフィール</td>
 						<td class="text-left"><input class="form-control" type="text"
-							name="profile" value="${user.profile}" size="20" /></td>
+							name="profile" value="${user2.profile}" size="20" /></td>
 					</tr>
 					<tr>
 						<td><input class="btn" name="btn" type="submit" value="更新" /></td>

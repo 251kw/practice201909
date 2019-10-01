@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -45,15 +46,18 @@ public class ChangeUserInformation extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} else if ("戻る".equals(btn)) {
+
 			// ChangeUserInformation.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
 		}
 
 		//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
-		UserDTO user = dbm.getChangeUser(userName);
-		//ユーザー情報をset
-		request.setAttribute("user", user);
+		HttpSession session = request.getSession();//sessionインスタンスを作成
+		UserDTO user2 = dbm.getChangeUser(userName);// userNameを受け取り、userに情報を格納。
+
+		//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
+		session.setAttribute("user2", user2);
 
 		// ChangeUserInformation.jsp に処理を転送
 		dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");

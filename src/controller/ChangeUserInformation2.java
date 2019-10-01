@@ -46,6 +46,7 @@ public class ChangeUserInformation2 extends HttpServlet {
 					dispatcher = request.getRequestDispatcher("ChangeUserInformationComplete.jsp");
 					dispatcher.forward(request, response);
 				} else if ("いいえ".equals(btn)) {
+
 					// ChangeUserInformation.jsp に処理を転送
 					dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");
 					dispatcher.forward(request, response);
