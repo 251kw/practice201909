@@ -29,18 +29,16 @@
 								<input class="form-control" type="text" name="userName" value=""
 									size="20" />
 							</div></td>
-						<%-- ユーザー検索ボタン --%>
-						<td><input class="btn" name="btn1" type="submit" value="検索" /></td>
 					</tr>
 					<%-- icon検索 --%>
 					<tr>
 						<th><strong class="color-main">アイコンで検索</strong></th>
 						<td><select name="icon" class="form-control">
+						        <option value="icon">アイコンを選んでください
 								<option value="icon-user">男
 								<option value="icon-user-female">女
 								<option value="icon-bell">ベル
 						</select></td>
-						<td><input class="btn" name="btn2" type="submit" value="検索" /></td>
 					</tr>
 					<%-- プロフィール検索 --%>
 					<tr>
@@ -49,10 +47,13 @@
 								<input class="form-control" type="text" name="profile" value=""
 									size="20" />
 							</div></td>
-						<%-- ユーザー検索ボタン --%>
-						<td><input class="btn" name="btn3" type="submit" value="検索" /></td>
 					</tr>
-
+					<tr>
+						<th></th>
+						<%-- ユーザー検索ボタン --%>
+						<td><input class="btn btn-right" name="btn" type="submit"
+							value="検索" /></td>
+					</tr>
 				</table>
 			</form>
 			<%--topページへ --%>
@@ -62,13 +63,13 @@
 		</div>
 	</div>
 	<%-- リクエストスコープに alert があれば --%>
-    <div class="padding-y-5 text-center">
-        <c:if test="${requestScope.alert != null && requestScope.alert != ''}">
-            <div class="color-error text-center">
-                <%-- リクエストスコープの alert の値を出力 --%>
-                <c:out value="${requestScope.alert}" />
-            </div>
-        </c:if>
-    </div>
+	<div class="padding-y-5 text-center">
+		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+			<div class="color-error text-center">
+				<%-- リクエストスコープの alert の値を出力 --%>
+				<c:out value="${requestScope.alert}" />
+			</div>
+		</c:if>
+	</div>
 </body>
 </html>

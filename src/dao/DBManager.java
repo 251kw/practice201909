@@ -205,7 +205,7 @@ public class DBManager extends SnsDAO {
 	}
 
 	// userNameリストのゲッター
-	public ArrayList<UserDTO> getUserList(String userName) {
+	public ArrayList<UserDTO> getUserList(String userName,String icon,String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -217,9 +217,11 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			String searchWord = userName;
+			String searchWord2 = icon;
+			String searchWord3 = profile;
 
 			// SELECT 文の実行
-			String sql = "SELECT * FROM users WHERE userName LIKE '" + searchWord + "%' ";
+			String sql = "SELECT * FROM users WHERE userName LIKE '" + searchWord + "%' AND icon LIKE= '"+searchWord2+ "%' AND profile LIKE '"+searchWord3+"%'";
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery(sql);
 
@@ -227,7 +229,12 @@ public class DBManager extends SnsDAO {
 			while (rset.next()) {
 				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
 				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
 
 				// 書き込み内容をリストに追加
 				searchlist.add(user);
@@ -319,86 +326,6 @@ public class DBManager extends SnsDAO {
 		}
 
 		return result;
-	}
-
-	// iconリストのゲッター
-	public ArrayList<UserDTO> getUserList2(String icon) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
-
-		try {
-			// SnsDAO クラスのメソッド呼び出し
-			conn = getConnection();
-
-			String searchWord = icon;
-
-			// SELECT 文の実行
-			String sql = "SELECT * FROM users WHERE icon='" + searchWord + "'";
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery(sql);
-
-			// 検索結果の数だけ繰り返す
-			while (rset.next()) {
-				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-				UserDTO user = new UserDTO();
-				user.setUserName(rset.getString(4));
-
-				// 書き込み内容をリストに追加
-				searchlist.add(user);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(rset);
-			close(pstmt);
-			close(conn);
-		}
-
-		return searchlist;
-	}
-
-	// profileリストのゲッター
-	public ArrayList<UserDTO> getUserList3(String profile) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
-
-		try {
-			// SnsDAO クラスのメソッド呼び出し
-			conn = getConnection();
-
-			String searchWord = profile;
-
-			// SELECT 文の実行
-			String sql = "SELECT * FROM users WHERE profile LIKE '" + searchWord + "%' ";
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery(sql);
-
-			// 検索結果の数だけ繰り返す
-			while (rset.next()) {
-				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-				UserDTO user = new UserDTO();
-				user.setUserName(rset.getString(4));
-
-				// 書き込み内容をリストに追加
-				searchlist.add(user);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(rset);
-			close(pstmt);
-			close(conn);
-		}
-
-		return searchlist;
 	}
 
 	public boolean Delete(String loginId) {
