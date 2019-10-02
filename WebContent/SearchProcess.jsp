@@ -37,7 +37,7 @@
 					<tr>
 						<td><label><input type="checkbox"><font
 								size="5">${user.userName}</font></label></td>
-						<td><form action="./CUI" method="post">
+						<td><form action="./UI" method="post">
 								<%--CUIservletに情報を渡す為にhiddenで値を格納。登録情報変更ボタン --%>
 								<input type="hidden" name="userName" value="${user.userName}">
 								<input class="btn btn-rigth" type="submit" value="登録情報変更">
