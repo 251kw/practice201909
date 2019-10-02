@@ -17,7 +17,7 @@
         </div>
     </div>
     <%--トップページに戻る --%>
-    <form action="top.jsp" method="post">
+    <form action="./UD2" method="post">
             <div class="padding-y-5 text-center">
                 <input class="btn" type="submit" value="戻る" />
             </div>

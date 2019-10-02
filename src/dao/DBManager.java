@@ -429,5 +429,83 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+	// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索(削除時)
+		public UserDTO getChangeUser3(String userName) {
+			Connection conn = null; // データベース接続情報
+			PreparedStatement pstmt = null; // SQL 管理情報
+			ResultSet rset = null; // 検索結果
+
+			String sql = "SELECT * FROM users WHERE userName=?";
+			UserDTO user3 = null; // 登録ユーザ情報
+
+			try {
+				// データベース接続情報取得
+				conn = getConnection();
+
+				// SELECT 文の登録と実行
+				pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+				pstmt.setString(1, userName);
+				rset = pstmt.executeQuery();
+
+				// 検索結果があれば
+				if (rset.next()) {
+					// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+					user3 = new UserDTO();
+					user3.setLoginId(rset.getString(2));
+					user3.setPassword(rset.getString(3));
+					user3.setUserName(rset.getString(4));
+					user3.setIcon(rset.getString(5));
+					user3.setProfile(rset.getString(6));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				// データベース切断処理
+				close(rset);
+				close(pstmt);
+				close(conn);
+			}
+
+			return user3;
+		}
+		// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索(登録情報変更時)
+				public UserDTO getChangeUser2(String userName) {
+					Connection conn = null; // データベース接続情報
+					PreparedStatement pstmt = null; // SQL 管理情報
+					ResultSet rset = null; // 検索結果
+
+					String sql = "SELECT * FROM users WHERE userName=?";
+					UserDTO user2 = null; // 登録ユーザ情報
+
+					try {
+						// データベース接続情報取得
+						conn = getConnection();
+
+						// SELECT 文の登録と実行
+						pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+						pstmt.setString(1, userName);
+						rset = pstmt.executeQuery();
+
+						// 検索結果があれば
+						if (rset.next()) {
+							// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+							user2 = new UserDTO();
+							user2.setLoginId(rset.getString(2));
+							user2.setPassword(rset.getString(3));
+							user2.setUserName(rset.getString(4));
+							user2.setIcon(rset.getString(5));
+							user2.setProfile(rset.getString(6));
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						// データベース切断処理
+						close(rset);
+						close(pstmt);
+						close(conn);
+					}
+
+					return user2;
+				}
 
 }

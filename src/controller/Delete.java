@@ -8,44 +8,42 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
+import dto.UserDTO;
 
 /**
- * Servlet implementation class UserDelete
+ * Servlet implementation class Delete
  */
-@WebServlet("/UD")
-public class UserDelete extends HttpServlet {
+@WebServlet("/D")
+public class Delete extends HttpServlet {
 
+	// 直接アクセスがあった場合は index.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 直接アクセスがあった場合は index.jsp に処理を転送
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String loginId = request.getParameter("loginId");//loginId取得
+		String userName = request.getParameter("userName");//userName取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
-		String btn = request.getParameter("btn");//ボタンの情報取得
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
+		//SearchProcess.JSPの削除ボタンが押された時
 
-		//はいボタンが押された時
-		if("はい".equals(btn)) {
-            // loginIdから検索して一致したユーザー削除
-			dbm.Delete(loginId);
+		HttpSession session3 = request.getSession();//sessionインスタンスを作成
+		UserDTO user3 = dbm.getChangeUser3(userName);// userNameを受け取り、userに情報を格納。
 
-         // DeleteComplete.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("DeleteComplete.jsp");
-			dispatcher.forward(request, response);
+		//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser3として保存
+		session3.setAttribute("user3", user3);
 
-			//いいえボタンが押された時
-		}else if("いいえ".equals(btn)) {
-			// Search.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("Search.jsp");
-			dispatcher.forward(request, response);
-		}
+		// UserDelete.jsp に処理を転送
+		dispatcher = request.getRequestDispatcher("UserDelete.jsp");
+		dispatcher.forward(request, response);
 	}
+
 }

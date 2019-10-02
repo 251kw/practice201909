@@ -44,7 +44,7 @@
 							</form></td>
 						<td>
 							<%-- 削除ボタン --%>
-							<form action="./UD" method="post">
+							<form action="./D" method="post">
 								<input type="hidden" name="userName" value="${user.userName}">
 								<input class="btn btn-left" type="submit" value="削除">
 							</form>
