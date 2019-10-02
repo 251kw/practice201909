@@ -39,7 +39,7 @@ public class Registerservlet2 extends HttpServlet {
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		DBManager dbm = new DBManager();//DBMのインスタンスを生成
 
-		//確認で"はい"が取れたらDBに登録
+		//はいボタンが押された時
 		if ("btn1".equals(button1)) {
 
 			// ユーザー情報をDBに登録
@@ -48,6 +48,8 @@ public class Registerservlet2 extends HttpServlet {
 			// RegistrationComplete.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("RegistrationComplete.jsp");
 			dispatcher.forward(request, response);
+
+			//いいえボタンが押された時
 		} else if ("btn2".equals(button2)) {
 			dispatcher = request.getRequestDispatcher("Register.jsp");
 			dispatcher.forward(request, response);

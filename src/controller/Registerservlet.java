@@ -29,8 +29,8 @@ public class Registerservlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 
-		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
+		String loginId = request.getParameter("loginId");//loginId取得
+		String password = request.getParameter("password");//password取得
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
@@ -41,7 +41,7 @@ public class Registerservlet extends HttpServlet {
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 
-			// index.jsp に処理を転送
+			// Register.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("Register.jsp");
 			dispatcher.forward(request, response);
 		} else {

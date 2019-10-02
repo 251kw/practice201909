@@ -55,10 +55,18 @@ public class SearchProcess extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("Search.jsp");
 				dispatcher.forward(request, response);
 			} else {
-				//名前をDBから検索してtop.jspに表示
+				//名前をDBから検索
 				ArrayList<UserDTO> searchlist = dbm.getUserList(userName);
-				HttpSession session = request.getSession();
+
+				//検索結果がなかったら
+				if(searchlist.isEmpty()) {
+				message = "検索結果がありませんでした";
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+				}
+
 				//DBからの検索結果をリクエストオブジェクトに保存
+				HttpSession session = request.getSession();
 				session.setAttribute("searchlist", searchlist);
 
 				// SearchProcess.jsp に処理を転送
@@ -67,10 +75,11 @@ public class SearchProcess extends HttpServlet {
 			}
 		}else if("検索".equals(btn2)) {
 
-				//iconをDBから検索してtop.jspに表示
+				//iconをDBから検索
 				ArrayList<UserDTO> searchlist = dbm.getUserList2(icon);
-				HttpSession session = request.getSession();
+
 				//DBからの検索結果をリクエストオブジェクトに保存
+				HttpSession session = request.getSession();
 				session.setAttribute("searchlist", searchlist);
 
 				// SearchProcess.jsp に処理を転送
@@ -91,10 +100,18 @@ public class SearchProcess extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("Search.jsp");
 				dispatcher.forward(request, response);
 			} else {
-				//profileをDBから検索してSearchProcess.jspに表示
+				//profileをDBから検索
 				ArrayList<UserDTO> searchlist = dbm.getUserList3(profile);
-				HttpSession session = request.getSession();
+
+				//検索結果がなかったら
+				if(searchlist.isEmpty()) {
+				message = "検索結果がありませんでした";
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+				}
+
 				//DBからの検索結果をリクエストオブジェクトに保存
+				HttpSession session = request.getSession();
 				session.setAttribute("searchlist", searchlist);
 
 				// SearchProcess.jsp に処理を転送

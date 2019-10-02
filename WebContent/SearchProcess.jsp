@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-<%-- 文字化け対策 --%>
+	<%-- 文字化け対策 --%>
 	<%
 		request.setCharacterEncoding("UTF-8");
 	%>
@@ -20,23 +20,32 @@
 			<h1>検索結果</h1>
 		</div>
 	</div>
-
+	<%-- リクエストスコープに alert があれば --%>
+	<div class= "color-error text-center">
+		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+			<tr>
+				<%-- リクエストスコープの alert の値を出力 --%>
+				<font size="5"><c:out value="${requestScope.alert}" /></font>
+			</tr>
+		</c:if>
+	</div>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<table style="width: 600px" class="table">
 				<%--繰り返し --%>
 				<c:forEach var="user" items="${searchlist}">
 					<tr>
-					    <td><label><input type="checkbox"><font size="5">${user.userName}</font></label></td>
+						<td><label><input type="checkbox"><font
+								size="5">${user.userName}</font></label></td>
 						<td><form action="./CUI" method="post">
-						<%--CUIservletに情報を渡す為にhiddenで値を格納。登録情報変更ボタン --%>
+								<%--CUIservletに情報を渡す為にhiddenで値を格納。登録情報変更ボタン --%>
 								<input type="hidden" name="userName" value="${user.userName}">
 								<input class="btn btn-rigth" type="submit" value="登録情報変更">
-							</form>
-						</td>
+							</form></td>
 						<td>
-						<%-- 削除ボタン --%>
+							<%-- 削除ボタン --%>
 							<form action="./UD" method="post">
+								<input type="hidden" name="userName" value="${user.userName}">
 								<input class="btn btn-left" type="submit" value="削除">
 							</form>
 						</td>

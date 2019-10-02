@@ -20,16 +20,16 @@
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 40%" class="container padding-y-5 text-left">
+		<div style="width: 50%" class="container padding-y-5 text-left">
 			<strong>ユーザー情報</strong>
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 40%" class="container padding-y-5">
+		<div style="width: 50%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="RS2" method="post">
 				<%-- 登録情報 --%>
-				<table style="width: 500px" class="table">
+				<table style="width: 600px" class="table">
 					<tr>
 						<td class="color-main text-left">アイコン:</td>
 						<td>${param.icon}</td>

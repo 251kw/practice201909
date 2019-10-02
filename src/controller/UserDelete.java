@@ -30,16 +30,34 @@ public class UserDelete extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
 		String userName = request.getParameter("userName");//userName取得
+		String loginId = request.getParameter("loginId");//loginId取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
-		String btn = request.getParameter("btn");
-		DBManager dbm = new DBManager();
+		String btn = request.getParameter("btn");//ボタンの情報取得
+		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 
-		//SearchProcess.JSPの削除ボタンが押されたときに動くメソッド
+		//はいボタンが押された時
+		if("はい".equals(btn)) {
+            // loginIdから検索して一致したユーザー削除
+			dbm.Delete(loginId);
+
+         // DeleteComplete.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("DeleteComplete.jsp");
+			dispatcher.forward(request, response);
+
+			//いいえボタンが押された時
+		}else if("いいえ".equals(btn)) {
+			// Search.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("Search.jsp");
+			dispatcher.forward(request, response);
+		}
+
+
+		//SearchProcess.JSPの削除ボタンが押された時
 		HttpSession session = request.getSession();//sessionインスタンスを作成
-		UserDTO user2 = dbm.getChangeUser(userName);// userNameを受け取り、userに情報を格納。
+		UserDTO user3 = dbm.getChangeUser(userName);// userNameを受け取り、userに情報を格納。
 
 		//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
-		session.setAttribute("user2", user2);
+		session.setAttribute("user3", user3);
 
 		// UserDelete.jsp に処理を転送
 		dispatcher = request.getRequestDispatcher("UserDelete.jsp");

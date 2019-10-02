@@ -296,7 +296,8 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();// データベース接続情報取得
 
 			// UPDATE文の登録と実行
-			String sql = "UPDATE users SET loginId=?,password=?,userName=?,icon=?,profile=? WHERE loginId='"+searchWord+"'";
+			String sql = "UPDATE users SET loginId=?,password=?,userName=?,icon=?,profile=? WHERE loginId='"
+					+ searchWord + "'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, loginId);
 			pstmt.setString(2, password);
@@ -319,82 +320,114 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+
 	// iconリストのゲッター
-		public ArrayList<UserDTO> getUserList2(String icon) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
+	public ArrayList<UserDTO> getUserList2(String icon) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 
-			ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
+		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
 
-			try {
-				// SnsDAO クラスのメソッド呼び出し
-				conn = getConnection();
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
 
-				String searchWord = icon;
+			String searchWord = icon;
 
-				// SELECT 文の実行
-				String sql = "SELECT * FROM users WHERE icon LIKE '" + searchWord + "%' ";
-				pstmt = conn.prepareStatement(sql);
-				rset = pstmt.executeQuery(sql);
+			// SELECT 文の実行
+			String sql = "SELECT * FROM users WHERE icon='" + searchWord + "'";
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery(sql);
 
-				// 検索結果の数だけ繰り返す
-				while (rset.next()) {
-					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-					UserDTO user = new UserDTO();
-					user.setUserName(rset.getString(4));
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setUserName(rset.getString(4));
 
-					// 書き込み内容をリストに追加
-					searchlist.add(user);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(rset);
-				close(pstmt);
-				close(conn);
+				// 書き込み内容をリストに追加
+				searchlist.add(user);
 			}
-
-			return searchlist;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
 		}
-		// profileリストのゲッター
-		public ArrayList<UserDTO> getUserList3(String profile) {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
 
-			ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
+		return searchlist;
+	}
 
-			try {
-				// SnsDAO クラスのメソッド呼び出し
-				conn = getConnection();
+	// profileリストのゲッター
+	public ArrayList<UserDTO> getUserList3(String profile) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 
-				String searchWord = profile;
+		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();
 
-				// SELECT 文の実行
-				String sql = "SELECT * FROM users WHERE profile LIKE '" + searchWord + "%' ";
-				pstmt = conn.prepareStatement(sql);
-				rset = pstmt.executeQuery(sql);
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
 
-				// 検索結果の数だけ繰り返す
-				while (rset.next()) {
-					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-					UserDTO user = new UserDTO();
-					user.setUserName(rset.getString(4));
+			String searchWord = profile;
 
-					// 書き込み内容をリストに追加
-					searchlist.add(user);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(rset);
-				close(pstmt);
-				close(conn);
+			// SELECT 文の実行
+			String sql = "SELECT * FROM users WHERE profile LIKE '" + searchWord + "%' ";
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery(sql);
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setUserName(rset.getString(4));
+
+				// 書き込み内容をリストに追加
+				searchlist.add(user);
 			}
-
-			return searchlist;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
 		}
+
+		return searchlist;
+	}
+
+	public boolean Delete(String loginId) {
+		Connection conn = null;// データベース接続情報
+		PreparedStatement pstmt = null;// SQL 管理情報
+		boolean result = false;
+		String searchWord = loginId;//サーチキーワードをloginIdに
+
+		try {
+			conn = getConnection();// データベース接続情報取得
+
+			// UPDATE文の登録と実行
+			String sql = "DELETE FROM users WHERE loginId='" + searchWord + "'";
+			pstmt = conn.prepareStatement(sql);
+
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				// UPDATE文の実行結果が１なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
 }

@@ -32,18 +32,20 @@ public class ChangeUserInformation extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
 		String userName = request.getParameter("userName");//userName取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
-		String btn = request.getParameter("btn");
-		DBManager dbm = new DBManager();
+		String btn = request.getParameter("btn");//ボタン情報取得
+		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 
+		//更新ボタンが押された時
 		if ("更新".equals(btn)) {
 
 			//変更情報の確認画面へ
 			dispatcher = request.getRequestDispatcher("ChangeUserInformationCheck.jsp");
 			dispatcher.forward(request, response);
 
+		//戻るボタンが押された時
 		} else if ("戻る".equals(btn)) {
 
-			// ChangeUserInformation.jsp に処理を転送
+			// SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
 		}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,44 +27,44 @@
     <div class="padding-y-5">
         <div style="width: 40%" class="container padding-y-5">
             <%-- action 属性にサーブレットを指定 --%>
-            <form action="./CUI2" method="post">
+            <form action="./UD" method="post">
             <%-- 登録情報 --%>
                 <table class="table ">
                     <tr>
-                    <%-- iconをparamで取得し表示 --%>
+                    <%-- iconを取得し表示 --%>
                     <td class="color-main text-left">アイコン:</td>
-                        <td>${param.icon}</td>
+                        <td>${user3.icon}</td>
                     </tr>
                     <tr>
-                    <%-- userNameをparamで取得し表示 --%>
+                    <%-- userNameを取得し表示 --%>
                     <td class="color-main text-left">氏名:</td>
-                        <td>${param.userName}</td>
+                        <td>${user3.userName}</td>
                     </tr>
                     <tr>
-                    <%-- loginIdをparamで取得し表示 --%>
+                    <%-- loginIdを取得し表示 --%>
                     <td class="color-main text-left">ログインID：</td>
-                        <td>${param.loginId}</td>
+                        <td>${user3.loginId}</td>
                     </tr>
                     <tr>
-                    <%-- passwordをparamで取得し表示 --%>
+                    <%-- passwordを取得し表示 --%>
                     <td class="color-main text-left">パスワード：</td>
-                        <td>${param.password}</td>
+                        <td>${user3.password}</td>
                     </tr>
                     <tr>
-                    <%-- profileをparamで取得し表示 --%>
+                    <%-- profileを取得し表示 --%>
                     <td class="color-main text-left">プロフィール：</td>
-                        <td>${param.profile}</td>
+                        <td>${user3.profile}</td>
                     </tr>
                     <tr>
                         <%-- 内容確認 --%>
                         <th>本当に削除しますか？</th>
                         <%-- hiddenで情報を送信 --%>
                         <th><input type="hidden" name="loginId"
-                            value="${param.loginId}"> <input type="hidden"
-                            name="password" value="${param.password}"> <input
-                            type="hidden" name="userName" value="${param.userName}">
-                            <input type="hidden" name="icon" value="${param.icon}"> <input
-                            type="hidden" name="profile" value="${param.profile}">
+                            value="${user3.loginId}"> <input type="hidden"
+                            name="password" value="${user3.password}"> <input
+                            type="hidden" name="userName" value="${user3.userName}">
+                            <input type="hidden" name="icon" value="${user3.icon}"> <input
+                            type="hidden" name="profile" value="${user3.profile}">
                             <%-- 確認ボタン --%>
                             <button type="submit" name="btn" class="btn btn-right"
                                 value="はい">はい</button>
