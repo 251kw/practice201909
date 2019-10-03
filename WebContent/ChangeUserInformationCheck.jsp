@@ -30,9 +30,14 @@
             <%-- 登録情報 --%>
                 <table class="table ">
                     <tr>
-                    <%-- iconをparamで取得し表示 --%>
-                    <td class="color-main text-left">アイコン:</td>
-                        <td>${param.icon}</td>
+                    <%-- loginIdをparamで取得し表示 --%>
+                    <td class="color-main text-left">ログインID：</td>
+                        <td>${param.loginId}</td>
+                    </tr>
+                    <%-- passwordをparamで取得し表示 --%>
+                    <tr>
+                    <td class="color-main text-left">パスワード：</td>
+                        <td>${param.password}</td>
                     </tr>
                     <tr>
                     <%-- userNameをparamで取得し表示 --%>
@@ -40,14 +45,9 @@
                         <td>${param.userName}</td>
                     </tr>
                     <tr>
-                    <%-- loginIdをparamで取得し表示 --%>
-                    <td class="color-main text-left">ログインID：</td>
-                        <td>${param.loginId}</td>
-                    </tr>
-                    <tr>
-                    <%-- passwordをparamで取得し表示 --%>
-                    <td class="color-main text-left">パスワード：</td>
-                        <td>${param.password}</td>
+                    <%-- iconをparamで取得し表示 --%>
+                    <td class="color-main text-left">アイコン:</td>
+                        <td>${param.icon}</td>
                     </tr>
                     <tr>
                     <%-- profileをparamで取得し表示 --%>
