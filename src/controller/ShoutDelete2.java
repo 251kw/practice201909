@@ -55,6 +55,12 @@ public class ShoutDelete2 extends HttpServlet {
 			//いいえボタンが押された時
 		} else if ("いいえ".equals(btn)) {
 
+			 ArrayList<ShoutDTO> list = dbm.getShoutList();
+
+				// リストをセッションに保存
+				HttpSession session = request.getSession();
+				session.setAttribute("shouts", list);
+
 			// top.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("top.jsp");
 			dispatcher.forward(request, response);
