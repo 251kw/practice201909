@@ -285,7 +285,7 @@ public class DBManager extends SnsDAO {
 
 		for (UserDTO deleteLoginId : deleteList) {
 
-			String delete = deleteLoginId.toString();
+			String delete = deleteLoginId.getLoginId();
 
 			try {
 				conn = getConnection();
@@ -301,7 +301,6 @@ public class DBManager extends SnsDAO {
 				close(conn);
 				close(pstmt);
 			}
-
 		}
 
 	}
@@ -1042,15 +1041,14 @@ public class DBManager extends SnsDAO {
 
 				for (UserDTO deleteLoginId : deleteList) {
 
-					String delete = deleteLoginId.toString();
+					String delete = deleteLoginId.getLoginId();
 					// SELECT 文の登録と実行
 					pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
 					pstmt.setString(1, delete);
 					rset = pstmt.executeQuery();
 
 					// 検索結果があれば
-					if (rset.next()) {
-						// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+					while(rset.next()) {
 						user = new UserDTO();
 						user.setUserId(rset.getString(1));
 						user.setLoginId(rset.getString(2));
@@ -1062,7 +1060,6 @@ public class DBManager extends SnsDAO {
 						list.add(user);
 					}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1071,7 +1068,6 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 			close(conn);
 		}
-
 	return list;
 	}
 

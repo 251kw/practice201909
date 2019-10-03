@@ -66,10 +66,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-		//ログインIdだけで検索された場合
-		if (!(StringUtils.isNullOrEmpty(loginIdSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
+			//ログインIdだけで検索された場合
+		}else if (!(StringUtils.isNullOrEmpty(loginIdSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
 				&& StringUtils.isNullOrEmpty(profileSearch) && iconSearch.equals("null")) {
 
 			//listにloginIdSearchで戻ってきたリストを代入
@@ -88,10 +87,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
+			//自己紹介だけで検索された場合
 
-		//自己紹介だけで検索された場合
-		if (!(StringUtils.isNullOrEmpty(profileSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
+		}else if (!(StringUtils.isNullOrEmpty(profileSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
 				&& StringUtils.isNullOrEmpty(loginIdSearch) && iconSearch.equals("null")) {
 
 			//listにprofileSearchで戻ってきたリストを代入
@@ -110,11 +108,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-			}
 
-		//アイコンだけで検索された場合
-
-		if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch)
+			//アイコンだけで検索された場合
+			}else if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch)
 				&& StringUtils.isNullOrEmpty(profileSearch) && !(iconSearch.equals("null"))) {
 
 			ArrayList<UserDTO> list = dbm.iconSearch(iconSearch);
@@ -133,11 +129,8 @@ public class SeachLogic extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
 
-		}
-
-
-		//ユーザー名とログインIdで検索された場合
-		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
+			//ユーザー名とログインIdで検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
 				&& StringUtils.isNullOrEmpty(profileSearch) && iconSearch.equals("null")) {
 
 			ArrayList<UserDTO> list = dbm.nameIdSearch(userNameSearch, loginIdSearch);
@@ -155,10 +148,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-		//ユーザー名とアイコンで検索された場合
-		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(iconSearch.equals("null"))
+			//ユーザー名とアイコンで検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(iconSearch.equals("null"))
 				&& StringUtils.isNullOrEmpty(loginIdSearch) && StringUtils.isNullOrEmpty(profileSearch)) {
 
 			ArrayList<UserDTO> list = dbm.nameIconSearch(userNameSearch, iconSearch);
@@ -176,10 +168,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-		//自己紹介とアイコンで検索された場合
-		if(!(StringUtils.isNullOrEmpty(profileSearch)) && !(iconSearch.equals("null"))
+			//自己紹介とアイコンで検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(profileSearch)) && !(iconSearch.equals("null"))
 				&& StringUtils.isNullOrEmpty(loginIdSearch) && StringUtils.isNullOrEmpty(userNameSearch)) {
 
 			ArrayList<UserDTO> list = dbm.proIconSearch(profileSearch, iconSearch);
@@ -197,11 +188,10 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
+			//ログインIDと自己紹介で検索された場合
 
-		//ログインIDと自己紹介で検索された場合
-		if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
+		}else if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
 				&& StringUtils.isNullOrEmpty(userNameSearch) && iconSearch.equals("null")) {
 
 			ArrayList<UserDTO> list = dbm.idProSearch(loginIdSearch, profileSearch);
@@ -219,10 +209,10 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-		//IDとアイコンで検索された場合
-		if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(iconSearch.equals("null"))
+			//IDとアイコンで検索された場合
+
+		}else if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(iconSearch.equals("null"))
 				&& StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(profileSearch)) {
 
 			ArrayList<UserDTO> list = dbm.idIconSearch(loginIdSearch, iconSearch);
@@ -240,12 +230,10 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
 
-
-		//アイコンとIDと自己紹介で検索された場合
-		if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
+			//アイコンとIDと自己紹介で検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
 				 && !(iconSearch.equals("null")) && StringUtils.isNullOrEmpty(userNameSearch)) {
 
 			ArrayList<UserDTO> list = dbm.idProIconSearch(loginIdSearch, profileSearch, iconSearch);
@@ -263,10 +251,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-		//アイコンとユーザー名と自己紹介で検索された場合
-		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
+			//アイコンとユーザー名と自己紹介で検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
 				 && !(iconSearch.equals("null")) && StringUtils.isNullOrEmpty(loginIdSearch)) {
 
 			ArrayList<UserDTO> list = dbm.nameIconProSearch(userNameSearch,iconSearch, profileSearch);
@@ -284,12 +271,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-
-
-		//Idとアイコンとユーザー名で検索された場合
-		if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(iconSearch.equals("null"))
+			//Idとアイコンとユーザー名で検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(iconSearch.equals("null"))
 				 && !(StringUtils.isNullOrEmpty(userNameSearch)) && StringUtils.isNullOrEmpty(profileSearch)) {
 
 			ArrayList<UserDTO> list = dbm.idIconNameSearch(loginIdSearch, iconSearch, userNameSearch);
@@ -307,11 +291,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-
-		//ユーザー名と自己紹介で検索された場合
-		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
+			//ユーザー名と自己紹介で検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
 				&& StringUtils.isNullOrEmpty(loginIdSearch) && iconSearch.equals("null")) {
 
 			ArrayList<UserDTO> list = dbm.nameProSearch(userNameSearch, profileSearch);
@@ -329,11 +311,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-
-		//ユーザー名とログインIdと自己紹介とアイコンで検索された場合
-		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
+			//ユーザー名とログインIdと自己紹介とアイコンで検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
 				&& !(StringUtils.isNullOrEmpty(profileSearch)) && !(iconSearch.equals("null"))) {
 
 			ArrayList<UserDTO> list = dbm.nameIdProIconSearch(userNameSearch, loginIdSearch, profileSearch, iconSearch);
@@ -351,10 +331,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-		//ユーザー名とログインIdと自己紹介で検索された場合
-		if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
+			//ユーザー名とログインIdと自己紹介で検索された場合
+		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
 				&& !(StringUtils.isNullOrEmpty(profileSearch)) && iconSearch.equals("null")) {
 
 			ArrayList<UserDTO> list = dbm.nameIdProSearch(userNameSearch, loginIdSearch, profileSearch);
@@ -372,11 +351,9 @@ public class SeachLogic extends HttpServlet {
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-		}
 
-
-		//全て空欄だった場合、全件出力
-		if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch)
+			//全て空欄だった場合、全件出力
+		}else if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch)
 				&& StringUtils.isNullOrEmpty(profileSearch) && iconSearch.equals("null")){
 
 			ArrayList<UserDTO> list = dbm.allSearch();

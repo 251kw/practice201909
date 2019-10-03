@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ page import="dto.UserDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -22,7 +23,7 @@
 	%>
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-			<form action="MultipleDelete" method="">
+			<form action="MultipleDelete" method="post">
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記ユーザーを削除します
 
@@ -38,12 +39,14 @@
 					</tr>
 				</c:forEach>
 				</table>
-				<input type="hidden" name="list" value="${deleteList}">
-				<input type="hidden"name="loginId" value="${loginId}">
-				<input type="hidden" name="userName" value="${userName}">
-				<input type="hidden" name="nowLoginId" value="${nowLoginId}">
-				<input type="hidden" name="nowUserId" value="${nowUserId}">
-				<input type="submit" value="削除" class="btn btn-warning">
+			    <input type="hidden" name="nowLoginId" value="${nowLoginId}">
+			    <input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
+			    <input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
+			    <input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
+			    <input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
+			    <input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
+
+			   	<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>
 
