@@ -23,12 +23,12 @@
 					<tr>
 						<%-- sessionに保存したloginIdを表示 --%>
 						<td class="color-main text-left">ログインID</td>
-						<td class="color-main text-left">${user2.loginId}
+						<td class="color-main text-left">${user.loginId}
 
 						<%--
 						ChangeUerInformationでparamaterを取得できるように
-						hiddenでuser2に保存してあるloginIdを格納 --%>
-						<input type="hidden" name="loginId" value="${user2.loginId}">
+						hiddenでuserに保存してあるloginIdを格納 --%>
+						<input type="hidden" name="loginId" value="${user.loginId}">
 						</td>
 					</tr>
 					<tr>
@@ -38,8 +38,8 @@
 
 						<%--
                         ChangeUerInformationでparamaterを取得できるように
-                        hiddenでuser2に保存してあるpasswordを格納 --%>
-						<input class="form-control"type="password" name="password" value="${user2.password}"
+                        hiddenでuserに保存してあるpasswordを格納 --%>
+						<input class="form-control"type="password" name="password" value="${user.password}"
 							size="20" /></td>
 					</tr>
 					<tr>
@@ -48,9 +48,9 @@
 						<td class="text-left">
 						<%--
                         ChangeUerInformationでparamaterを取得できるように
-                        hiddenでuser2に保存してあるuserNameを格納 --%>
+                        hiddenでuserに保存してあるuserNameを格納 --%>
 						<input class="form-control" type="text"
-						name="userName" value="${user2.userName}" size="20" /></td>
+						name="userName" value="${user.userName}" size="20" /></td>
 					</tr>
 					<tr>
 						<%-- sessionに保存したiconを表示 --%>
@@ -67,9 +67,9 @@
 						<td class="text-left">
 						<%--
                         ChangeUerInformationでparamaterを取得できるように
-                        hiddenでuser2に保存してあるprofileを格納 --%>
+                        hiddenでuserに保存してあるprofileを格納 --%>
 						<input class="form-control" type="text"
-							name="profile" value="${user2.profile}" size="20" /></td>
+							name="profile" value="${user.profile}" size="20" /></td>
 					</tr>
 					<tr>
 						<%--CUIservletに情報送信 --%>

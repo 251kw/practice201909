@@ -33,11 +33,11 @@ public class UserInformation extends HttpServlet {
 
 
 		//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
-				HttpSession session2 = request.getSession();//sessionインスタンスを作成
-				UserDTO user2 = dbm.getChangeUser2(userName);// userNameを受け取り、userに情報を格納。
+				HttpSession session = request.getSession();//sessionインスタンスを作成
+				UserDTO user = dbm.getChangeUser2(userName);// userNameを受け取り、userに情報を格納。
 
-				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
-				session2.setAttribute("user2", user2);
+				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuserとして保存
+				session.setAttribute("user", user);
 
 				// ChangeUserInformation.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");

@@ -6,16 +6,18 @@ public class ShoutDTO {
 	private String icon;		// ユーザアイコン
 	private String date;		// 書き込み日時
 	private String writing;		// 書き込み内容
+	private String loginId;
 
 	public ShoutDTO() {
 
 	}
 
-	public ShoutDTO(String userName, String icon, String date, String writing) {
+	public ShoutDTO(String loginId, String userName, String icon, String date, String writing) {
 		this.userName = userName;
 		this.icon = icon;
 		this.date = date;
 		this.writing = writing;
+		this.loginId = loginId;
 	}
 
 	// 各メンバ変数の getter および setter
@@ -49,5 +51,13 @@ public class ShoutDTO {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getLoginId() {
+		return loginId;
+	}
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 }

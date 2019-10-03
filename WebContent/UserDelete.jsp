@@ -66,9 +66,9 @@
                             <input type="hidden" name="icon" value="${user3.icon}"> <input
                             type="hidden" name="profile" value="${user3.profile}">
                             <%-- 確認ボタン --%>
-                            <button type="submit" name="btn" class="btn btn-right"
+                            <button type="submit" name="btn" class="btn btn-right btn-sm"
                                 value="はい">はい</button>
-                            <button type="submit" name="btn" class="btn btn-left"
+                            <button type="submit" name="btn" class="btn btn-left btn-sm"
                                 value="いいえ">いいえ</button></th>
 
                     </tr>

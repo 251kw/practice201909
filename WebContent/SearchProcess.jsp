@@ -34,7 +34,7 @@
 				<%--繰り返し --%>
 				<c:forEach var="user" items="${searchlist}">
 					<tr>
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox" name="${user.userName}"></td>
 						<td><font size="3"><span
 								class="${user.icon} pe-3x pe-va"></span></font></td>
 						<td><label><font size="4">${user.userName}</font></label></td>
