@@ -34,7 +34,7 @@
 					<tr>
 						<th><strong class="color-main">アイコンで検索</strong></th>
 						<td><select name="icon" class="form-control">
-						        <option value="icon">アイコンを選んでください
+						        <option value="">アイコンを選んでください
 								<option value="icon-user">男
 								<option value="icon-user-female">女
 								<option value="icon-bell">ベル

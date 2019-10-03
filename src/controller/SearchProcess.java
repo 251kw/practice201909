@@ -40,7 +40,7 @@ public class SearchProcess extends HttpServlet {
 		DBManager dbm = new DBManager();//DBMのインスタンスを生成
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 
-		if (userName.equals("") && icon.equals("icon") && profile.equals("")) {
+		if (userName.equals("") && icon.equals("") && profile.equals("")) {
 			// 検索欄未入力なら
 			message = "検索ワードを入力してください";
 

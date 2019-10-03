@@ -221,7 +221,7 @@ public class DBManager extends SnsDAO {
 			String searchWord3 = profile;
 
 			// SELECT 文の実行
-			String sql = "SELECT * FROM users WHERE userName LIKE '" + searchWord + "%' AND icon LIKE= '"+searchWord2+ "%' AND profile LIKE '"+searchWord3+"%'";
+			String sql = "SELECT * FROM users WHERE userName LIKE '" + searchWord + "%' AND icon LIKE '%"+searchWord2+ "' AND profile LIKE '"+searchWord3+"%'";
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery(sql);
 
