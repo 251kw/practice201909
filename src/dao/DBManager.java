@@ -79,6 +79,7 @@ public class DBManager extends SnsDAO {
 			while (rset.next()) {
 				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
+				shout.setShoutsId(rset.getString(1));
 				shout.setLoginId(rset.getString(2));
 				shout.setUserName(rset.getString(3));
 				shout.setIcon(rset.getString(4));
@@ -435,6 +436,45 @@ public class DBManager extends SnsDAO {
 					}
 
 					return user2;
+				}
+				// shoutIdを受け取り、shoutテーブルに一致したものがあるか検索(登録情報変更時)
+				public ShoutDTO getshout(String shoutsId) {
+					Connection conn = null; // データベース接続情報
+					PreparedStatement pstmt = null; // SQL 管理情報
+					ResultSet rset = null; // 検索結果
+					ShoutDTO shout = null; // 登録ユーザ情報
+
+					String searchWord = shoutsId;
+					try {
+						// データベース接続情報取得
+						conn = getConnection();
+
+						// SELECT 文の登録と実行
+						String sql = "SELECT * FROM shouts WHERE shoutsId=" + searchWord + "";
+						pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+						rset = pstmt.executeQuery();
+
+						// 検索結果があれば
+						if (rset.next()) {
+							// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+							shout = new ShoutDTO();
+							shout.setShoutsId(rset.getString(1));
+							shout.setLoginId(rset.getString(2));
+							shout.setUserName(rset.getString(3));
+							shout.setIcon(rset.getString(4));
+							shout.setDate(rset.getString(5));
+							shout.setWriting(rset.getString(6));
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						// データベース切断処理
+						close(rset);
+						close(pstmt);
+						close(conn);
+					}
+
+					return shout;
 				}
 
 }

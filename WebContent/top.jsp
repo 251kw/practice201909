@@ -89,7 +89,7 @@
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- リストにある要素の数だけ繰り返し --%>
 			<c:forEach var="shout" items="${shouts}">
-				<form action="./D" method="post">
+				<form action="./SD" method="post">
 					<table class="table table-striped table-bordered">
 						<tr>
 							<td rowspan="2" class="text-center"><span
@@ -105,10 +105,11 @@
 						</tr>
 						<tr>
 							<c:if test="${user.loginId==shout.loginId}" var="flg">
-								<input type="hidden" name="shoutId" value="${shout.shoutId}">
-								<td><input class="btn btn-sm btn-error" type="submit" value="削除"></td>
+								<input type="hidden" name="shoutsId" value="${shout.shoutsId}">
+								<td><input class="btn btn-sm btn-error" type="submit"
+									value="削除"></td>
 							</c:if>
-							</tr>
+						</tr>
 					</table>
 				</form>
 			</c:forEach>

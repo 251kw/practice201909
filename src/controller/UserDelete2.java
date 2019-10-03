@@ -27,15 +27,12 @@ public class UserDelete2 extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*String loginId = request.getParameter("loginId");
-		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();*/
+
 		HttpSession session = request.getSession();
 		HttpSession session3 = request.getSession();
 
 		RequestDispatcher dispatcher = null;
 
-		/*searchlist.remove(searchlist.indexOf(loginId));
-		*/
 		UserDTO user = (UserDTO)session.getAttribute("user");
 		UserDTO user3 = (UserDTO)session3.getAttribute("user3");
 

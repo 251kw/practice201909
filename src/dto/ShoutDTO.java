@@ -2,6 +2,7 @@ package dto;
 
 // 書き込み内容を保持するクラス
 public class ShoutDTO {
+	private String shoutsId;
 	private String userName;	// ユーザ名
 	private String icon;		// ユーザアイコン
 	private String date;		// 書き込み日時
@@ -12,12 +13,13 @@ public class ShoutDTO {
 
 	}
 
-	public ShoutDTO(String loginId, String userName, String icon, String date, String writing) {
+	public ShoutDTO( String userName, String icon, String date, String writing, String loginId, String shoutsId) {
 		this.userName = userName;
 		this.icon = icon;
 		this.date = date;
 		this.writing = writing;
 		this.loginId = loginId;
+		this.shoutsId = shoutsId;
 	}
 
 	// 各メンバ変数の getter および setter
@@ -59,5 +61,13 @@ public class ShoutDTO {
 
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
+	}
+
+	public String getShoutsId() {
+		return shoutsId;
+	}
+
+	public void setShoutsId(String shoutsId) {
+		this.shoutsId = shoutsId;
 	}
 }
