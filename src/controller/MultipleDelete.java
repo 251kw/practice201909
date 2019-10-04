@@ -39,9 +39,7 @@ public class MultipleDelete extends HttpServlet {
 		String a = request.getParameter("delete");
 
 		DBManager dbm = new DBManager();
-		UserDTO user = new UserDTO();
 
-		ArrayList<UserDTO> list = new ArrayList<>();
 		ArrayList<UserDTO> deleteUsers = new ArrayList<>();
 		HttpSession session = request.getSession();
 
@@ -50,12 +48,8 @@ public class MultipleDelete extends HttpServlet {
 
 			String checked[] = request.getParameterValues("deletes");
 
-			for(String deleteLoginId : checked) {
-				user.setLoginId(deleteLoginId);
-				list.add(user);
-			}
 
-			deleteUsers = dbm.getUsersInformation(list);
+			deleteUsers = dbm.getUsersInformation(checked);
 
 			session.setAttribute("deleteList", deleteUsers);
 
@@ -65,18 +59,21 @@ public class MultipleDelete extends HttpServlet {
 
 		}else {
 
-			ArrayList<UserDTO> list2 = new ArrayList<>();
 
-			UserDTO user2 = (UserDTO)session.getAttribute("deleteList");
+			ArrayList<UserDTO> list = new ArrayList<>();
 
+
+			list = (ArrayList<UserDTO>)session.getAttribute("deleteList");
 
 			try {
-
-				dbm.multipleDelete(list2);
+				dbm.multipleDelete(list);
 
 				} catch (SQLException e) {
 				e.printStackTrace();
+
 			}
+
+
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("MultipleDeleteComplete.jsp");
 			dispatch.forward(request, response);

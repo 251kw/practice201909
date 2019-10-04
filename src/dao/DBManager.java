@@ -350,25 +350,26 @@ public class DBManager extends SnsDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
-		for (UserDTO deleteLoginId : deleteList) {
-
-			String delete = deleteLoginId.getLoginId();
 
 			try {
-				conn = getConnection();
-				//インサート分の実行
-				String sql = "DELETE FROM users WHERE loginId=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, delete);
+				for (UserDTO deleteLoginId : deleteList) {
 
-				pstmt.executeUpdate();
+					String delete = deleteLoginId.getLoginId();
+
+					conn = getConnection();
+					//インサート分の実行
+					String sql = "DELETE FROM users WHERE loginId=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, delete);
+
+					pstmt.executeUpdate();
+				}
 
 			} finally {
 				// データベース切断処理
 				close(conn);
 				close(pstmt);
 			}
-		}
 
 	}
 
@@ -1091,7 +1092,7 @@ public class DBManager extends SnsDAO {
 	}
 
 	//複数のユーザーIDを受け取って、それぞれの情報をリストで返す
-	public ArrayList<UserDTO> getUsersInformation(ArrayList<UserDTO> deleteList) {
+	public ArrayList<UserDTO> getUsersInformation(String[] deletes) {
 		Connection conn = null;            // データベース接続情報
 		PreparedStatement pstmt = null;    // SQL 管理情報
 		ResultSet rset = null;             // 検索結果
@@ -1106,16 +1107,15 @@ public class DBManager extends SnsDAO {
 				// データベース接続情報取得
 				conn = getConnection();
 
-				for (UserDTO deleteLoginId : deleteList) {
+				for (String deleteLoginId : deletes) {
 
-					String delete = deleteLoginId.getLoginId();
 					// SELECT 文の登録と実行
 					pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
-					pstmt.setString(1, delete);
+					pstmt.setString(1, deleteLoginId);
 					rset = pstmt.executeQuery();
 
 					// 検索結果があれば
-					while(rset.next()) {
+					if(rset.next()) {
 						user = new UserDTO();
 						user.setUserId(rset.getString(1));
 						user.setLoginId(rset.getString(2));
@@ -1126,7 +1126,7 @@ public class DBManager extends SnsDAO {
 
 						list.add(user);
 					}
-			}
+				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
