@@ -68,18 +68,7 @@
 			</form>
 
 			<%--戻るボタンを押したとき、Change.jspに転送し、Hiddenでパラメータを渡す --%>
-			<form action="ChangeBack" class="text-center" method="post">
-
-				<input type="hidden" name="changeUserLoginId" value="${changeUserLoginId}">
-				<input type="hidden" name="userId" value="${userId}">
-				<input type="hidden" name="loginIdChange" value="${loginId}">
-				<input type="hidden" name="passwordChange" value="${password}">
-				<input type="hidden" name="userNameChange" value="${userName}">
-				<input type="hidden" name="icon" value="${param.icon}">
-				<input type="hidden" name="profileChange" value="${profile}">
-
-				<input type="submit" value="戻る" class="btn">
-			</form>
+			<input type="button" class="btn" value="戻る" onClick="history.back()">
 		</div>
 	</div>
 </body>
