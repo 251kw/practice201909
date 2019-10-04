@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.ShoutDTO;
+import dto.UserDTO;
 
 /**
  * Servlet implementation class Top
@@ -26,35 +28,25 @@ public class Top extends HttpServlet {
 
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
-
-		String nowLoginId = request.getParameter("nowLoginId");
-		String nowLoginUser = request.getParameter("nowLoginUser");
-		String nowLoginUserId = request.getParameter("nowLoginUserId");
-		String nowLoginProfile = request.getParameter("nowLoginProfile");
-		String nowLoginIcon = request.getParameter("nowLoginIcon");
-		String nowLoginPassword = request.getParameter("nowLoginPassword");
-
-		request.setAttribute("nowLoginId", nowLoginId);
-		request.setAttribute("nowLoginUser", nowLoginUser);
-		request.setAttribute("nowLoginUserId", nowLoginUserId);
-		request.setAttribute("nowLoginProfile", nowLoginProfile);
-		request.setAttribute("nowLoginIcon", nowLoginIcon);
-		request.setAttribute("nowLoginPassword", nowLoginPassword);
-
-
-
 		DBManager dbm = new DBManager();
+
+		//セッションオブジェクトの生成
+		HttpSession session = request.getSession();
+
+		String userId = (String)session.getAttribute("userId");
+
+		UserDTO user = dbm.getLoginUserAgain(userId);
+
+		session.setAttribute("user", user);
+
 		ArrayList<ShoutDTO> shoutsList = new ArrayList<>();
 
 		shoutsList = dbm.getShoutList();
 
-		request.setAttribute("shouts", shoutsList);
+		session.setAttribute("shouts", shoutsList);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
 		dispatch.forward(request, response);
-
-
-
 
 	}
 
@@ -66,28 +58,26 @@ public class Top extends HttpServlet {
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
-		String nowLoginId = request.getParameter("nowLoginId");
-		String nowLoginUser = request.getParameter("nowLoginUser");
-		String nowLoginUserId = request.getParameter("nowLoginUserId");
-		String nowLoginProfile = request.getParameter("nowLoginProfile");
-		String nowLoginIcon = request.getParameter("nowLoginIcon");
-		String nowLoginPassword = request.getParameter("nowLoginPassword");
-
-		request.setAttribute("nowLoginId", nowLoginId);
-		request.setAttribute("nowLoginUser", nowLoginUser);
-		request.setAttribute("nowLoginUserId", nowLoginUserId);
-		request.setAttribute("nowLoginProfile", nowLoginProfile);
-		request.setAttribute("nowLoginIcon", nowLoginIcon);
-		request.setAttribute("nowLoginPassword", nowLoginPassword);
-
-
-
 		DBManager dbm = new DBManager();
+
+		//セッションオブジェクトの生成
+		HttpSession session = request.getSession();
+
+		UserDTO user = (UserDTO)session.getAttribute("user");
+
+		String userId = user.getUserId();
+
+		user = dbm.getLoginUserAgain(userId);
+
+		session.setAttribute("user", user);
+
+
+
 		ArrayList<ShoutDTO> shoutsList = new ArrayList<>();
 
 		shoutsList = dbm.getShoutList();
 
-		request.setAttribute("shouts", shoutsList);
+		session.setAttribute("shouts", shoutsList);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
 		dispatch.forward(request, response);

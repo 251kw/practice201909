@@ -28,24 +28,17 @@
 				下記ユーザーを削除します
 
 				<table class="table table-bordered">
-				<c:forEach var="name" items="${deleteList}">
+				<c:forEach var="user" items="${deleteList}">
 					<tr>
 						<td rowspan="2" class="text-center"><span
-							class="${name.icon} pe-3x pe-va"></span></td>
-						<td width="256">${name.userName}</td>
+							class="${user.icon} pe-3x pe-va"></span></td>
+						<td width="256">${user.userName}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${name.profile}</td>
+						<td colspan="2">${user.profile}</td>
 					</tr>
 				</c:forEach>
 				</table>
-			    <input type="hidden" name="nowLoginId" value="${nowLoginId}">
-			    <input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
-			    <input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
-			    <input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
-			    <input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
-			    <input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
-
 			   	<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>

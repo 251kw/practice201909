@@ -22,7 +22,7 @@
 	%>
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-			<form action="index.jsp" method="get">
+			<form action="logout" method="get">
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記ユーザーを削除しました
 				<table class="table">

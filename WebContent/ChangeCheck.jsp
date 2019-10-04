@@ -62,14 +62,6 @@
 					<input type="hidden" name="icon" value="${icon}">
 					<input type="hidden" name="profile" value="${profile}">
 
-					<input type="hidden" name="nowLoginId" value="${nowLoginId}">
-					<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
-					<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
-					<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
-					<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
-					<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
-
-
 					<input type="submit" value="OK" class="btn btn-warning"></td>
 				</tr>
 				</table>
@@ -85,13 +77,6 @@
 				<input type="hidden" name="userNameChange" value="${userName}">
 				<input type="hidden" name="icon" value="${param.icon}">
 				<input type="hidden" name="profileChange" value="${profile}">
-
-				<input type="hidden" name="nowLoginId" value="${nowLoginId}">
-				<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
-				<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
-				<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
-				<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
-				<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
 
 				<input type="submit" value="戻る" class="btn">
 			</form>

@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
+import dto.UserDTO;
 
 @WebServlet("/bbs")
 public class BbsServlet extends HttpServlet {
@@ -28,12 +30,14 @@ public class BbsServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String writing = request.getParameter("shout");
 
-		String nowLoginId = request.getParameter("nowLoginId");
-		String nowLoginUser = request.getParameter("nowLoginUser");
-		String nowLoginUserId = request.getParameter("nowLoginUserId");
-		String nowLoginProfile = request.getParameter("nowLoginProfile");
-		String nowLoginIcon = request.getParameter("nowLoginIcon");
-		String nowLoginPassword = request.getParameter("nowLoginPassword");
+		//セッションオブジェクトの生成
+		HttpSession session = request.getSession();
+
+		UserDTO user = (UserDTO)session.getAttribute("user");
+
+		String loginId = user.getLoginId();
+		String userName = user.getUserName();
+		String icon = user.getIcon();
 
 		DBManager dbm = new DBManager();
 
@@ -42,15 +46,8 @@ public class BbsServlet extends HttpServlet {
 		// 書き込み内容があれば、リストに追加
 		if (!writing.equals("")) {
 
-			dbm.setWriting(nowLoginId, nowLoginUser, nowLoginIcon, writing);
+			dbm.setWriting(loginId, userName, icon, writing);
 			}
-
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 		// top.jsp に処理を転送
 		dispatcher = request.getRequestDispatcher("Top");

@@ -27,10 +27,11 @@
 		<div style="width: 40%" class="container padding-y-5">
 				検索結果<span class="icon-search text-cenyer"></span><br>
 
-			  <form action="UserEdit" method="post">
+			  <form action="MultipleDelete" method="post">
 				<table border="1" class="table text-center">
 
 			        <tr>
+			        <!-- 表の見出し -->
 			        	<th><div class="text-center"><h5>No.</h5></div></th>
 			            <th><div class="text-center"><h5>ユーザー名</h5></div></th>
 			            <th><div class="text-center"><h5>ログインID</h5></div></th>
@@ -38,26 +39,18 @@
 			            <th><div class="text-center"><h5>削除</h5></div></th>
 			            <th><div class="text-center"><h5><input type="checkbox" name="allSelect"></h5></div></th>
 			        </tr>
+			        <!-- 名前とログインIDを表示する -->
+
 			        <c:forEach var="name" items="${searchResult}" varStatus="status">
 			        	<tr>
 				        	<td><c:out value="${status.count}"></c:out>
 				            <td>${name.userName}</td>
 				            <td>${name.loginId}</td>
 				            <td>
-				            <input type="hidden" name="nowLoginId" value="${nowLoginId}">
-				            <input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
-				            <input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
-				            <input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
-				            <input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
-				            <input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
-
-				            <input type="hidden" name="loginId" value="${name.loginId}">
-
-
-				            <input type="submit" name="change" class="btn btn-sm" value="編集"></td>
+							<a href="UserEdit?loginId=${name.loginId}" class="btn btn-sm">編集</a>
 
 			            <td>
-			           <input type="submit" name="delete" class="btn btn-error btn-sm" value="削除"></td>
+			            <a href="UserDelete?loginId=${name.loginId}" class="btn btn-error btn-sm">削除</a>
 
 			            <td>
 			            <input type="checkbox" name="deletes" value="${name.loginId}"><br>
@@ -68,7 +61,16 @@
 
 				</table>
 				<div class="padding-y-5 text-right">
-					<input type="submit" name="multipleDelete" class="btn btn-error btn-sm" value="まとめて削除"></div>
+					<c:choose>
+					<c:when test="${requestScope.alert != null && requestScope.alert != ''}">
+						<%-- リクエストスコープの alert の値を出力 --%>
+						<div  class="color-error text-left">
+						<c:out value="${requestScope.alert}" /></div>
+					</c:when>
+					<c:otherwise>
+					<input type="hidden" name="delete" value="delete">
+					<input type="submit" name="multipleDelete" class="btn btn-error btn-sm" value="まとめて削除"></c:otherwise></c:choose></div>
+
 			    </form>
 
 

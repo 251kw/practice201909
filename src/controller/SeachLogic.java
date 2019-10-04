@@ -35,14 +35,7 @@ public class SeachLogic extends HttpServlet {
 		String profileSearch = request.getParameter("profileSearch");
 		String iconSearch = request.getParameter("icon");
 
-		//現在のログインユーザーの情報受け渡し
-		String nowLoginId = request.getParameter("nowLoginId");
-		String nowLoginUser = request.getParameter("nowLoginUser");
-		String nowLoginUserId = request.getParameter("nowLoginUserId");
-		String nowLoginProfile = request.getParameter("nowLoginProfile");
-		String nowLoginIcon = request.getParameter("nowLoginIcon");
-		String nowLoginPassword = request.getParameter("nowLoginPassword");
-
+		String message = "検索結果はありませんでした";
 
 		//DBManagerのオブジェクト生成
 		DBManager dbm = new DBManager();
@@ -53,19 +46,23 @@ public class SeachLogic extends HttpServlet {
 
 			//listにuserNameSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.userNameSearch(userNameSearch);
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
 
-			//SearchResultへ転送
-			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
-			dispatch.forward(request, response);
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+
+			}else {
+				request.setAttribute("searchResult", list);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}
 
 			//ログインIdだけで検索された場合
 		}else if (!(StringUtils.isNullOrEmpty(loginIdSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
@@ -74,19 +71,23 @@ public class SeachLogic extends HttpServlet {
 			//listにloginIdSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.loginIdSearch(loginIdSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+
+			}
 			//自己紹介だけで検索された場合
 
 		}else if (!(StringUtils.isNullOrEmpty(profileSearch)) && StringUtils.isNullOrEmpty(userNameSearch)
@@ -95,19 +96,23 @@ public class SeachLogic extends HttpServlet {
 			//listにprofileSearchで戻ってきたリストを代入
 			ArrayList<UserDTO> list = dbm.profileSearch(profileSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//アイコンだけで検索された場合
 			}else if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch)
@@ -115,19 +120,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.iconSearch(iconSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//ユーザー名とログインIdで検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
@@ -135,19 +144,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.nameIdSearch(userNameSearch, loginIdSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//ユーザー名とアイコンで検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(iconSearch.equals("null"))
@@ -155,19 +168,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.nameIconSearch(userNameSearch, iconSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//自己紹介とアイコンで検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(profileSearch)) && !(iconSearch.equals("null"))
@@ -175,19 +192,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.proIconSearch(profileSearch, iconSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//ログインIDと自己紹介で検索された場合
 
@@ -196,19 +217,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.idProSearch(loginIdSearch, profileSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//IDとアイコンで検索された場合
 
@@ -217,20 +242,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.idIconSearch(loginIdSearch, iconSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
-
+			}
 
 			//アイコンとIDと自己紹介で検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
@@ -238,19 +266,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.idProIconSearch(loginIdSearch, profileSearch, iconSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//アイコンとユーザー名と自己紹介で検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
@@ -258,19 +290,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.nameIconProSearch(userNameSearch,iconSearch, profileSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//Idとアイコンとユーザー名で検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(loginIdSearch)) && !(iconSearch.equals("null"))
@@ -278,19 +314,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.idIconNameSearch(loginIdSearch, iconSearch, userNameSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//ユーザー名と自己紹介で検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(profileSearch))
@@ -298,19 +338,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.nameProSearch(userNameSearch, profileSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//ユーザー名とログインIdと自己紹介とアイコンで検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
@@ -318,19 +362,24 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.nameIdProIconSearch(userNameSearch, loginIdSearch, profileSearch, iconSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+
+			}
 
 			//ユーザー名とログインIdと自己紹介で検索された場合
 		}else if(!(StringUtils.isNullOrEmpty(userNameSearch)) && !(StringUtils.isNullOrEmpty(loginIdSearch))
@@ -338,19 +387,23 @@ public class SeachLogic extends HttpServlet {
 
 			ArrayList<UserDTO> list = dbm.nameIdProSearch(userNameSearch, loginIdSearch, profileSearch);
 
-			request.setAttribute("searchResult", list);
+			if(list.size() == 0) {
 
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+				request.setAttribute("alert", message);
+
+				//SearchResultへ転送
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
+
+			}else {
+
+
+			request.setAttribute("searchResult", list);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
 			dispatch.forward(request, response);
+			}
 
 			//全て空欄だった場合、全件出力
 		}else if(StringUtils.isNullOrEmpty(userNameSearch) && StringUtils.isNullOrEmpty(loginIdSearch)
@@ -359,14 +412,6 @@ public class SeachLogic extends HttpServlet {
 			ArrayList<UserDTO> list = dbm.allSearch();
 
 			request.setAttribute("searchResult", list);
-
-			//現在のログインユーザーの情報受け渡し
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 			//SearchResultへ転送
 			RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");

@@ -58,12 +58,6 @@
 						<%--変更内容で再ログインしてトップに戻る--%>
 						<td colspan="2" class="text-center">
 
-						<input type="hidden" name="nowLoginId" value="${nowLoginId}">
-						<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
-						<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
-						<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
-						<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
-						<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
 						<input type="submit"value="トップへ戻る" class="btn btn-warning"></td>
 					</tr>
 				</table>

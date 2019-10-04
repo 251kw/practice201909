@@ -56,6 +56,49 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
+	//ユーザーIDから最新のログイン情報を取り出す
+	public UserDTO getLoginUserAgain(String userId) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		String sql = "SELECT * FROM users WHERE userId=?";
+		UserDTO user = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setUserId(rset.getString(1));
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
+	}
+
+
+
 	//loginIdの重複チェックメソッド
 	public boolean registerCheck(String loginId) {
 		Connection conn = null; // データベース接続情報
@@ -159,6 +202,30 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 		}
 	}
+
+
+	//該当の人の叫びを全て削除
+	public void deleteUserShouts(String loginId) throws SQLException {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+			//インサート分の実行
+			String sql = "DELETE FROM shouts WHERE loginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+
+			pstmt.executeUpdate();
+
+		} finally {
+			// データベース切断処理
+			close(conn);
+			close(pstmt);
+		}
+	}
+
 
 
 

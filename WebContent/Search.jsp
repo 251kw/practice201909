@@ -29,9 +29,9 @@
 	</div>
 	<div class="padding-y-5 text-left">
 		<div style="width: 40%" class="container padding-y-5 text-left">
+		検索条件<span class="icon-search"></span>
 			<form action="SeachLogic" method="get">
 				<table class="table">
-					検索条件<span class="icon-search"></span>
 					<tr><td>ユーザー名</td><td><input type="text" size="40" name="userNameSearch" class="form-control"></td></tr>
 					<tr><td>ユーザーID</td><td><input type="text" size="40" name="loginIdSearch" class="form-control"></td></tr>
 					<tr><td>自己紹介</td><td><input type="text" size="40" name="profileSearch" class="form-control"></td></tr>
@@ -41,14 +41,6 @@
 					<label class="fancy-radio"><input type="radio" name="icon" value="icon-user-female"><span>女性</span></label>
 					<label class="fancy-radio"><input type="radio" name="icon" value="icon-bell" ><span>ベル</span></label></td></tr>
 				</table>
-
-					<input type="hidden" name="nowLoginId" value="${param.nowLoginId}">
-					<input type="hidden" name="nowLoginUser" value="${param.nowLoginUser}">
-					<input type="hidden" name="nowLoginUserId" value="${param.nowLoginUserId}">
-					<input type="hidden" name="nowLoginProfile" value="${param.nowLoginProfile}">
-					<input type="hidden" name="nowLoginIcon" value="${param.nowLoginIcon}">
-					<input type="hidden" name="nowLoginPassword" value="${param.nowLoginPassword}">
-
 
 				<div class="padding-y-5 text-right"><input class="btn btn-success" type="submit" value="検索" /></div>
 			</form>

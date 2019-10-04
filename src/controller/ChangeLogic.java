@@ -40,14 +40,6 @@ public class ChangeLogic extends HttpServlet {
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
 
-		String nowLoginId = request.getParameter("nowLoginId");
-		String nowLoginUser = request.getParameter("nowLoginUser");
-		String nowLoginUserId = request.getParameter("nowLoginUserId");
-		String nowLoginProfile = request.getParameter("nowLoginProfile");
-		String nowLoginIcon = request.getParameter("nowLoginIcon");
-		String nowLoginPassword = request.getParameter("nowLoginPassword");
-
-
 		try {
 			DBManager dbm = new DBManager();
 			dbm.change(loginId, userName, password, icon, profile, userId);
@@ -61,14 +53,6 @@ public class ChangeLogic extends HttpServlet {
 		request.setAttribute("password", password);
 		request.setAttribute("icon", icon);
 		request.setAttribute("profile", profile);
-
-		request.setAttribute("nowLoginId", nowLoginId);
-		request.setAttribute("nowLoginUser", nowLoginUser);
-		request.setAttribute("nowLoginUserId", nowLoginUserId);
-		request.setAttribute("nowLoginProfile", nowLoginProfile);
-		request.setAttribute("nowLoginIcon", nowLoginIcon);
-		request.setAttribute("nowLoginPassword", nowLoginPassword);
-
 
 		//ChangeComplete.jspに転送
 		RequestDispatcher dispatch = request.getRequestDispatcher("ChangeComplete.jsp");

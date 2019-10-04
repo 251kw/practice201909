@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.ShoutDTO;
@@ -21,6 +22,9 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
+
+		//セッションオブジェクトの生成
+		HttpSession session = request.getSession();
 
 		//Compleat系からのアクセスか判定
 		String a = request.getParameter("Compleat");
@@ -35,27 +39,14 @@ public class LoginServlet extends HttpServlet {
 			DBManager dbm = new DBManager();
 			UserDTO user = dbm.getLoginUser(loginId, password);
 
-
+			//セッションにユーザー情報を登録
+			session.setAttribute("user", user);
 
 			// ユーザ情報を取得できたら、書き込み内容リストを取得
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
 
 			// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-			request.setAttribute("shouts", list);
-
-			String nowLoginId = user.getLoginId();
-			String nowLoginUser = user.getUserName();
-			String nowLoginUserId = user.getUserId();
-			String nowLoginProfile = user.getProfile();
-			String nowLoginIcon = user.getIcon();
-			String nowLoginPassword = user.getPassword();
-
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
+			session.setAttribute("shouts", list);
 
 
 			// 処理の転送先を top.jsp に指定
@@ -75,6 +66,9 @@ public class LoginServlet extends HttpServlet {
 
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
+
+		//セッションオブジェクトの生成
+		HttpSession session = request.getSession();
 
 
 		//ログインIdとパスワードをパラメータから受け取る
@@ -103,22 +97,8 @@ public class LoginServlet extends HttpServlet {
 				ArrayList<ShoutDTO> list = dbm.getShoutList();
 
 				// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-				request.setAttribute("shouts", list);
-
-				String nowLoginId = user.getLoginId();
-				String nowLoginUser = user.getUserName();
-				String nowLoginUserId = user.getUserId();
-				String nowLoginProfile = user.getProfile();
-				String nowLoginIcon = user.getIcon();
-				String nowLoginPassword =user.getPassword();
-
-				request.setAttribute("nowLoginId", nowLoginId);
-				request.setAttribute("nowLoginUser", nowLoginUser);
-				request.setAttribute("nowLoginUserId", nowLoginUserId);
-				request.setAttribute("nowLoginProfile", nowLoginProfile);
-				request.setAttribute("nowLoginIcon", nowLoginIcon);
-				request.setAttribute("nowLoginPassword", nowLoginPassword);
-
+				session.setAttribute("user", user);
+				session.setAttribute("shouts", list);
 
 				// 処理の転送先を top.jsp に指定
 				dispatcher = request.getRequestDispatcher("top.jsp");

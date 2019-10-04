@@ -44,13 +44,6 @@ public class Change extends HttpServlet {
 		String icon =request.getParameter("icon");
 		String profile = request.getParameter("profile");
 
-		String nowLoginId = request.getParameter("nowLoginId");
-		String nowLoginUser = request.getParameter("nowLoginUser");
-		String nowLoginUserId = request.getParameter("nowLoginUserId");
-		String nowLoginProfile = request.getParameter("nowLoginProfile");
-		String nowLoginIcon = request.getParameter("nowLoginIcon");
-		String nowLoginPassword = request.getParameter("nowLoginPassword");
-
 		String message = null;
 
 		//入力チェック
@@ -65,13 +58,6 @@ public class Change extends HttpServlet {
 			request.setAttribute("passwordChange", password);
 			request.setAttribute("iconChange", icon);
 			request.setAttribute("profileChange", profile);
-
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
@@ -89,14 +75,6 @@ public class Change extends HttpServlet {
 			request.setAttribute("iconChange", icon);
 			request.setAttribute("profileChange", profile);
 
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
-
-
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
@@ -113,15 +91,6 @@ public class Change extends HttpServlet {
 			request.setAttribute("iconChange", icon);
 			request.setAttribute("profileChange", profile);
 
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
-
-
-
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
 			dispatch.forward(request, response);
 
@@ -137,14 +106,6 @@ public class Change extends HttpServlet {
 			request.setAttribute("passwordChange", password);
 			request.setAttribute("iconChange", icon);
 			request.setAttribute("loginIdChange", loginId);
-
-			request.setAttribute("nowLoginId", nowLoginId);
-			request.setAttribute("nowLoginUser", nowLoginUser);
-			request.setAttribute("nowLoginUserId", nowLoginUserId);
-			request.setAttribute("nowLoginProfile", nowLoginProfile);
-			request.setAttribute("nowLoginIcon", nowLoginIcon);
-			request.setAttribute("nowLoginPassword", nowLoginPassword);
-
 
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
@@ -167,14 +128,6 @@ public class Change extends HttpServlet {
 				request.setAttribute("icon", icon);
 				request.setAttribute("profile", profile);
 
-				request.setAttribute("nowLoginId", nowLoginId);
-				request.setAttribute("nowLoginUser", nowLoginUser);
-				request.setAttribute("nowLoginUserId", nowLoginUserId);
-				request.setAttribute("nowLoginProfile", nowLoginProfile);
-				request.setAttribute("nowLoginIcon", nowLoginIcon);
-				request.setAttribute("nowLoginPassword", nowLoginPassword);
-
-
 				//ChangeCheck.jspに転送
 				RequestDispatcher dispatch = request.getRequestDispatcher("ChangeCheck.jsp");
 				dispatch.forward(request, response);
@@ -194,14 +147,6 @@ public class Change extends HttpServlet {
 					request.setAttribute("icon", icon);
 					request.setAttribute("profile", profile);
 
-					request.setAttribute("nowLoginId", nowLoginId);
-					request.setAttribute("nowLoginUser", nowLoginUser);
-					request.setAttribute("nowLoginUserId", nowLoginUserId);
-					request.setAttribute("nowLoginProfile", nowLoginProfile);
-					request.setAttribute("nowLoginIcon", nowLoginIcon);
-					request.setAttribute("nowLoginPassword", nowLoginPassword);
-
-
 					//ChangeCheck.jspに転送
 					RequestDispatcher dispatch = request.getRequestDispatcher("ChangeCheck.jsp");
 					dispatch.forward(request, response);
@@ -219,13 +164,6 @@ public class Change extends HttpServlet {
 					request.setAttribute("passwordChange", password);
 					request.setAttribute("iconChange", icon);
 					request.setAttribute("profileChange", profile);
-
-					request.setAttribute("nowLoginId", nowLoginId);
-					request.setAttribute("nowLoginUser", nowLoginUser);
-					request.setAttribute("nowLoginUserId", nowLoginUserId);
-					request.setAttribute("nowLoginProfile", nowLoginProfile);
-					request.setAttribute("nowLoginIcon", nowLoginIcon);
-					request.setAttribute("nowLoginPassword", nowLoginPassword);
 
 					//Change.jsｐに戻す
 					RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");

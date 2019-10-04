@@ -9,15 +9,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class UserEdit
+ * Servlet implementation class UserDelete
  */
-@WebServlet("/UserEdit")
-public class UserEdit extends HttpServlet {
+@WebServlet("/UserDelete")
+public class UserDelete extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,6 +28,8 @@ public class UserEdit extends HttpServlet {
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 		DBManager dbm = new DBManager();
+		HttpSession session = request.getSession();
+
 
 		String loginId = request.getParameter("loginId");
 
@@ -34,38 +37,41 @@ public class UserEdit extends HttpServlet {
 		ArrayList<UserDTO> userList = dbm.getUserInformation(loginId);
 
 		UserDTO user = userList.get(0);
-		String userId = user.getUserId();
-		String loginIdChange = user.getLoginId();
-		String passwordChange = user.getPassword();
-		String userNameChange = user.getUserName();
-		String iconChange = user.getIcon();
-		String profileChange = user.getProfile();
+		String loginIdDelete = user.getLoginId();
+		String userNameDelete = user.getUserName();
+		String iconDelete = user.getIcon();
+		String profileDelete = user.getProfile();
 
 		//値をセットアトリビュート
-		request.setAttribute("userId", userId);
-		request.setAttribute("loginIdChange", loginIdChange);
-		request.setAttribute("passwordChange", passwordChange);
-		request.setAttribute("iconChange", iconChange);
-		request.setAttribute("userNameChange", userNameChange);
-		request.setAttribute("profileChange", profileChange);
-		request.setAttribute("changeUserLoginId", loginIdChange);
+		request.setAttribute("loginId", loginIdDelete);
+		request.setAttribute("icon", iconDelete);
+		request.setAttribute("userName", userNameDelete);
+		request.setAttribute("profile", profileDelete);
 
 
+		//削除するユーザーと現在ログインしているユーザーが同じ場合LoginUserDelete.jspに飛ばす
+		UserDTO user1 = (UserDTO) session.getAttribute("user");
+		String nowLoginId = user1.getLoginId();
 
-		//Change.jspに転送
-		RequestDispatcher dispatch = request.getRequestDispatcher("Change.jsp");
+		if(loginId.equals(nowLoginId)) {
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("LoginUserDelete.jsp");
+			dispatch.forward(request, response);
+
+
+		}else {
+
+		//Delete.jspに転送
+		RequestDispatcher dispatch = request.getRequestDispatcher("Delete.jsp");
 		dispatch.forward(request, response);
 
-
-
+		}
 	}
-
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 	}
+
 }
