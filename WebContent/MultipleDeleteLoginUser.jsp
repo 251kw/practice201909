@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,12 +22,9 @@
 	%>
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-		<jsp:useBean id="deleteList" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
-			<form action="Top" method="get">
+			<form action="logout" method="get">
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記ユーザーを削除しました
-
-
 				<table class="table">
 				<c:forEach var="user" items="${deleteList}">
 					<tr>
@@ -37,7 +33,7 @@
 				</c:forEach>
 					<tr>
 						<td colspan="2" class="text-center">
-							<input type="submit"value="トップへ戻る" class="btn btn-warning">
+							<input type="submit"value="ログイン画面に戻る" class="btn btn-success">
 						</td>
 					</tr>
 				</table>

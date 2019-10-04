@@ -21,11 +21,11 @@ import dto.UserDTO;
 @WebServlet("/MultipleDelete")
 public class MultipleDelete extends HttpServlet {
 
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 	}
 
@@ -43,41 +43,85 @@ public class MultipleDelete extends HttpServlet {
 		ArrayList<UserDTO> deleteUsers = new ArrayList<>();
 		HttpSession session = request.getSession();
 
+		UserDTO user = (UserDTO)session.getAttribute("user");
+
+		String nowLogin = user.getLoginId();
+		String message ;
+
 
 		if("delete".equals(a)) {
 
-			String checked[] = request.getParameterValues("deletes");
+			String[] checked = request.getParameterValues("deletes");
+
+			if(checked.length == 0) {
+
+				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				dispatch.forward(request, response);
 
 
-			deleteUsers = dbm.getUsersInformation(checked);
+			}else {
 
-			session.setAttribute("deleteList", deleteUsers);
+				for(String id : checked) {
+					if(nowLogin.equals(id)) {
+						message = "削除した場合自動的にログアウトします。";
+						request.setAttribute("alert", message);
+					}
+				}
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("MultipleDeleteCheck.jsp");
-			dispatch.forward(request, response);
+					deleteUsers = dbm.getUsersInformation(checked);
+
+					session.setAttribute("deleteList", deleteUsers);
+
+					RequestDispatcher dispatch = request.getRequestDispatcher("MultipleDeleteCheck.jsp");
+					dispatch.forward(request, response);
+
+				}
 
 
 		}else {
 
+			String b = request.getParameter("userDelete");
 
-			ArrayList<UserDTO> list = new ArrayList<>();
+			if("userDelete".equals(b)) {
+
+				ArrayList<UserDTO> list = new ArrayList<>();
 
 
-			list = (ArrayList<UserDTO>)session.getAttribute("deleteList");
+				list = (ArrayList<UserDTO>)session.getAttribute("deleteList");
 
-			try {
-				dbm.multipleDelete(list);
+				try {
+					dbm.multipleDelete(list);
+
+					} catch (SQLException e) {
+					e.printStackTrace();
+
+					}
+
+				RequestDispatcher dispatch = request.getRequestDispatcher("MultipleDeleteLoginUser.jsp");
+				dispatch.forward(request, response);
+
+
+			} else {
+
+
+				ArrayList<UserDTO> list = new ArrayList<>();
+
+
+				list = (ArrayList<UserDTO>)session.getAttribute("deleteList");
+
+				try {
+					dbm.multipleDelete(list);
 
 				} catch (SQLException e) {
-				e.printStackTrace();
+					e.printStackTrace();
+
+				}
+
+
+				RequestDispatcher dispatch = request.getRequestDispatcher("MultipleDeleteComplete.jsp");
+				dispatch.forward(request, response);
 
 			}
-
-
-
-			RequestDispatcher dispatch = request.getRequestDispatcher("MultipleDeleteComplete.jsp");
-			dispatch.forward(request, response);
 		}
 	}
-
 }

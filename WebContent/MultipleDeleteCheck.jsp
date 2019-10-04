@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ page import="dto.UserDTO" %>
+<%@ page import="dto.UserDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -27,19 +27,28 @@
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記ユーザーを削除します
 
+					<c:if
+						test="${requestScope.alert != null && requestScope.alert != ''}">
+
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<div  class="color-error text-center">${user.userName}さんを<c:out
+									value="${requestScope.alert}" /></div>
+									<input type="hidden" name="userDelete" value="userDelete">
+							</c:if>
 				<table class="table table-bordered">
-				<c:forEach var="user" items="${deleteList}">
-					<tr>
-						<td rowspan="2" class="text-center"><span
-							class="${user.icon} pe-3x pe-va"></span></td>
-						<td width="256">${user.userName}</td>
-					</tr>
-					<tr>
-						<td colspan="2">${user.profile}</td>
-					</tr>
-				</c:forEach>
+
+					<c:forEach var="user" items="${deleteList}">
+						<tr>
+							<td rowspan="2" class="text-center"><span
+								class="${user.icon} pe-3x pe-va"></span></td>
+							<td width="256">${user.userName}</td>
+						</tr>
+						<tr>
+							<td colspan="2">${user.profile}</td>
+						</tr>
+					</c:forEach>
 				</table>
-			   	<input type="submit" value="削除" class="btn btn-warning">
+				<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>
 
@@ -47,7 +56,7 @@
 			<form>
 				<input type="button" class="btn" value="戻る" onClick="history.back()">
 			</form>
-					</div>
+		</div>
 	</div>
 </body>
 </html>
