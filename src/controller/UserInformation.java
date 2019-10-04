@@ -27,17 +27,17 @@ public class UserInformation extends HttpServlet {
 		}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String userName = request.getParameter("userName");//userName取得
+		String loginId = request.getParameter("loginId");//userName取得
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 
 
 		//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
 				HttpSession session = request.getSession();//sessionインスタンスを作成
-				UserDTO user = dbm.getChangeUser2(userName);// userNameを受け取り、userに情報を格納。
+				UserDTO user2 = dbm.getChangeUser2(loginId);// userNameを受け取り、userに情報を格納。
 
 				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuserとして保存
-				session.setAttribute("user", user);
+				session.setAttribute("user2", user2);
 
 				// ChangeUserInformation.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");

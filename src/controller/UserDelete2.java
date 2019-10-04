@@ -45,8 +45,13 @@ public class UserDelete2 extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			// top.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("top.jsp");
+
+
+			/*ArrayList<UserDTO> searchlist1 = (ArrayList<UserDTO>)session.getAttribute("searchlist");
+
+			session.setAttribute("searchlist", searchlist1);*/
+			// Search.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("Search.jsp");
 			dispatcher.forward(request, response);
 		}
 

@@ -34,20 +34,20 @@
 				<%--繰り返し --%>
 				<c:forEach var="user" items="${searchlist}">
 					<tr>
-						<td><input type="checkbox" name="${user.userName}"></td>
+						<td><input type="checkbox" name="${user.loginId}"></td>
 						<td><font size="3"><span
 								class="${user.icon} pe-3x pe-va"></span></font></td>
 						<td><label><font size="4">${user.userName}</font></label></td>
 						<td><font size="4">${user.profile}</font></td>
 						<td><form action="./UI" method="post">
 								<%--CUIservletに情報を渡す為にhiddenで値を格納。登録情報変更ボタン --%>
-								<input type="hidden" name="userName" value="${user.userName}">
+								<input type="hidden" name="loginId" value="${user.loginId}">
 								<input class="btn btn-sm " type="submit" value="変更">
 							</form></td>
 						<td>
 							<%-- 削除ボタン --%>
 							<form action="./D" method="post">
-								<input type="hidden" name="userName" value="${user.userName}">
+								<input type="hidden" name="loginId" value="${user.loginId}">
 								<input class="btn btn-sm btn-error" type="submit" value="削除">
 							</form>
 						</td>

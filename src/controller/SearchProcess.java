@@ -59,10 +59,14 @@ public class SearchProcess extends HttpServlet {
 				message = "検索結果がありませんでした";
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
+
+				HttpSession session = request.getSession();
+				session.setAttribute("searchlist", searchlist);
+
 				// Search.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 				dispatcher.forward(request, response);
-			}
+			}else {
 
 			//DBからの検索結果をリクエストオブジェクトに保存
 			HttpSession session = request.getSession();
@@ -71,6 +75,7 @@ public class SearchProcess extends HttpServlet {
 			// SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
+			}
 		}
 	}
 }

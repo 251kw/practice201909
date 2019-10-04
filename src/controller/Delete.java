@@ -30,13 +30,13 @@ public class Delete extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String userName = request.getParameter("userName");//userName取得
+		String loginId = request.getParameter("loginId");//userName取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 		//SearchProcess.JSPの削除ボタンが押された時
 
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
-		UserDTO user3 = dbm.getChangeUser3(userName);// userNameを受け取り、userに情報を格納。
+		UserDTO user3 = dbm.getChangeUser3(loginId);// userNameを受け取り、userに情報を格納。
 
 		//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser3として保存
 		session3.setAttribute("user3", user3);

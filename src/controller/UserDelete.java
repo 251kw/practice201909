@@ -43,8 +43,8 @@ public class UserDelete extends HttpServlet {
 
 			//いいえボタンが押された時
 		}else if("いいえ".equals(btn)) {
-			// Search.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("Search.jsp");
+			// SearchProcess.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
