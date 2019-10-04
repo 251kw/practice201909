@@ -232,15 +232,15 @@ public class DBManager extends SnsDAO {
 			// 検索結果の数だけ繰り返す
 			while (rset.next()) {
 				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-				UserDTO user = new UserDTO();
-				user.setLoginId(rset.getString(2));
-				user.setPassword(rset.getString(3));
-				user.setUserName(rset.getString(4));
-				user.setIcon(rset.getString(5));
-				user.setProfile(rset.getString(6));
+				UserDTO user1 = new UserDTO();
+				user1.setLoginId(rset.getString(2));
+				user1.setPassword(rset.getString(3));
+				user1.setUserName(rset.getString(4));
+				user1.setIcon(rset.getString(5));
+				user1.setProfile(rset.getString(6));
 
 				// 書き込み内容をリストに追加
-				searchlist.add(user);
+				searchlist.add(user1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -361,13 +361,14 @@ public class DBManager extends SnsDAO {
 	}
 
 	// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索(削除時)
-	public UserDTO getChangeUser3(String loginId) {
+	public ArrayList<UserDTO> getdeleteUser(String deleteloginId) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
 
 		String sql = "SELECT * FROM users WHERE loginId=?";
 		UserDTO user3 = null; // 登録ユーザ情報
+		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();
 
 		try {
 			// データベース接続情報取得
@@ -375,7 +376,7 @@ public class DBManager extends SnsDAO {
 
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-			pstmt.setString(1, loginId);
+			pstmt.setString(1, deleteloginId);
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば
@@ -388,6 +389,8 @@ public class DBManager extends SnsDAO {
 				user3.setIcon(rset.getString(5));
 				user3.setProfile(rset.getString(6));
 			}
+             deletelist.add(user3);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -397,11 +400,11 @@ public class DBManager extends SnsDAO {
 			close(conn);
 		}
 
-		return user3;
+		return deletelist;
 	}
 
 	// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索(登録情報変更時)
-	public UserDTO getChangeUser2(String loginId) {
+	public UserDTO getChangeUser2(String loginId1) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
@@ -415,7 +418,7 @@ public class DBManager extends SnsDAO {
 
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-			pstmt.setString(1, loginId);
+			pstmt.setString(1, loginId1);
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば

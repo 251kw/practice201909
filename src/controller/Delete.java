@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,20 +31,23 @@ public class Delete extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String loginId = request.getParameter("loginId");//userName取得
+		String[] loginId = request.getParameterValues("loginId");//userName取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 		//SearchProcess.JSPの削除ボタンが押された時
 
-		HttpSession session3 = request.getSession();//sessionインスタンスを作成
-		UserDTO user3 = dbm.getChangeUser3(loginId);// userNameを受け取り、userに情報を格納。
+		for (String deleteloginId : loginId) {
 
-		//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser3として保存
-		session3.setAttribute("user3", user3);
+			HttpSession session3 = request.getSession();//sessionインスタンスを作成
+			ArrayList<UserDTO> deletelist = dbm.getdeleteUser(deleteloginId);// userNameを受け取り、userに情報を格納。
 
-		// UserDelete.jsp に処理を転送
-		dispatcher = request.getRequestDispatcher("UserDelete.jsp");
-		dispatcher.forward(request, response);
+			//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser3として保存
+			session3.setAttribute("deletelist", deletelist);
+
+			// UserDelete.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("UserDelete.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
