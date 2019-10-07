@@ -53,9 +53,13 @@ public class MultipleDelete extends HttpServlet {
 
 			String[] checked = request.getParameterValues("deletes");
 
-			if(checked.length == 0) {
+			if(checked == null) {
 
-				RequestDispatcher dispatch = request.getRequestDispatcher("SearchResult.jsp");
+				message = "チェックされていません。戻るボタンよりもう一度やり直してください。";
+				request.setAttribute("alert", message);
+
+
+				RequestDispatcher dispatch = request.getRequestDispatcher("Error.jsp");
 				dispatch.forward(request, response);
 
 

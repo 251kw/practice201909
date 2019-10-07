@@ -26,28 +26,6 @@ public class Top extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//文字化け防止
-		request.setCharacterEncoding("UTF-8");
-		DBManager dbm = new DBManager();
-
-		//セッションオブジェクトの生成
-		HttpSession session = request.getSession();
-
-		String userId = (String)session.getAttribute("userId");
-
-		UserDTO user = dbm.getLoginUserAgain(userId);
-
-		session.setAttribute("user", user);
-
-		ArrayList<ShoutDTO> shoutsList = new ArrayList<>();
-
-		shoutsList = dbm.getShoutList();
-
-		session.setAttribute("shouts", shoutsList);
-
-		RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
-		dispatch.forward(request, response);
-
 	}
 
 	/**

@@ -25,7 +25,7 @@
 
 	<div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
-		<form action="login" method="get">
+		<form action="login" method="post">
 			<table border="1" class="table">
 				<% request.setCharacterEncoding("UTF-8");  %>
 				<tr>

@@ -24,7 +24,7 @@
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5 text-center">
 		<jsp:useBean id="deleteList" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
-			<form action="Top" method="get">
+			<form action="Top" method="post">
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記ユーザーを削除しました
 
