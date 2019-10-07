@@ -27,16 +27,17 @@ public class UserDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String loginId = request.getParameter("loginId");//loginId取得
+		String[] loginId = request.getParameterValues("loginId");//loginId取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		String btn = request.getParameter("btn");//ボタンの情報取得
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 
 		//はいボタンが押された時
 		if("はい".equals(btn)) {
+			for (String user3loginId : loginId) {
             // loginIdから検索して一致したユーザー削除
-			dbm.Delete(loginId);
-
+			dbm.Delete(user3loginId);
+			}
          // DeleteComplete.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("DeleteComplete.jsp");
 			dispatcher.forward(request, response);

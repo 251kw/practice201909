@@ -19,40 +19,39 @@ public class DBManager extends SnsDAO {
 
 	// ログインID とパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
 	public UserDTO getLoginUser(String loginId, String password) {
-		Connection conn = null; // データベース接続情報
-		PreparedStatement pstmt = null; // SQL 管理情報
-		ResultSet rset = null; // 検索結果
+		/*Connection conn = null;*/
+		// データベース接続情報
+		/*PreparedStatement pstmt = null;*/ // SQL 管理情報
+		/*ResultSet rset = null; */// 検索結果
 
 		String sql = "SELECT * FROM users WHERE loginId=? AND password=?";
 		UserDTO user = null; // 登録ユーザ情報
 
-		try {
+		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			// データベース接続情報取得
-			conn = getConnection();
+			/*conn = getConnection();*/
 
 			// SELECT 文の登録と実行
-			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			/*pstmt = conn.prepareStatement(sql);*/ // SELECT 構文登録
 			pstmt.setString(1, loginId);
 			pstmt.setString(2, password);
-			rset = pstmt.executeQuery();
+			try (ResultSet rset = pstmt.executeQuery();) {
+				/*rset = pstmt.executeQuery();*/
 
-			// 検索結果があれば
-			if (rset.next()) {
-				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
-				user = new UserDTO();
-				user.setLoginId(rset.getString(2));
-				user.setPassword(rset.getString(3));
-				user.setUserName(rset.getString(4));
-				user.setIcon(rset.getString(5));
-				user.setProfile(rset.getString(6));
+				// 検索結果があれば
+				if (rset.next()) {
+					// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+					user = new UserDTO();
+					user.setLoginId(rset.getString(2));
+					user.setPassword(rset.getString(3));
+					user.setUserName(rset.getString(4));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(rset);
-			close(pstmt);
-			close(conn);
+
 		}
 
 		return user;
@@ -331,11 +330,11 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	public boolean Delete(String loginId) {
+	public boolean Delete(String user3loginId) {
 		Connection conn = null;// データベース接続情報
 		PreparedStatement pstmt = null;// SQL 管理情報
 		boolean result = false;
-		String searchWord = loginId;//サーチキーワードをloginIdに
+		String searchWord = user3loginId;//サーチキーワードをloginIdに
 
 		try {
 			conn = getConnection();// データベース接続情報取得
@@ -361,14 +360,13 @@ public class DBManager extends SnsDAO {
 	}
 
 	// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索(削除時)
-	public ArrayList<UserDTO> getdeleteUser(String deleteloginId) {
+	public UserDTO getdeleteUser(String deleteloginId) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
 
 		String sql = "SELECT * FROM users WHERE loginId=?";
 		UserDTO user3 = null; // 登録ユーザ情報
-		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();
 
 		try {
 			// データベース接続情報取得
@@ -389,7 +387,6 @@ public class DBManager extends SnsDAO {
 				user3.setIcon(rset.getString(5));
 				user3.setProfile(rset.getString(6));
 			}
-             deletelist.add(user3);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -400,11 +397,11 @@ public class DBManager extends SnsDAO {
 			close(conn);
 		}
 
-		return deletelist;
+		return user3;
 	}
 
 	// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索(登録情報変更時)
-	public UserDTO getChangeUser2(String loginId1) {
+	public UserDTO getChangeUser2(String user1loginId) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
@@ -418,7 +415,7 @@ public class DBManager extends SnsDAO {
 
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-			pstmt.setString(1, loginId1);
+			pstmt.setString(1, user1loginId);
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば

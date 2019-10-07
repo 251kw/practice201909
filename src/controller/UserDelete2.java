@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,19 +34,20 @@ public class UserDelete2 extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
-		UserDTO user = (UserDTO)session.getAttribute("user");
-		UserDTO user3 = (UserDTO)session3.getAttribute("user3");
+		UserDTO user = (UserDTO) session.getAttribute("user");
+		ArrayList<UserDTO> deletelist = (ArrayList<UserDTO>) session.getAttribute("deletelist");
 
 		String loginId = user.getLoginId();
-		String loginId3 = user3.getLoginId();
+		String loginId3 = user.getLoginId();
 
 		//ログインした時のuserと削除したuserが同じだった場合ログイン画面へ
 		if (loginId.equals(loginId3)) {
+
 			// index.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
-		} else {
 
+		} else {
 
 			/*ArrayList<UserDTO> searchlist1 = (ArrayList<UserDTO>)session.getAttribute("searchlist");
 
@@ -54,7 +56,5 @@ public class UserDelete2 extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("Search.jsp");
 			dispatcher.forward(request, response);
 		}
-
 	}
-
 }

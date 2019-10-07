@@ -22,46 +22,40 @@
 	</div>
 	<div class="padding-y-5 text-center">
 		<div style="width: 60%" class="container padding-y-5 text-center">
-						<form action="./UI" method="post">
-			<table style="width: 800px" class="table-striped table-bordered ">
-				<tr>
-					<td><label><font size="4"></font></label></td>
-					<td><label><font size="4">アイコン</font></label></td>
-					<td><label><font size="4">ユーザー名</font></label></td>
-					<td><label><font size="4">プロフィール</font></label></td>
-					<td><label><font size="4">変更</font></label></td>
-					<td><label><font size="4">削除</font></label></td>
-				</tr>
-				<%--繰り返し --%>
-				<c:forEach var="user1" items="${searchlist}">
+			<form action="./UI" method="post">
+				<table style="width: 800px" class="table-striped table-bordered ">
 					<tr>
-						<td><input type="checkbox" name="loginId" value="${user1.loginId}"></td>
-						<td><font size="3"><span
-								class="${user1.icon} pe-3x pe-va"></span></font></td>
-						<td><label><font size="4">${user1.userName}</font></label></td>
-						<td><font size="4">${user1.profile}</font></td>
+						<td><label><font size="4"></font></label></td>
+						<td><label><font size="4">アイコン</font></label></td>
+						<td><label><font size="4">ユーザー名</font></label></td>
+						<td><label><font size="4">プロフィール</font></label></td>
 					</tr>
-				</c:forEach>
-			</table>
-								<%--CUIservletに情報を渡す為にhiddenで値を格納。登録情報変更ボタン --%>
-								<%-- <input type="hidden" name="loginId" value="${user1.loginId}"> --%>
-								<input class="btn btn-sm " type="submit" value="変更">
-							</form>
+					<%--繰り返し --%>
+					<c:forEach var="user1" items="${searchlist}">
+						<tr>
+							<td><input type="checkbox" name="loginId"
+								value="${user1.loginId}"></td>
+							<td><font size="3"><span
+									class="${user1.icon} pe-3x pe-va"></span></font></td>
+							<td><label><font size="4">${user1.userName}</font></label></td>
+							<td><font size="4">${user1.profile}</font></td>
+						</tr>
+					</c:forEach>
+				</table>
+				<%--登録情報変更ボタン --%>
+				<input class="btn btn-sm " name="btn" type="submit" value="変更">
+				<%-- 削除ボタン --%>
+				<input class="btn btn-sm btn-error" name="btn" type="submit" value="削除">
+			</form>
+			<%-- リクエストスコープに alert があれば --%>
+			<c:if
+				test="${requestScope.alert != null && requestScope.alert != ''}">
 
-							<%-- 削除ボタン --%>
-							<form action="./D" method="post">
-								<input class="btn btn-sm btn-error" type="submit" value="削除">
-							</form>
+				<%-- リクエストスコープの alert の値を出力 --%>
+				<td class="color-error text-center"><label><font
+						size="5"><c:out value="${requestScope.alert}" /></font></label></td>
 
-				<%-- リクエストスコープに alert があれば --%>
-				<c:if
-					test="${requestScope.alert != null && requestScope.alert != ''}">
-
-						<%-- リクエストスコープの alert の値を出力 --%>
-						<td class="color-error text-center"><label><font
-								size="5"><c:out value="${requestScope.alert}" /></font></label></td>
-
-				</c:if>
+			</c:if>
 			<%--検索画面へ --%>
 			<form action="Search.jsp" method="post">
 				<input class="btn" type="submit" value="戻る" />
