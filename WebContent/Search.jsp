@@ -39,21 +39,23 @@
 			</c:if>
 
 			検索条件<span class="icon-search"></span>
+			<c:if test="${sessionScope.searchList != null && sessionScope.searchList != ''}">
+			<jsp:useBean id="searchList" scope="session" type="java.util.ArrayList<String>" /></c:if>
 			<form action="SeachLogic" method="get">
 				<table class="table">
 					<tr>
 						<td>ユーザー名</td>
-						<td><input type="text" size="40" name="userNameSearch" value=""
+						<td><input type="text" size="40" name="userNameSearch" value="${searchList[0]}"
 							class="form-control"></td>
 					</tr>
 					<tr>
 						<td>ユーザーID</td>
-						<td><input type="text" size="40" name="loginIdSearch" value=""
+						<td><input type="text" size="40" name="loginIdSearch" value="${searchList[1]}"
 							class="form-control"></td>
 					</tr>
 					<tr>
 						<td>自己紹介</td>
-						<td><input type="text" size="40" name="profileSearch" value=""
+						<td><input type="text" size="40" name="profileSearch" value="${searchList[2]}"
 							class="form-control"></td>
 					</tr>
 					<tr>
@@ -77,7 +79,7 @@
 
 			<!-- 戻るボタンを押したら1ページ前に戻る -->
 			<form>
-				<input type="button" class="btn" value="戻る" onClick="history.back()">
+				<a href="Top" class="btn">戻る</a>
 			</form>
 
 		</div>
