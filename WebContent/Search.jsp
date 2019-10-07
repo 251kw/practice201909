@@ -43,17 +43,17 @@
 				<table class="table">
 					<tr>
 						<td>ユーザー名</td>
-						<td><input type="text" size="40" name="userNameSearch"
+						<td><input type="text" size="40" name="userNameSearch" value=""
 							class="form-control"></td>
 					</tr>
 					<tr>
 						<td>ユーザーID</td>
-						<td><input type="text" size="40" name="loginIdSearch"
+						<td><input type="text" size="40" name="loginIdSearch" value=""
 							class="form-control"></td>
 					</tr>
 					<tr>
 						<td>自己紹介</td>
-						<td><input type="text" size="40" name="profileSearch"
+						<td><input type="text" size="40" name="profileSearch" value=""
 							class="form-control"></td>
 					</tr>
 					<tr>
@@ -70,6 +70,7 @@
 				</table>
 
 				<div class="padding-y-5 text-right">
+				<input type="hidden" name="search" value="search">
 					<input class="btn btn-success" type="submit" value="検索" />
 				</div>
 			</form>

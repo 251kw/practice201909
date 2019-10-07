@@ -37,7 +37,7 @@
 			            <th><div class="text-center"><h5>ログインID</h5></div></th>
 			            <th><div class="text-center"><h5>編集</h5></div></th>
 			            <th><div class="text-center"><h5>削除</h5></div></th>
-			            <th><div class="text-center"><h5><input type="checkbox" name="allSelect"></h5></div></th>
+			            <th><div class="text-center"><h11><a href="AllSelect?select=select" class="btn btn-dark btn-sm">選</a><a href="AllSelect?select=Lifted" class="btn btn-light btn-sm">解</a></h11></div></th>
 			        </tr>
 			        <!-- 名前とログインIDを表示する -->
 
@@ -53,7 +53,7 @@
 			            <a href="UserDelete?loginId=${name.loginId}" class="btn btn-error btn-sm">削除</a>
 
 			            <td>
-			            <input type="checkbox" name="deletes" value="${name.loginId}"><br>
+			            <input type="checkbox" name="deletes" value="${name.loginId}" ${checked}><br>
 			            </td>
 
 			        </tr>
@@ -77,7 +77,7 @@
 			<!-- 戻るボタンを押したら1ページ前に戻る -->
 			<form>
 			<div class="padding-y-5 text-left">
-				<input type="button" class="btn" value="戻る" onClick="history.back()">
+				<a href="Search.jsp" class="btn">戻る</a>
 				</div>
 			</form>
 
