@@ -34,8 +34,7 @@
 				<table border="1" class="table">
 					<tr>
 						<th><span class="icon-headphones pe-2x pe-va"></span>&nbsp;ログインID</th>
-						<td><input type="text" name="loginId" id="loginId"
-							value="${loginIdChange}" class="form-control"></td>
+						<td>${changeUserLoginId}</td>
 					</tr>
 
 					<tr>

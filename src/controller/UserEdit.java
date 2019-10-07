@@ -43,7 +43,6 @@ public class UserEdit extends HttpServlet {
 
 		//値をセットアトリビュート
 		request.setAttribute("userId", userId);
-		request.setAttribute("loginIdChange", loginIdChange);
 		request.setAttribute("passwordChange", passwordChange);
 		request.setAttribute("iconChange", iconChange);
 		request.setAttribute("userNameChange", userNameChange);

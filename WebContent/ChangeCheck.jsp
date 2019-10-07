@@ -30,7 +30,7 @@
 			<table border="1" class="table">
 				<tr>
 					<th><label for="loginId"><span class="icon-headphones pe-2x pe-va"></span>&nbsp;ログインID</label></th>
-					<td>${param.loginId}</td>
+					<td>${changeUserLoginId}</td>
 				</tr>
 
 				<tr>

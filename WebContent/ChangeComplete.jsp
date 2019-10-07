@@ -31,7 +31,7 @@
 					<tr>
 						<th><label for="loginId"><span
 								class="icon-headphones pe-2x pe-va"></span>&nbsp;ログインID</label></th>
-						<td>${loginId}</td>
+						<td>${changeUserLoginId}</td>
 					</tr>
 
 					<tr>
