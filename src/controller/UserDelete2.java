@@ -31,14 +31,18 @@ public class UserDelete2 extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		HttpSession session3 = request.getSession();
-
+		String loginId3=null;
 		RequestDispatcher dispatcher = null;
-
 		UserDTO user = (UserDTO) session.getAttribute("user");
-		ArrayList<UserDTO> deletelist = (ArrayList<UserDTO>) session.getAttribute("deletelist");
-
 		String loginId = user.getLoginId();
-		String loginId3 = user.getLoginId();
+
+		ArrayList<UserDTO> deletelist = (ArrayList<UserDTO>) session.getAttribute("deletelist");
+		for (int i = 0; i < deletelist.size(); i++) {
+		   loginId3 = deletelist.get(i).getLoginId();
+		   if(loginId.equals(loginId3)) {
+			   break;
+		   }
+		}
 
 		//ログインした時のuserと削除したuserが同じだった場合ログイン画面へ
 		if (loginId.equals(loginId3)) {
