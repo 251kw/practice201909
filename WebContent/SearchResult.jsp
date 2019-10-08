@@ -9,6 +9,21 @@
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
+
+<style type="text/css">
+
+#content {
+    width: 100%;
+    table-layout: fixed;
+}
+.tdata {
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+</style>
 </head>
 <body>
 
@@ -24,29 +39,31 @@
 	</div>
 
 	<div class="padding-y-5 text-center">
-		<div style="width: 50%" class="container padding-y-5">
+		<div style="width: 60%" class="container padding-y-5">
 				検索結果<span class="icon-search text-cenyer"></span><br>
 
 			  <form action="MultipleDelete" method="post">
-				<table border="1" class="table text-center">
+				<table border="1" class="table text-center" id="content">
 
 			        <tr>
 			        <!-- 表の見出し -->
-			        	<th><div class="text-center"><h5>No.</h5></div></th>
-			            <th><div class="text-center"><h5>ユーザー名</h5></div></th>
-			            <th><div class="text-center"><h5>ログインID</h5></div></th>
-			            <th><div class="text-center"><h5>編集</h5></div></th>
-			            <th><div class="text-center"><h5>削除</h5></div></th>
-			            <th><div class="text-center"><h11><a href="AllSelect?select=select" class="btn btn-dark btn-sm">選</a>
-			            <a href="AllSelect?select=Lifted" class="btn btn-light btn-sm">解</a></h11></div></th>
+			        	<th><div class="text-center"><h6>アイコン</h6></div></th>
+			            <th><div class="text-center"><h6>ユーザー名</h6></div></th>
+			            <th><div class="text-center"><h6>ログインID</h6></div></th>
+			            <th><div class="text-center"><h6>自己紹介</h6></div></th>
+			            <th><div class="text-center"><h6>編集</h6></div></th>
+			            <th><div class="text-center"><h6>削除</h6></div></th>
+			            <th><div class="text-center"><a href="AllSelect?select=select" class="btn btn-dark btn-sm">選</a>
+			            <a href="AllSelect?select=Lifted" class="btn btn-light btn-sm">解</a></div></th>
 			        </tr>
 			        <!-- 名前とログインIDを表示する -->
 
 			        <c:forEach var="name" items="${searchResult}" varStatus="status">
 			        	<tr>
-				        	<td><c:out value="${status.count}"></c:out>
+				        	<td><span class="${user.icon} pe-3x pe-va"></span>
 				            <td>${name.userName}</td>
 				            <td>${name.loginId}</td>
+				            <td><p class="tdata">${name.profile}</p></td>
 				            <td>
 							<a href="UserEdit?loginId=${name.loginId}" class="btn btn-sm">編集</a>
 

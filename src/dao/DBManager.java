@@ -398,6 +398,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -427,6 +429,9 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
 				searchResultList.add(user);
 			}
 
@@ -454,6 +459,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -483,6 +490,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -515,6 +524,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -544,6 +555,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -574,6 +587,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -604,6 +619,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -634,6 +651,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
@@ -663,6 +682,8 @@ public class DBManager extends SnsDAO {
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
 					user.setLoginId(rset.getString(2));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 
 					searchResultList.add(user);
 				}
@@ -697,6 +718,8 @@ public class DBManager extends SnsDAO {
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
 					user.setLoginId(rset.getString(2));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 
 					searchResultList.add(user);
 				}
@@ -728,6 +751,8 @@ public class DBManager extends SnsDAO {
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
 					user.setLoginId(rset.getString(2));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 
 					searchResultList.add(user);
 				}
@@ -761,6 +786,8 @@ public class DBManager extends SnsDAO {
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
 					user.setLoginId(rset.getString(2));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 
 					searchResultList.add(user);
 				}
@@ -792,6 +819,8 @@ public class DBManager extends SnsDAO {
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
 					user.setLoginId(rset.getString(2));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 
 					searchResultList.add(user);
 				}
@@ -826,6 +855,8 @@ public class DBManager extends SnsDAO {
 					user = new UserDTO();
 					user.setUserName(rset.getString(4));
 					user.setLoginId(rset.getString(2));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 
 					searchResultList.add(user);
 				}
@@ -854,6 +885,8 @@ public class DBManager extends SnsDAO {
 				user = new UserDTO();
 				user.setUserName(rset.getString(4));
 				user.setLoginId(rset.getString(2));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
 				searchResultList.add(user);
 			}
