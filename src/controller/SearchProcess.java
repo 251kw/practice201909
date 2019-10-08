@@ -32,16 +32,17 @@ public class SearchProcess extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		//登録確認情報を取得
-		String userName = request.getParameter("userName");
-		String icon = request.getParameter("icon");
-		String profile = request.getParameter("profile");
+		String userName = request.getParameter("userName");//userNameを取得
+		String icon = request.getParameter("icon");//iconを取得
+		String profile = request.getParameter("profile");//profileを取得
 
-		String message = null;
+		String message = null;//messageを取得
 		DBManager dbm = new DBManager();//DBMのインスタンスを生成
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 
+		// 検索欄未入力だった場合
 		if (userName.equals("") && icon.equals("") && profile.equals("")) {
-			// 検索欄未入力なら
+			//messageに代入
 			message = "検索ワードを入力してください";
 
 			// エラーメッセージをリクエストオブジェクトに保存

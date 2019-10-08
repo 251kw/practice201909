@@ -32,17 +32,20 @@ public class UserInformation extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
 		String[] loginId = request.getParameterValues("loginId");//userName取得
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
-		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
-		String btn = request.getParameter("btn");
+		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
+		String btn = request.getParameter("btn");//btnの値を取得
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
-		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();
+		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 
-		String message = null;
-		UserDTO user3 = null;
+		String message = null;//message初期化
+		UserDTO user3 = null;//user3初期化
 
+		//変更が押された場合
 		if ("変更".equals(btn)) {
+
+			// checkboxが未選択の場合
 			if (loginId == null) {
-				// checkboxが未選択の場合
+				// エラーメッセージを代入
 				message = "変更するユーザーを選択してください";
 
 				// エラーメッセージをリクエストオブジェクトに保存
@@ -58,7 +61,7 @@ public class UserInformation extends HttpServlet {
 					HttpSession session = request.getSession();//sessionインスタンスを作成
 					UserDTO user2 = dbm.getChangeUser2(user1loginId);// userNameを受け取り、userに情報を格納。
 
-					//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuserとして保存
+					//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
 					session.setAttribute("user2", user2);
 
 				}
@@ -67,6 +70,7 @@ public class UserInformation extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 
+			//削除が押された場合
 		} else if ("削除".equals(btn)) {
 			if (loginId == null) {
 				// checkboxが未選択の場合
@@ -81,8 +85,10 @@ public class UserInformation extends HttpServlet {
 			} else {
 
 				for (String deleteloginId : loginId) {
+					// loginIdを受け取り、user3に情報を格納。
+					user3 = dbm.getdeleteUser(deleteloginId);
 
-					 user3 = dbm.getdeleteUser(deleteloginId);// userNameを受け取り、userに情報を格納。
+                    //deletelistにuser3を格納
 					deletelist.add(user3);
 				}
 

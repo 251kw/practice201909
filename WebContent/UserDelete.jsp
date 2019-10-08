@@ -38,6 +38,7 @@
 						<td><label><font size="4"> パスワード</font></label></td>
 						<td><label><font size="4">プロフィール</font></label></td>
 					</tr>
+					<%-- deleatelistのuserDTOをforEachで取得 --%>
 					<c:forEach var="user3" items="${deletelist}">
 						<tr>
 							<td><font size="3"><span
@@ -52,6 +53,7 @@
 							<%-- profileを取得し表示 --%>
 							<td><font size="4">${user3.profile}</font></td>
 						</tr>
+						<%-- forEachの中身をhiddenで送信--%>
 						<td><input type="hidden" name="loginId"
                         value="${user3.loginId}"> <input type="hidden"
                         name="password" value="${user3.password}"> <input

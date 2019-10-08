@@ -29,7 +29,7 @@ public class ShoutDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String shoutsId = request.getParameter("shoutsId");
+		String shoutsId = request.getParameter("shoutsId");//shoutsIdを取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 

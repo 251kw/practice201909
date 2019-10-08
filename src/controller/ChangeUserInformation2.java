@@ -32,7 +32,7 @@ public class ChangeUserInformation2 extends HttpServlet {
 		String userName = request.getParameter("userName");//userName取得
 		String icon = request.getParameter("icon");//icon取得
 		String profile = request.getParameter("profile");//profile取得
-		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
+		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//ボタン情報取得
 
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成

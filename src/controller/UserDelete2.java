@@ -29,14 +29,17 @@ public class UserDelete2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		HttpSession session3 = request.getSession();
-		String loginId3=null;
+		HttpSession session = request.getSession();//sesstionを取得
+		HttpSession session3 = request.getSession();//sesstionを取得
+		String loginId3=null;// loginIdを初期化
 		RequestDispatcher dispatcher = null;
-		UserDTO user = (UserDTO) session.getAttribute("user");
-		String loginId = user.getLoginId();
+		UserDTO user = (UserDTO) session.getAttribute("user");//session	からuserDTOを取得
+		String loginId = user.getLoginId();//loginIdをuserDTOから取得
 
+		// sessionからdeletelistを取得
 		ArrayList<UserDTO> deletelist = (ArrayList<UserDTO>) session.getAttribute("deletelist");
+		// deletelistからuserdtoのloginIdを取得
+		// loginIdがログインしたユーザーと一致するまでforを回す
 		for (int i = 0; i < deletelist.size(); i++) {
 		   loginId3 = deletelist.get(i).getLoginId();
 		   if(loginId.equals(loginId3)) {

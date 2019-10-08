@@ -32,16 +32,16 @@ public class ShoutDelete2 extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		String shoutsId = request.getParameter("shoutsId");//loginId取得
-		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
+		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//ボタン情報取得
 
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 
-		//はいボタンが押された時、DBに登録
+		//はいボタンが押された時、shoutを削除
 		if ("はい".equals(btn)) {
-
+            //shoutsIdを渡して削除メソッドを実行
 			dbm.ShoutDelete(shoutsId);
-
+			//書き込み内容リストの getterを呼び出しlistに保存
 		   ArrayList<ShoutDTO> list = dbm.getShoutList();
 
 			// リストをセッションに保存
@@ -54,7 +54,7 @@ public class ShoutDelete2 extends HttpServlet {
 
 			//いいえボタンが押された時
 		} else if ("いいえ".equals(btn)) {
-
+             //書き込み内容リストの getterを呼び出しlistに保存
 			 ArrayList<ShoutDTO> list = dbm.getShoutList();
 
 				// リストをセッションに保存

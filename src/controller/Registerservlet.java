@@ -31,8 +31,8 @@ public class Registerservlet extends HttpServlet {
 
 		String loginId = request.getParameter("loginId");//loginId取得
 		String password = request.getParameter("password");//password取得
-		RequestDispatcher dispatcher = null;
-		String message = null;
+		RequestDispatcher dispatcher = null;//RequestDispatcher初期化
+		String message = null;//message初期化
 
 		if (loginId.equals("") || password.equals("")) {
 			// ログインID かパスワードどちらか、もしくは双方未入力なら

@@ -26,7 +26,7 @@ public class ChangeUserInformation extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
+		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//ボタン情報取得
 
 		//更新ボタンが押された時
