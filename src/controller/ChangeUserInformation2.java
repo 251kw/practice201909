@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
+import dto.UserDTO;
 
 /**
  * Servlet implementation class ChangeUserInformation2
@@ -49,6 +52,39 @@ public class ChangeUserInformation2 extends HttpServlet {
 
 			//いいえボタンが押された時
 		} else if ("いいえ".equals(btn)) {
+
+			//sessionからchangelistを取得
+			HttpSession session = request.getSession();
+			String loginId2 = null;
+			UserDTO user2 = new UserDTO();
+			ArrayList<UserDTO> changelist = (ArrayList<UserDTO>) session.getAttribute("changelist");
+
+			for (int i = 0; i < changelist.size(); i++) {
+				loginId2 = changelist.get(i).getLoginId();
+				if (loginId.equals(loginId2)) {
+					changelist.remove(i);
+				}
+			}
+			user2.setLoginId(loginId);
+			user2.setPassword(password);
+			user2.setUserName(userName);
+			user2.setIcon(icon);
+			user2.setProfile(profile);
+
+			icon = user2.getIcon();
+
+			if ("icon-user".equals(icon)) {
+				user2.setSelected("selected");
+			} else if ("icon-user-female".equals(icon)) {
+				user2.setSelected1("selected");
+			} else if ("icon-bell".equals(icon)) {
+				user2.setSelected2("selected");
+			}
+			//changelistにuser2を格納
+			changelist.add(user2);
+
+			//ユーザー情報をsessionにuser2として保存
+			session.setAttribute("changelist", changelist);
 
 			// ChangeUserInformation.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");

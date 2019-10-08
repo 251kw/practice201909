@@ -30,7 +30,7 @@ public class UserDelete2 extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();//sesstionを取得
-		HttpSession session3 = request.getSession();//sesstionを取得
+
 		String loginId3=null;// loginIdを初期化
 		RequestDispatcher dispatcher = null;
 		UserDTO user = (UserDTO) session.getAttribute("user");//session	からuserDTOを取得

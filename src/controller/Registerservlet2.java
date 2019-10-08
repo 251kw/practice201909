@@ -32,6 +32,7 @@ public class Registerservlet2 extends HttpServlet {
 		String password = request.getParameter("password");
 		String userName = request.getParameter("userName");
 		String icon = request.getParameter("icon");
+		String selected = request.getParameter("icon");
 		String profile = request.getParameter("profile");
 		String button1 = request.getParameter("button1");
 		String button2 = request.getParameter("button2");
@@ -51,6 +52,17 @@ public class Registerservlet2 extends HttpServlet {
 
 			//いいえボタンが押された時
 		} else if ("btn2".equals(button2)) {
+
+			if("icon-user".equals(selected)) {
+				selected="selected";
+				request.setAttribute("selected", selected);
+			}else if("icon-user-female".equals(selected)) {
+				selected="selected";
+				request.setAttribute("selected1", selected);
+			}else if("icon-bell".equals(selected)) {
+				selected="selected";
+				request.setAttribute("selected2", selected);
+			}
 			dispatcher = request.getRequestDispatcher("Register.jsp");
 			dispatcher.forward(request, response);
 		}

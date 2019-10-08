@@ -33,6 +33,7 @@ public class Registerservlet extends HttpServlet {
 		String password = request.getParameter("password");//password取得
 		RequestDispatcher dispatcher = null;//RequestDispatcher初期化
 		String message = null;//message初期化
+		String checked = request.getParameter("icon");
 
 		if (loginId.equals("") || password.equals("")) {
 			// ログインID かパスワードどちらか、もしくは双方未入力なら

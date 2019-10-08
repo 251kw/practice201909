@@ -39,6 +39,7 @@ public class UserInformation extends HttpServlet {
 		HttpSession session = request.getSession();//sessionインスタンスを作成
 		ArrayList<UserDTO> changelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 
+		String icon = null;//icon初期化
 		String message = null;//message初期化
 		String checked = null;//checked初期化
 		UserDTO user3 = null;//user3初期化
@@ -63,6 +64,17 @@ public class UserInformation extends HttpServlet {
 
 					//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
 					user2 = dbm.getChangeUser2(user2loginId);// userNameを受け取り、user2に情報を格納。
+
+					//user2のiconを取得し、対応したselectをuser2から取得
+					 icon =user2.getIcon();
+
+					if("icon-user".equals(icon)) {
+					user2.setSelected("selected");
+					}else if("icon-user-female".equals(icon)) {
+				    user2.setSelected1("selected");
+					}else if("icon-bell".equals(icon)) {
+					user2.setSelected2("selected");
+					}
 					//changelistにuser2を格納
 					changelist.add(user2);
 				}
