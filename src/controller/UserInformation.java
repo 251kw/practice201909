@@ -36,10 +36,12 @@ public class UserInformation extends HttpServlet {
 		String btn = request.getParameter("btn");//btnの値を取得
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
 		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
+		HttpSession session = request.getSession();//sessionインスタンスを作成
+		ArrayList<UserDTO> changelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 
 		String message = null;//message初期化
 		UserDTO user3 = null;//user3初期化
-
+		UserDTO user2 = null;//user2初期化
 		//変更が押された場合
 		if ("変更".equals(btn)) {
 
@@ -55,16 +57,16 @@ public class UserInformation extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 				dispatcher.forward(request, response);
 			} else {
-				for (String user1loginId : loginId) {
+
+				for (String user2loginId : loginId) {
 
 					//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
-					HttpSession session = request.getSession();//sessionインスタンスを作成
-					UserDTO user2 = dbm.getChangeUser2(user1loginId);// userNameを受け取り、userに情報を格納。
-
-					//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
-					session.setAttribute("user2", user2);
-
+					user2 = dbm.getChangeUser2(user2loginId);// userNameを受け取り、user2に情報を格納。
+					//changelistにuser2を格納
+					changelist.add(user2);
 				}
+				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
+				session.setAttribute("changelist", changelist);
 				// ChangeUserInformation.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");
 				dispatcher.forward(request, response);
@@ -88,7 +90,7 @@ public class UserInformation extends HttpServlet {
 					// loginIdを受け取り、user3に情報を格納。
 					user3 = dbm.getdeleteUser(deleteloginId);
 
-                    //deletelistにuser3を格納
+					//deletelistにuser3を格納
 					deletelist.add(user3);
 				}
 
