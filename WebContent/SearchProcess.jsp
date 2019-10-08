@@ -25,7 +25,7 @@
 			<form action="./UI" method="post">
 				<table style="width: 800px" class="table-striped table-bordered ">
 					<tr>
-						<td><label><font size="4"></font></label></td>
+						<td><label><font size="4"><input class="btn btn-sm " name="btn" type="submit" value="全選択"></font></label></td>
 						<td><label><font size="4">アイコン</font></label></td>
 						<td><label><font size="4">ユーザー名</font></label></td>
 						<td><label><font size="4">プロフィール</font></label></td>
@@ -34,7 +34,7 @@
 					<c:forEach var="user1" items="${searchlist}">
 						<tr>
 							<td><input type="checkbox" name="loginId"
-								value="${user1.loginId}"></td>
+								value="${user1.loginId}" ${checked}></td>
 							<td><font size="3"><span
 									class="${user1.icon} pe-3x pe-va"></span></font></td>
 							<td><label><font size="4">${user1.userName}</font></label></td>

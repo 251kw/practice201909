@@ -40,6 +40,7 @@ public class UserInformation extends HttpServlet {
 		ArrayList<UserDTO> changelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 
 		String message = null;//message初期化
+		String checked = null;//checked初期化
 		UserDTO user3 = null;//user3初期化
 		UserDTO user2 = null;//user2初期化
 		//変更が押された場合
@@ -101,6 +102,13 @@ public class UserInformation extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("UserDelete.jsp");
 				dispatcher.forward(request, response);
 			}
+		}else if("全選択".equals(btn)) {
+			 checked = "checked";
+			request.setAttribute("checked", checked);
+
+			//SearchProcess.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
