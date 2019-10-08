@@ -136,6 +136,12 @@
 							<td colspan="4"><textarea rows="5" class="form-control">${shout.writing}</textarea>
 							</td>
 						</tr>
+						<tr>
+							<td class="text-center" colspan="4"><c:if
+									test="${user.loginId == shout.loginId}">
+									<a href="ShoutEdit?id=${shout.shoutsId}"
+										class="btn btn-success btn-sm">編集</a></c:if>
+						</tr>
 					</table>
 				</c:forEach>
 				<div class="padding-y-5 text-center">

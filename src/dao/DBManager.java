@@ -165,6 +165,24 @@ public class DBManager extends SnsDAO {
 		}
 	}
 
+	//叫びの編集
+	public void shoutEdit(String shoutsId, String writing) throws SQLException {
+		//デリート文の実行
+		String sql = "UPDATE shouts SET date=?, writing=? WHERE shoutsId=?";
+
+		try (Connection conn =getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);){
+
+				Calendar calender = Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				pstmt.setString(1, sdf.format(calender.getTime()));
+				pstmt.setString(2, writing);
+				pstmt.setString(3, shoutsId);
+
+				pstmt.executeUpdate();
+		}
+	}
+
+
 	//該当の叫び情報を提示
 	public ArrayList<ShoutDTO> getUserShout(String shoutsId) {
 
@@ -183,11 +201,11 @@ public class DBManager extends SnsDAO {
 					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 					ShoutDTO shout = new ShoutDTO();
 					shout.setShoutsId(rset.getString(1));
+					shout.setLoginId(rset.getString(2));
 					shout.setUserName(rset.getString(3));
 					shout.setIcon(rset.getString(4));
 					shout.setDate(rset.getString(5));
 					shout.setWriting(rset.getString(6));
-					shout.setLoginId(rset.getString(2));
 
 					// 書き込み内容をリストに追加
 					list.add(shout);
