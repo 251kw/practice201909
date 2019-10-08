@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,18 +30,23 @@ public class ShoutDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String shoutsId = request.getParameter("shoutsId");//shoutsIdを取得
+		String[] shoutsId = request.getParameterValues("shoutsId");//shoutsIdを取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
-
+		ShoutDTO shouts = null;
+		ArrayList<ShoutDTO> shoutdeletelist = new ArrayList<>();//ArrayListのインスタンスを作成
 		//ShoutIdからテーブルを検索しsessionに保存
 		HttpSession session4 = request.getSession();//sessionインスタンスを作成
-		ShoutDTO shouts = dbm.getshout(shoutsId);// userNameを受け取り、userに情報を格納
+
+		for (String shoutsId1 : shoutsId) {
+			shouts = dbm.getshout(shoutsId1);// shoutsIdを受け取り、shoutsに情報を格納
+			shoutdeletelist.add(shouts);
+		}
 
 		//sessionに保存
-		session4.setAttribute("shouts", shouts);
+		session4.setAttribute("shoutdeletelist", shoutdeletelist);
 
-		// UserDelete.jsp に処理を転送
+		// ShoutDelete.jsp に処理を転送
 		dispatcher = request.getRequestDispatcher("ShoutDelete.jsp");
 		dispatcher.forward(request, response);
 

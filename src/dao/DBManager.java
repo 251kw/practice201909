@@ -480,11 +480,11 @@ public class DBManager extends SnsDAO {
 		return shout;
 	}
 
-	public boolean ShoutDelete(String shoutsId) {
+	public boolean ShoutDelete(String shoutsId1) {
 		Connection conn = null;// データベース接続情報
 		PreparedStatement pstmt = null;// SQL 管理情報
 		boolean result = false;
-		String searchWord = shoutsId;//サーチキーワードをshoutsIdに
+		String searchWord = shoutsId1;//サーチキーワードをshoutsId1に
 
 		try {
 			conn = getConnection();// データベース接続情報取得

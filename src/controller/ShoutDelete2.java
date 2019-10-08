@@ -31,7 +31,7 @@ public class ShoutDelete2 extends HttpServlet {
 
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
-		String shoutsId = request.getParameter("shoutsId");//loginId取得
+		String[] shoutsId = request.getParameterValues("shoutsId");//loginId取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//ボタン情報取得
 
@@ -39,8 +39,10 @@ public class ShoutDelete2 extends HttpServlet {
 
 		//はいボタンが押された時、shoutを削除
 		if ("はい".equals(btn)) {
+			for(String shoutsId1:shoutsId) {
             //shoutsIdを渡して削除メソッドを実行
-			dbm.ShoutDelete(shoutsId);
+			dbm.ShoutDelete(shoutsId1);
+			}
 			//書き込み内容リストの getterを呼び出しlistに保存
 		   ArrayList<ShoutDTO> list = dbm.getShoutList();
 

@@ -82,6 +82,14 @@
 			<strong class="color-main">みんなの叫び</strong>
 		</div>
 	</div>
+	<div class="padding-y-5">
+        <div style="width: 40%" class="container padding-y-5">
+        <%-- 削除ボタン --%>
+        <form action="./SD" method="post">
+                <input class="btn btn-sm btn-error" name="btn" type="submit" value="チェックした叫びを削除">
+                </form>
+        </div>
+        </div>
 	<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
 	<jsp:useBean id="shouts" scope="session"
 		type="java.util.ArrayList<dto.ShoutDTO>" />
@@ -105,7 +113,8 @@
 						</tr>
 						<tr>
 							<c:if test="${user.loginId==shout.loginId}" var="flg">
-								<input type="hidden" name="shoutsId" value="${shout.shoutsId}">
+							<td><input type="checkbox" name="shoutsId"
+                                value="${shout.shoutsId}"></td>
 								<td><input class="btn btn-sm btn-error" type="submit"
 									value="削除"></td>
 							</c:if>
