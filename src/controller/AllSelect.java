@@ -32,13 +32,31 @@ public class AllSelect extends HttpServlet {
 			dispatch.forward(request, response);
 
 
-		}else {
+		}else if("Lifted".equals(select)){
 
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("SeachLogic");
 			dispatch.forward(request, response);
+
+		}else if("allDelete".equals(select)) {
+
+			request.setAttribute("checked", "checked");
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
+			dispatch.forward(request, response);
+
+
+		}else if("notAll".equals(select)){
+
+			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
+			dispatch.forward(request, response);
+
+
 		}
+
+
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

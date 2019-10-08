@@ -27,29 +27,21 @@
 				下記の叫びを削除します
 
 				<table class="table table-striped table-bordered">
+				<c:forEach var="shouts" items="${deleteShoutsInfo}">
 					<tr>
 						<td rowspan="2" class="text-center"><span
-							class="${param.icon} pe-3x pe-va"></span></td>
-						<td>${param.userName}</td>
+							class="${shouts.icon} pe-3x pe-va"></span></td>
+						<td>${shouts.userName}</td>
 					</tr>
 					<tr>
-						<td>${param.date}</td>
+						<td>${shouts.date}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><textarea rows="5" class="form-control">${param.writing}</textarea>
+						<td colspan="2"><textarea rows="5" class="form-control">${shouts.writing}</textarea>
 						</td>
 					</tr>
+					</c:forEach>
 					</table>
-
-
-				<input type="hidden" name="shoutsId" value="${param.shoutsId}">
-				<input type="hidden" name="nowLoginId" value="${param.nowLoginId}">
-				<input type="hidden" name="nowLoginUser" value="${param.nowLoginUser}">
-				<input type="hidden" name="nowLoginUserId" value="${param.nowLoginUserId}">
-				<input type="hidden" name="nowLoginProfile" value="${param.nowLoginProfile}">
-				<input type="hidden" name="nowLoginIcon" value="${param.nowLoginIcon}">
-				<input type="hidden" name="nowLoginPassword" value="${param.nowLoginPassword}">
-
 				<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>
