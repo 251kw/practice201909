@@ -173,7 +173,7 @@ public class DBManager extends SnsDAO {
 		try (Connection conn =getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);){
 
 				Calendar calender = Calendar.getInstance();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				pstmt.setString(1, sdf.format(calender.getTime()));
 				pstmt.setString(2, writing);
 				pstmt.setString(3, shoutsId);
@@ -293,7 +293,7 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(2, nowLoginUser);
 			pstmt.setString(3, nowLoginIcon);
 			Calendar calender = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(4, sdf.format(calender.getTime()));
 			pstmt.setString(5, writing);
 
