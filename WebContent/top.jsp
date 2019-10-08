@@ -84,6 +84,16 @@
 							<td>
 							<input class="btn" type="submit" value="叫ぶ" /></td>
 					</tr>
+										<c:if
+						test="${requestScope.alert != null && requestScope.alert != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left"><c:out
+									value="${requestScope.alert}" /></td>
+						</tr>
+
+					</c:if>
+
 				</table>
 			</form>
 		</div>

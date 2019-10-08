@@ -61,13 +61,13 @@
 					<tr>
 						<td>アイコン</td>
 						<td><label class="fancy-radio"><input type="radio"
-								name="icon" value="null" checked><span>未選択</span></label> <label
+								name="icon" value="null" checked ><span>未選択</span></label> <label
 							class="fancy-radio"><input type="radio" name="icon"
-								value="icon-user"><span>男性</span></label> <label
+								value="icon-user" <c:if test="${searchList[3] == 'icon-user'}">checked</c:if>><span>男性</span></label> <label
 							class="fancy-radio"><input type="radio" name="icon"
-								value="icon-user-female"><span>女性</span></label> <label
+								value="icon-user-female" <c:if test="${searchList[3] == 'icon-user-female'}">checked</c:if>><span>女性</span></label> <label
 							class="fancy-radio"><input type="radio" name="icon"
-								value="icon-bell"><span>ベル</span></label></td>
+								value="icon-bell" <c:if test="${searchList[3] == 'icon-bell'}">checked</c:if>><span>ベル</span></label></td>
 					</tr>
 				</table>
 

@@ -43,7 +43,8 @@
 
 			<%--戻るボタンを押したら1つ前にページに戻る --%>
 			<form>
-				<input type="button" class="btn btn-success" value="戻る" onClick="history.back()">
+				<input type="button" class="btn btn-success" value="戻る" onClick="history.back()"><br>
+				<a href="Top" class="btn btn-warning">トップへ戻る</a>
 			</form>
 		</div>
 	</div>

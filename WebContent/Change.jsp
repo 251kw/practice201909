@@ -51,11 +51,11 @@
 					<tr>
 						<th><span class="icon-users pe-2x pe-va"></span>&nbsp;アイコン</th>
 						<td><label class="fancy-radio"><input type="radio"
-								name="icon" value="icon-user" checked><span>男性</span></label> <label
+								name="icon" value="icon-user" <c:if test="${iconChange == 'icon-user' || param.icon == null}">checked</c:if>><span>男性</span></label> <label
 							class="fancy-radio"><input type="radio" name="icon"
-								value="icon-user-female"><span>女性</span></label> <label
+								value="icon-user-female" <c:if test="${iconChange == 'icon-user-female'}">checked</c:if>><span>女性</span></label> <label
 							class="fancy-radio"><input type="radio" name="icon"
-								value="icon-bell"><span>ベル</span></label></td>
+								value="icon-bell" <c:if test="${iconChange == 'icon-bell'}">checked</c:if>><span>ベル</span></label></td>
 
 					</tr>
 					<tr>

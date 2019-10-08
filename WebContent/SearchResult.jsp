@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="padding-y-5 text-center">
-		<div style="width: 40%" class="container padding-y-5">
+		<div style="width: 50%" class="container padding-y-5">
 				検索結果<span class="icon-search text-cenyer"></span><br>
 
 			  <form action="MultipleDelete" method="post">
@@ -37,7 +37,8 @@
 			            <th><div class="text-center"><h5>ログインID</h5></div></th>
 			            <th><div class="text-center"><h5>編集</h5></div></th>
 			            <th><div class="text-center"><h5>削除</h5></div></th>
-			            <th><div class="text-center"><h11><a href="AllSelect?select=select" class="btn btn-dark btn-sm">選</a><a href="AllSelect?select=Lifted" class="btn btn-light btn-sm">解</a></h11></div></th>
+			            <th><div class="text-center"><h11><a href="AllSelect?select=select" class="btn btn-dark btn-sm">選</a>
+			            <a href="AllSelect?select=Lifted" class="btn btn-light btn-sm">解</a></h11></div></th>
 			        </tr>
 			        <!-- 名前とログインIDを表示する -->
 
@@ -77,7 +78,8 @@
 			<!-- 戻るボタンを押したら1ページ前に戻る -->
 			<form>
 			<div class="padding-y-5 text-left">
-				<a href="Search.jsp" class="btn">戻る</a>
+				<a href="Search.jsp" class="btn">戻る</a><br>
+				<a href="Top" class="btn btn-warning">トップへ戻る</a>
 				</div>
 			</form>
 

@@ -86,7 +86,7 @@ public class DBManager extends SnsDAO {
 
 			pstmt.setString(1, loginId);
 
-			try(ResultSet rset = pstmt.executeQuery(sql);){
+			try(ResultSet rset = pstmt.executeQuery();){
 
 				// 検索結果を取得し分岐させる
 				if (rset.next()) {

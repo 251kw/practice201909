@@ -26,13 +26,6 @@
 				<br><br>
 				叫びをを削除しました
 				<br><br><br>
-				<input type="hidden" name="nowLoginId" value="${nowLoginId}">
-				<input type="hidden" name="nowLoginUser" value="${nowLoginUser}">
-				<input type="hidden" name="nowLoginUserId" value="${nowLoginUserId}">
-				<input type="hidden" name="nowLoginProfile" value="${nowLoginProfile}">
-				<input type="hidden" name="nowLoginIcon" value="${nowLoginIcon}">
-				<input type="hidden" name="nowLoginPassword" value="${nowLoginPassword}">
-
 				<input type="submit"value="トップへ戻る" class="btn btn-warning">
 			</form>
 		</div>

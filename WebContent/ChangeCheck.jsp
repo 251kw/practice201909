@@ -68,7 +68,8 @@
 			</form>
 
 			<%--戻るボタンを押したとき、Change.jspに転送し、Hiddenでパラメータを渡す --%>
-			<input type="button" class="btn" value="戻る" onClick="history.back()">
+			<input type="button" class="btn" value="戻る" onClick="history.back()"><br>
+			<a href="Top" class="btn btn-warning">トップへ戻る</a>
 		</div>
 	</div>
 </body>

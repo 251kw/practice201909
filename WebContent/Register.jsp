@@ -45,9 +45,9 @@
 				</tr>
 				<tr>
 					<th><span class="icon-users pe-2x pe-va"></span>&nbsp;アイコン</th>
-					<td><label class="fancy-radio"><input type="radio" name="icon" value="icon-user" checked><span>男性</span></label>
-					<label class="fancy-radio"><input type="radio" name="icon" value="icon-user-female"><span>女性</span></label>
-					<label class="fancy-radio"><input type="radio" name="icon" value="icon-bell" ><span>ベル</span></label></td>
+					<td><label class="fancy-radio"><input type="radio" name="icon" value="icon-user" <c:if test="${param.icon == 'icon-user' || param.icon == null}">checked</c:if>><span>男性</span></label>
+					<label class="fancy-radio"><input type="radio" name="icon" value="icon-user-female" <c:if test="${param.icon == 'icon-user-female'}">checked</c:if>><span>女性</span></label>
+					<label class="fancy-radio"><input type="radio" name="icon" value="icon-bell" <c:if test="${param.icon == 'icon-bell'}">checked</c:if>><span>ベル</span></label></td>
 
 				</tr>
 				<tr>

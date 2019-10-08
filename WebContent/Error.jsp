@@ -39,7 +39,8 @@
 
 			<!-- 戻るボタンを押したら1ページ前に戻る -->
 			<form>
-				<input type="button" class="btn" value="戻る" onClick="history.back()">
+				<input type="button" class="btn" value="戻る" onClick="history.back()"><br>
+				<a href="Top" class="btn btn-warning">トップへ戻る</a>
 			</form>
 
 		</div>

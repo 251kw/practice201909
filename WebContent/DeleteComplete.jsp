@@ -31,7 +31,7 @@
 					<tr>
 						<td colspan="2" class="text-center">
 
-							<input type="submit"value="トップへ戻る" class="btn btn-warning">
+							<input type="submit" value="トップへ戻る" class="btn btn-warning">
 						</td>
 					</tr>
 				</table>

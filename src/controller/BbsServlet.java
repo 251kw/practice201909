@@ -47,6 +47,8 @@ public class BbsServlet extends HttpServlet {
 		if (!writing.equals("")) {
 
 			dbm.setWriting(loginId, userName, icon, writing);
+			}else {
+				request.setAttribute("alert", "叫びが入力されていません");
 			}
 
 		// top.jsp に処理を転送
