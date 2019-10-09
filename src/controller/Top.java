@@ -37,6 +37,7 @@ public class Top extends HttpServlet {
 		UserDTO user = (UserDTO)session.getAttribute("user");
 
 		String userId = user.getUserId();
+		String loginId = user.getLoginId();
 
 		user = dbm.getLoginUserAgain(userId);
 
@@ -48,6 +49,27 @@ public class Top extends HttpServlet {
 		ArrayList<ShoutDTO> shoutsList = new ArrayList<>();
 
 		shoutsList = dbm.getShoutList();
+
+		boolean stResult = true;
+
+		if(shoutsList.size() == 0) {
+			stResult = false;
+		}
+
+		request.setAttribute("stResult", stResult);
+
+
+		boolean idResult = false;
+
+		for(ShoutDTO st : shoutsList) {
+			String shoutLoginId = st.getLoginId();
+			if(loginId.equals(shoutLoginId)) {
+				idResult = true;
+			}
+		}
+
+		request.setAttribute("idResult", idResult);
+
 
 		session.setAttribute("shouts", shoutsList);
 
@@ -74,6 +96,7 @@ public class Top extends HttpServlet {
 		UserDTO user = (UserDTO)session.getAttribute("user");
 
 		String userId = user.getUserId();
+		String loginId = user.getLoginId();
 
 		user = dbm.getLoginUserAgain(userId);
 
@@ -86,7 +109,29 @@ public class Top extends HttpServlet {
 
 		shoutsList = dbm.getShoutList();
 
+		boolean stResult = true;
+
+		if(shoutsList.size() == 0) {
+			stResult = false;
+		}
+
+		request.setAttribute("stResult", stResult);
+
+
+		boolean idResult = false;
+
+		for(ShoutDTO st : shoutsList) {
+			String shoutLoginId = st.getLoginId();
+			if(loginId.equals(shoutLoginId)) {
+				idResult = true;
+			}
+		}
+
+		request.setAttribute("idResult", idResult);
+
+
 		session.setAttribute("shouts", shoutsList);
+
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
 		dispatch.forward(request, response);

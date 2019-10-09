@@ -25,15 +25,21 @@ public class AllSelect extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		String select = request.getParameter("select");
+		String stResult = request.getParameter("stResult");
+		String idResult = request.getParameter("idResult");
 
 		if("select".equals(select)) {
+
+			request.setAttribute("stResult", stResult);
+			request.setAttribute("idResult", idResult);
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("SeachLogic");
 			dispatch.forward(request, response);
 
-
 		}else if("Lifted".equals(select)){
 
+			request.setAttribute("stResult", stResult);
+			request.setAttribute("idResult", idResult);
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("SeachLogic");
 			dispatch.forward(request, response);
@@ -42,11 +48,17 @@ public class AllSelect extends HttpServlet {
 
 			request.setAttribute("checked", "checked");
 
+			request.setAttribute("stResult", stResult);
+			request.setAttribute("idResult", idResult);
+
 			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
 			dispatch.forward(request, response);
 
 
 		}else if("notAll".equals(select)){
+
+			request.setAttribute("stResult", stResult);
+			request.setAttribute("idResult", idResult);
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
 			dispatch.forward(request, response);

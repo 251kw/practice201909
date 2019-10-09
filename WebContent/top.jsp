@@ -9,6 +9,16 @@
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
+<style type="text/css">
+
+tabule .shout,
+
+table .shout td {
+background-color: #FFFFFF;
+}
+
+</style>
+
 </head>
 <body>
 
@@ -96,59 +106,72 @@
 			</form>
 		</div>
 	</div>
-		<div class="padding-y-5 text-center">
-			<div style="width: 40%" class="container padding-y-5 text-left">
-				<strong class="color-main">みんなの叫び</strong>
-			</div>
-			<div style="width: 40%" class="container padding-y-5 text-right">
-				<a href="AllSelect?select=allDelete" class="btn btn-dark btn-sm">選</a>
-				<a href="AllSelect?select=notAll" class="btn btn-light btn-sm">解</a>
-			</div>
-		</div>
+	<jsp:useBean id="shouts" scope="session"
+		type="java.util.ArrayList<dto.ShoutDTO>" />
+	<c:choose>
+		<c:when test="${stResult == 'true'}">
 
-		<div class="padding-y-5">
-			<div style="width: 40%" class="container padding-y-5">
-			<form action="ShoutsDeleteCheck" method="post">
-				<jsp:useBean id="shouts" scope="session"
-					type="java.util.ArrayList<dto.ShoutDTO>" />
-
-				<%-- リストにある要素の数だけ繰り返し --%>
-				<c:forEach var="shout" items="${shouts}">
-					<table class="table table-striped table-bordered">
-						<tr>
-							<td rowspan="2" class="text-center"><span
-								class="${shout.icon} pe-3x pe-va"></span></td>
-							<td>${shout.userName}</td>
-							<td class="text-center"><c:if
-									test="${user.loginId == shout.loginId}">
-									<a href="ShoutsDeleteCheck?id=${shout.shoutsId}"
-										class="btn btn-error btn-sm">削除</a></c:if></td>
-										<td class="text-center"><c:if
-									test="${user.loginId == shout.loginId}">
-									<input type="checkbox" name="deleteShouts"
-										value="${shout.shoutsId}" ${checked}>
-								</c:if></td>
-						</tr>
-						<tr>
-							<td colspan="3">${shout.date}</td>
-						</tr>
-						<tr>
-							<td colspan="4"><textarea rows="5" class="form-control">${shout.writing}</textarea>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center" colspan="4"><c:if
-									test="${user.loginId == shout.loginId}">
-									<a href="ShoutEdit?id=${shout.shoutsId}"
-										class="btn btn-success btn-sm">編集</a></c:if>
-						</tr>
-					</table>
-				</c:forEach>
 				<div class="padding-y-5 text-center">
-					<input type="submit" class="btn btn-error btn-sm" value="まとめて削除">
+					<div style="width: 40%" class="container padding-y-5 text-left">
+						<strong class="color-main">みんなの叫び</strong>
+					</div>
+
+					<c:if test="${idResult == 'true'}">
+					<div style="width: 40%" class="container padding-y-5 text-right">
+						<a href="AllSelect?select=allDelete&stResult=${stResult}&idResult=${idResult}" class="btn btn-dark btn-sm">選</a>
+						<a href="AllSelect?select=notAll&stResult=${stResult}&idResult=${idResult}" class="btn btn-light btn-sm">解</a>
+					</div></c:if>
 				</div>
-			</form>
-		</div>
-		</div>
+
+				<div class="padding-y-5">
+					<div style="width: 40%" class="container padding-y-5">
+						<form action="ShoutsDeleteCheck" method="post">
+
+							<%-- リストにある要素の数だけ繰り返し --%>
+							<c:forEach var="shout" items="${shouts}">
+								<table class="table table-striped table-bordered">
+									<tr>
+										<td rowspan="2" class="text-center"><span
+											class="${shout.icon} pe-3x pe-va"></span></td>
+										<td>${shout.userName}</td>
+										<td class="text-center"><c:if
+												test="${user.loginId == shout.loginId}">
+												<a href="ShoutsDeleteCheck?id=${shout.shoutsId}"
+													class="btn btn-error btn-sm">削除</a>
+											</c:if></td>
+										<td class="text-center"><c:if
+												test="${user.loginId == shout.loginId}">
+												<input type="checkbox" name="deleteShouts"
+													value="${shout.shoutsId}" ${checked}>
+											</c:if></td>
+									</tr>
+									<tr>
+										<td colspan="3">${shout.date}</td>
+									</tr>
+									<tr>
+										<td colspan="4" class="shout text-center"><br>${shout.writing}<br>
+											<br></td>
+									</tr>
+									<tr>
+										<td class="text-center" colspan="4"><c:if
+												test="${user.loginId == shout.loginId}">
+												<a href="ShoutEdit?id=${shout.shoutsId}"
+													class="btn btn-success btn-sm">編集</a>
+											</c:if>
+									</tr>
+								</table>
+							</c:forEach>
+							<c:if test="${idResult == 'true'}">
+							<div class="padding-y-5 text-center">
+								<input type="submit" class="btn btn-error btn-sm" value="まとめて削除">
+							</div></c:if>
+						</form>
+					</div>
+				</div>
+			</c:when>
+			<c:otherwise>
+
+			</c:otherwise>
+	</c:choose>
 </body>
 </html>

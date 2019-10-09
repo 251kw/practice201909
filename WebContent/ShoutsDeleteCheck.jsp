@@ -26,8 +26,8 @@
 				<%--入力された値をパラメータで取得し表示 --%>
 				下記の叫びを削除します
 
-				<table class="table table-striped table-bordered">
 				<c:forEach var="shouts" items="${deleteShoutsInfo}">
+				<table class="table table-striped table-bordered">
 					<tr>
 						<td rowspan="2" class="text-center"><span
 							class="${shouts.icon} pe-3x pe-va"></span></td>
@@ -37,11 +37,10 @@
 						<td>${shouts.date}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><textarea rows="5" class="form-control">${shouts.writing}</textarea>
-						</td>
+						<td colspan="2" class="text-center"><br>${shouts.writing}<br><br></td>
 					</tr>
-					</c:forEach>
 					</table>
+					</c:forEach>
 				<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>

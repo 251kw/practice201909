@@ -25,6 +25,24 @@ public class SeachLogic extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+
+	//全角スペースもトリムするメソッド
+	public static String trim2(String str) {
+	    if (str == null || str.length() == 0) {
+	        return str;
+	    }
+	    int st = 0;
+	    int len = str.length();
+	    char[] val = str.toCharArray();
+	    while ((st < len) && ((val[st] <= '\u0020') || (val[st] == '\u00A0') || (val[st] == '\u3000'))) {
+	        st++;
+	    }
+	    while ((st < len) && ((val[len - 1] <= '\u0020') || (val[len - 1] == '\u00A0') || (val[len - 1] == '\u3000'))) {
+	        len--;
+	    }
+	    return ((st > 0) || (len < str.length())) ? str.substring(st, len) : str;
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//文字化け防止
@@ -39,10 +57,15 @@ public class SeachLogic extends HttpServlet {
 		if("search".equals(a)) {
 
 			//検索項目に入力された値の取得
-			String userNameSearch = request.getParameter("userNameSearch");
-			String loginIdSearch = request.getParameter("loginIdSearch");
-			String profileSearch = request.getParameter("profileSearch");
+			String userNameSearchbf = request.getParameter("userNameSearch");
+			String loginIdSearchbf = request.getParameter("loginIdSearch");
+			String profileSearchbf = request.getParameter("profileSearch");
 			String iconSearch = request.getParameter("icon");
+
+			//スペース削除
+			String userNameSearch = trim2(userNameSearchbf);
+			String loginIdSearch = trim2(loginIdSearchbf);
+			String profileSearch = trim2(profileSearchbf);
 
 			searchList.add(userNameSearch);
 			searchList.add(loginIdSearch);

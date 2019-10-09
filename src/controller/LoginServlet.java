@@ -45,6 +45,28 @@ public class LoginServlet extends HttpServlet {
 			// ユーザ情報を取得できたら、書き込み内容リストを取得
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
 
+			boolean stResult = true;
+
+			if(list.size() == 0) {
+				stResult = false;
+			}
+
+			request.setAttribute("stResult", stResult);
+
+
+			boolean idResult = false;
+
+			for(ShoutDTO st : list) {
+				String shoutLoginId = st.getLoginId();
+				if(loginId.equals(shoutLoginId)) {
+					idResult = true;
+				}
+			}
+
+			request.setAttribute("idResult", idResult);
+
+
+
 			// ログインユーザ情報、書き込み内容リストとしてセッションに保存
 			session.setAttribute("shouts", list);
 
@@ -96,6 +118,28 @@ public class LoginServlet extends HttpServlet {
 			if (user != null) {
 				// ユーザ情報を取得できたら、書き込み内容リストを取得
 				ArrayList<ShoutDTO> list = dbm.getShoutList();
+
+				boolean stResult = true;
+
+				if(list.size() == 0) {
+					stResult = false;
+				}
+
+				request.setAttribute("stResult", stResult);
+
+
+
+				boolean idResult = false;
+
+				for(ShoutDTO st : list) {
+					String shoutLoginId = st.getLoginId();
+					if(loginId.equals(shoutLoginId)) {
+						idResult = true;
+					}
+				}
+
+				request.setAttribute("idResult", idResult);
+
 
 				// ログインユーザ情報、書き込み内容リストとしてセッションに保存
 				session.setAttribute("user", user);

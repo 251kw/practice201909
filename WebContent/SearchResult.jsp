@@ -41,6 +41,13 @@
 	<div class="padding-y-5 text-center">
 		<div style="width: 60%" class="container padding-y-5">
 				検索結果<span class="icon-search text-cenyer"></span><br>
+					<c:choose>
+					<c:when test="${requestScope.alert != null && requestScope.alert != ''}">
+						<%-- リクエストスコープの alert の値を出力 --%>
+						<br><br><div  class="color-error text-center">
+						<c:out value="${requestScope.alert}" /></div><br><br>
+					</c:when>
+					<c:otherwise>
 
 			  <form action="MultipleDelete" method="post">
 				<table border="1" class="table text-center" id="content">
@@ -76,20 +83,16 @@
 
 			        </tr>
 					</c:forEach>
-
 				</table>
-				<div class="padding-y-5 text-right">
-					<c:choose>
-					<c:when test="${requestScope.alert != null && requestScope.alert != ''}">
-						<%-- リクエストスコープの alert の値を出力 --%>
-						<div  class="color-error text-left">
-						<c:out value="${requestScope.alert}" /></div>
-					</c:when>
-					<c:otherwise>
-					<input type="hidden" name="delete" value="delete">
-					<input type="submit" name="multipleDelete" class="btn btn-error btn-sm" value="まとめて削除"></c:otherwise></c:choose></div>
 
-			    </form>
+				<div class="padding-y-5 text-right">
+					<input type="hidden" name="delete" value="delete">
+					<input type="submit" name="multipleDelete" class="btn btn-error btn-sm" value="まとめて削除">
+					</div>
+					</form>
+					</c:otherwise>
+					 </c:choose>
+
 
 
 			<!-- 戻るボタンを押したら1ページ前に戻る -->
