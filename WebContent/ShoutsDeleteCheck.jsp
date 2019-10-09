@@ -47,7 +47,7 @@
 
 			<%--戻るボタンを押したら1つ前にページに戻る --%>
 			<form>
-				<input type="button" class="btn" value="戻る" onClick="history.back()">
+				<a href="Top" class="btn">戻る</a>
 			</form>
 					</div>
 	</div>

@@ -35,9 +35,9 @@
 									value="${requestScope.alert}" /></div>
 									<input type="hidden" name="userDelete" value="userDelete">
 							</c:if>
-				<table class="table table-bordered">
+				<c:forEach var="user" items="${deleteList}">
+					<table class="table table-bordered">
 
-					<c:forEach var="user" items="${deleteList}">
 						<tr>
 							<td rowspan="2" class="text-center"><span
 								class="${user.icon} pe-3x pe-va"></span></td>
@@ -46,15 +46,15 @@
 						<tr>
 							<td colspan="2">${user.profile}</td>
 						</tr>
-					</c:forEach>
-				</table>
+					</table>
+				</c:forEach>
 				<input type="submit" value="削除" class="btn btn-warning">
 				<%--HiddenでloginIdをDeleteに渡す--%>
 			</form>
 
 			<%--戻るボタンを押したら1つ前にページに戻る --%>
 			<form>
-				<input type="button" class="btn" value="戻る" onClick="history.back()"><br>
+				<a href="SeachLogic" class="btn">戻る</a><br>
 				<a href="Top" class="btn btn-warning">トップへ戻る</a>
 			</form>
 		</div>

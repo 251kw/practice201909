@@ -69,7 +69,7 @@
 			        	<tr>
 				        	<td><span class="${user.icon} pe-3x pe-va"></span>
 				            <td>${name.userName}</td>
-				            <td>${name.loginId}</td>
+				            <td><p class="tdata">${name.loginId}</p></td>
 				            <td><p class="tdata">${name.profile}</p></td>
 				            <td>
 							<a href="UserEdit?loginId=${name.loginId}" class="btn btn-sm">編集</a>
@@ -78,7 +78,8 @@
 			            <a href="UserDelete?loginId=${name.loginId}" class="btn btn-error btn-sm">削除</a>
 
 			            <td>
-			            <input type="checkbox" name="deletes" value="${name.loginId}" ${checked}><br>
+			            <input type="checkbox" name="deletes" value="${name.loginId}" ${checked}
+			            <c:forEach var="id" items="${deliIds}"><c:if test="${id == name.loginId}">checked</c:if></c:forEach>><br>
 			            </td>
 
 			        </tr>

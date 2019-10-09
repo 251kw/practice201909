@@ -9,18 +9,10 @@
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
-<style type="text/css">
-
-tabule .shout,
-
-table .shout td {
-background-color: #FFFFFF;
-}
-
-</style>
 
 </head>
 <body>
+<script type="text/javascript"></script>
 
 	<%
 		request.setCharacterEncoding("UTF-8");
@@ -106,6 +98,7 @@ background-color: #FFFFFF;
 			</form>
 		</div>
 	</div>
+
 	<jsp:useBean id="shouts" scope="session"
 		type="java.util.ArrayList<dto.ShoutDTO>" />
 	<c:choose>
@@ -119,6 +112,7 @@ background-color: #FFFFFF;
 					<c:if test="${idResult == 'true'}">
 					<div style="width: 40%" class="container padding-y-5 text-right">
 						<a href="AllSelect?select=allDelete&stResult=${stResult}&idResult=${idResult}" class="btn btn-dark btn-sm">選</a>
+
 						<a href="AllSelect?select=notAll&stResult=${stResult}&idResult=${idResult}" class="btn btn-light btn-sm">解</a>
 					</div></c:if>
 				</div>
@@ -142,7 +136,8 @@ background-color: #FFFFFF;
 										<c:if test="${user.loginId == shout.loginId}">
 											<td class="text-center">
 												<input type="checkbox" name="deleteShouts"
-													value="${shout.shoutsId}" ${checked}></td>
+													value="${shout.shoutsId}" ${checked}
+													<c:forEach var="id" items="${delistIds}"><c:if test="${id == shout.shoutsId}">checked</c:if></c:forEach>></td>
 											</c:if>
 									</tr>
 									<tr>

@@ -50,6 +50,11 @@ public class SeachLogic extends HttpServlet {
 
 		//セッションオブジェクトの生成
 		HttpSession session = request.getSession();
+
+		session.removeAttribute("deliIds");
+		session.removeAttribute("deleteList");
+
+
 		ArrayList<String> searchList = new ArrayList<>();
 
 		String a = request.getParameter("search");

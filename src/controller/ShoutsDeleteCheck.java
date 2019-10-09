@@ -27,6 +27,7 @@ public class ShoutsDeleteCheck extends HttpServlet {
 
 		DBManager dbm = new DBManager();
 		ArrayList<ShoutDTO> list = new ArrayList<>();
+		ArrayList<String> delistIds = new ArrayList<>();
 		HttpSession session = request.getSession();
 
 
@@ -35,6 +36,13 @@ public class ShoutsDeleteCheck extends HttpServlet {
 		String shoutsId = request.getParameter("id");
 
 		 list = dbm.getUserShout(shoutsId);
+
+			for(ShoutDTO us : list) {
+				String deliId = us.getShoutsId();
+				delistIds.add(deliId);
+				session.setAttribute("delistIds", delistIds);
+			}
+
 
 		 session.setAttribute("deleteShoutsInfo", list);
 
@@ -52,6 +60,7 @@ public class ShoutsDeleteCheck extends HttpServlet {
 
 		DBManager dbm = new DBManager();
 		ArrayList<ShoutDTO> list = new ArrayList<>();
+		ArrayList<String> delistIds = new ArrayList<>();
 		String message = "";
 		HttpSession session = request.getSession();
 
@@ -64,13 +73,21 @@ public class ShoutsDeleteCheck extends HttpServlet {
 			message = "チェックされていません。もう一度やり直してください。";
 			request.setAttribute("alert", message);
 
+			session.removeAttribute("delistIds");
 
-			RequestDispatcher dispatch = request.getRequestDispatcher("top.jsp");
+			RequestDispatcher dispatch = request.getRequestDispatcher("Top");
 			dispatch.forward(request, response);
 
 		}else {
 
 			list = dbm.getUserShoutsteams(ids);
+
+				for(ShoutDTO us : list) {
+					String deliId = us.getShoutsId();
+					delistIds.add(deliId);
+					session.setAttribute("delistIds", delistIds);
+				}
+
 
 			session.setAttribute("deleteShoutsInfo", list);
 
