@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,40 +53,24 @@ public class ChangeUserInformation2 extends HttpServlet {
 		} else if ("いいえ".equals(btn)) {
 
 			HttpSession session = request.getSession();//sessionの取得
-			String loginId2 = null;//ログインId取得
-			UserDTO user2 = new UserDTO();//UserDTOのインスタンスを作成
-			//sessionからchangelistを取得
-			ArrayList<UserDTO> changelist = (ArrayList<UserDTO>) session.getAttribute("changelist");
-
-			//変更前と変更後のloginIdを比べ、一致したものがあれば古いUserDTOを削除
-			for (int i = 0; i < changelist.size(); i++) {
-				loginId2 = changelist.get(i).getLoginId();
-				if (loginId.equals(loginId2)) {
-                changelist.remove(i);
-				}
-			}
-			//新しく編集した値をuser2に保存
-			user2.setLoginId(loginId);
-			user2.setPassword(password);
-			user2.setUserName(userName);
-			user2.setIcon(icon);
-			user2.setProfile(profile);
-
-			//user2のiconを取得し、対応したselectをuser2から取得（SELECTBOXの値を保持するため）
-			icon = user2.getIcon();
+			UserDTO user2 =(UserDTO)session.getAttribute("user2");//UserDTOのインスタンスを作成
 
 			if ("icon-user".equals(icon)) {
 				user2.setSelected("selected");
+				user2.setSelected1(null);
+				user2.setSelected2(null);
 			} else if ("icon-user-female".equals(icon)) {
+				user2.setSelected(null);
 				user2.setSelected1("selected");
+				user2.setSelected2(null);
 			} else if ("icon-bell".equals(icon)) {
+				user2.setSelected(null);
+				user2.setSelected1(null);
 				user2.setSelected2("selected");
 			}
-			//changelistにuser2を格納
-			changelist.add(user2);
 
 			//ユーザー情報をsessionにuser2として保存
-			session.setAttribute("changelist", changelist);
+			session.setAttribute("user2", user2);
 
 			// ChangeUserInformation.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");

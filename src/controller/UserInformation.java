@@ -37,13 +37,16 @@ public class UserInformation extends HttpServlet {
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
 		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 		HttpSession session = request.getSession();//sessionインスタンスを作成
-		ArrayList<UserDTO> changelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
+		@SuppressWarnings("unchecked")
+		ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) session.getAttribute("searchlist");
 
 		String icon = null;//icon初期化
 		String message = null;//message初期化
 		String checked = null;//checked初期化
 		UserDTO user3 = null;//user3初期化
 		UserDTO user2 = null;//user2初期化
+		UserDTO user1 = null;//user1初期化
+
 		//変更が押された場合
 		if ("変更".equals(btn)) {
 
@@ -51,6 +54,16 @@ public class UserInformation extends HttpServlet {
 			if (loginId == null) {
 				// エラーメッセージを代入
 				message = "変更するユーザーを選択してください";
+
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+
+				//SearchProcess.jsp に処理を転送
+				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
+				dispatcher.forward(request, response);
+			} else if (loginId.length >= 2) {
+				// エラーメッセージを代入
+				message = "変更するユーザーを一人チェックしてください";
 
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
@@ -66,20 +79,20 @@ public class UserInformation extends HttpServlet {
 					user2 = dbm.getChangeUser2(user2loginId);// userNameを受け取り、user2に情報を格納。
 
 					//user2のiconを取得し、対応したselectをuser2から取得
-					 icon =user2.getIcon();
+					icon = user2.getIcon();
 
-					if("icon-user".equals(icon)) {
-					user2.setSelected("selected");
-					}else if("icon-user-female".equals(icon)) {
-				    user2.setSelected1("selected");
-					}else if("icon-bell".equals(icon)) {
-					user2.setSelected2("selected");
+					if ("icon-user".equals(icon)) {
+						user2.setSelected("selected");
+					} else if ("icon-user-female".equals(icon)) {
+						user2.setSelected1("selected");
+					} else if ("icon-bell".equals(icon)) {
+						user2.setSelected2("selected");
 					}
-					//changelistにuser2を格納
-					changelist.add(user2);
+
+
 				}
 				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
-				session.setAttribute("changelist", changelist);
+				session.setAttribute("user2", user2);
 				// ChangeUserInformation.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");
 				dispatcher.forward(request, response);
@@ -114,8 +127,8 @@ public class UserInformation extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("UserDelete.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else if("全選択".equals(btn)) {
-			 checked = "checked";
+		} else if ("全選択".equals(btn)) {
+			checked = "checked";
 			request.setAttribute("checked", checked);
 
 			//SearchProcess.jsp に処理を転送

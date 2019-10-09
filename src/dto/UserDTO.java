@@ -10,13 +10,13 @@ public class UserDTO {
     private String selected;
     private String selected1;
     private String selected2;
-
+    private String checked;
 
 	public UserDTO(){
 
 	}
 
-	public UserDTO(String loginId, String password, String userName, String icon, String profile, String selected, String selected1,String selected2) {
+	public UserDTO(String loginId, String password, String userName, String icon, String profile, String selected, String selected1,String selected2,String checked) {
 		this.loginId = loginId;
 		this.password = password;
 		this.userName = userName;
@@ -25,6 +25,7 @@ public class UserDTO {
 		this.selected = selected;
 		this.selected1 = selected;
 		this.selected2 = selected;
+		this.checked = checked;
 		}
 
 	// 各メンバ変数の getter および setter
@@ -90,5 +91,14 @@ public class UserDTO {
 
 	public void setSelected2(String selected2) {
 		this.selected2 = selected2;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+
 	}
 }

@@ -57,8 +57,8 @@
 						<td class="color-main text-left">アイコン</td>
 						<td><select name="icon" class="form-control">
 								<option value="icon-user" label="男" ${selected}>
-								<option value="icon-user-female" label="女" ${selected1} }>
-								<option value="icon-bell"label="ベル" ${selected2} }>
+								<option value="icon-user-female" label="女" ${selected1}>
+								<option value="icon-bell"label="ベル" ${selected2} >
 						</select></td>
 					</tr>
 					<tr>

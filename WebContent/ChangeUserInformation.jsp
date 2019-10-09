@@ -18,7 +18,6 @@
 	</div>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
-			<c:forEach var="user2" items="${changelist}">
 				<form action="./CUI" method="post">
 					<table style="width: 400px" class="table">
 						<tr>
@@ -90,7 +89,6 @@
 						</c:if>
 					</table>
 				</form>
-			</c:forEach>
 		</div>
 	</div>
 </body>

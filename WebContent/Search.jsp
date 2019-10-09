@@ -11,6 +11,9 @@
 <title>検索画面</title>
 </head>
 <body>
+<%
+        request.setCharacterEncoding("UTF-8");
+    %>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>ユーザー検索</h1>
@@ -26,7 +29,7 @@
 					<tr>
 						<th><strong class="color-main">ユーザー名で検索</strong></th>
 						<td><div class="text-left">
-								<input class="form-control" type="text" name="userName" value=""
+								<input class="form-control" type="text" name="userName" value="${param.userName}"
 									size="20" />
 							</div></td>
 					</tr>
@@ -34,17 +37,17 @@
 					<tr>
 						<th><strong class="color-main">アイコンで検索</strong></th>
 						<td><select name="icon" class="form-control">
-						        <option value="">アイコンを選んでください
-								<option value="icon-user">男
-								<option value="icon-user-female">女
-								<option value="icon-bell">ベル
+						        <option value="" label="アイコンを選んでください" ${selected}>
+								<option value="icon-user"label="男" ${selected1}>
+								<option value="icon-user-female" label="女" ${selected2}>
+								<option value="icon-bell" label="ベル" ${selected3}>
 						</select></td>
 					</tr>
 					<%-- プロフィール検索 --%>
 					<tr>
 						<th><strong class="color-main">プロフィールで検索</strong></th>
 						<td><div class="text-left">
-								<input class="form-control" type="text" name="profile" value=""
+								<input class="form-control" type="text" name="profile" value="${param.profile}"
 									size="20" />
 							</div></td>
 					</tr>

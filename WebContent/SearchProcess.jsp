@@ -34,7 +34,7 @@
 					<c:forEach var="user1" items="${searchlist}">
 						<tr>
 							<td><input type="checkbox" name="loginId"
-								value="${user1.loginId}" ${checked}></td>
+								value="${user1.loginId}" ${checked} ${user1.checked}></td>
 							<td><font size="3"><span
 									class="${user1.icon} pe-3x pe-va"></span></font></td>
 							<td><label><font size="4">${user1.userName}</font></label></td>
@@ -57,7 +57,10 @@
 
 			</c:if>
 			<%--検索画面へ --%>
-			<form action="Search.jsp" method="post">
+			<form action="./SP2" method="post">
+			<input type="hidden" name="icon" value="${param.icon}">
+                                <input type="hidden" name="userName" value="${param.userName}">
+                                <input type="hidden" name="profile" value="${param.profile}">
 				<input class="btn" type="submit" value="戻る" />
 			</form>
 		</div>

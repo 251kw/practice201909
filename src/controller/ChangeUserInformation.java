@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dto.UserDTO;
 
 /**
  * Servlet implementation class ChangeUserInformation
@@ -38,7 +41,10 @@ public class ChangeUserInformation extends HttpServlet {
 
 		//戻るボタンが押された時
 		} else if ("戻る".equals(btn)) {
+			HttpSession session = request.getSession();//sessionの取得
+			UserDTO user1 =(UserDTO)session.getAttribute("user1");//UserDTOのインスタンスを作成
 
+			request.setAttribute("user1", user1);
 			// SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
