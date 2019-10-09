@@ -27,7 +27,7 @@
 				下記の叫びを削除します
 
 				<c:forEach var="shouts" items="${deleteShoutsInfo}">
-				<table class="table table-striped table-bordered">
+				<table class="table table-bordered">
 					<tr>
 						<td rowspan="2" class="text-center"><span
 							class="${shouts.icon} pe-3x pe-va"></span></td>

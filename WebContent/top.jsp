@@ -129,21 +129,21 @@ background-color: #FFFFFF;
 
 							<%-- リストにある要素の数だけ繰り返し --%>
 							<c:forEach var="shout" items="${shouts}">
-								<table class="table table-striped table-bordered">
+								<table class="table table-bordered">
 									<tr>
 										<td rowspan="2" class="text-center"><span
 											class="${shout.icon} pe-3x pe-va"></span></td>
 										<td>${shout.userName}</td>
-										<td class="text-center"><c:if
-												test="${user.loginId == shout.loginId}">
+										<c:if test="${user.loginId == shout.loginId}">
+										<td class="text-center">
 												<a href="ShoutsDeleteCheck?id=${shout.shoutsId}"
-													class="btn btn-error btn-sm">削除</a>
-											</c:if></td>
-										<td class="text-center"><c:if
-												test="${user.loginId == shout.loginId}">
+													class="btn btn-error btn-sm">削除</a></td>
+											</c:if>
+										<c:if test="${user.loginId == shout.loginId}">
+											<td class="text-center">
 												<input type="checkbox" name="deleteShouts"
-													value="${shout.shoutsId}" ${checked}>
-											</c:if></td>
+													value="${shout.shoutsId}" ${checked}></td>
+											</c:if>
 									</tr>
 									<tr>
 										<td colspan="3">${shout.date}</td>
@@ -153,10 +153,10 @@ background-color: #FFFFFF;
 											<br></td>
 									</tr>
 									<tr>
-										<td class="text-center" colspan="4"><c:if
-												test="${user.loginId == shout.loginId}">
+									<c:if test="${user.loginId == shout.loginId}">
+										<td class="text-center" colspan="4">
 												<a href="ShoutEdit?id=${shout.shoutsId}"
-													class="btn btn-success btn-sm">編集</a>
+													class="btn btn-success btn-sm">編集</a></td>
 											</c:if>
 									</tr>
 								</table>
