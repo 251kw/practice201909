@@ -91,6 +91,11 @@ public class UserInformation extends HttpServlet {
 
 
 				}
+				for (int i = 0; i < loginId.length; i++) {
+					loginId[i]="loginId,checked";
+                    user2.setLoginId(loginId[i]);
+				}
+
 				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
 				session.setAttribute("user2", user2);
 				// ChangeUserInformation.jsp に処理を転送
