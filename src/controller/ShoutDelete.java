@@ -33,14 +33,16 @@ public class ShoutDelete extends HttpServlet {
 		String[] shoutsId = request.getParameterValues("shoutsId");//shoutsIdを取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
-		ShoutDTO shouts = null;
+		ShoutDTO shouts = null;//ShoutDTOの初期化
 		ArrayList<ShoutDTO> shoutdeletelist = new ArrayList<>();//ArrayListのインスタンスを作成
+
+
 		//ShoutIdからテーブルを検索しsessionに保存
 		HttpSession session4 = request.getSession();//sessionインスタンスを作成
 
 		for (String shoutsId1 : shoutsId) {
 			shouts = dbm.getshout(shoutsId1);// shoutsIdを受け取り、shoutsに情報を格納
-			shoutdeletelist.add(shouts);
+			shoutdeletelist.add(shouts);//shoutsをshoutsdeletelistに保存
 		}
 
 		//sessionに保存

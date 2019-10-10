@@ -14,8 +14,11 @@
 </head>
 <body>
 	<%
+
 		UserDTO user1 = (UserDTO) request.getAttribute("user1");
 		ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) request.getAttribute("searchlist");
+		session.setAttribute("searchlist",searchlist);
+        session.setAttribute("user1",user1);
 	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
@@ -25,9 +28,6 @@
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<form action="./CUI" method="post">
-				<input type="hidden" name="searchlist" value="<%=request.setAttribute("searchlist",searchlist) %>">
-				<input type="hidden" name="user1" value="<%=request.setAttribute("user1",user1) %>">
-
 				<table style="width: 400px" class="table">
 					<tr>
 						<%-- sessionに保存したloginIdを表示 --%>

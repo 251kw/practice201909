@@ -20,8 +20,7 @@
 	 <%
 UserDTO user1 = (UserDTO) request.getAttribute("user1");
 ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) request.getAttribute("searchlist");
-request.setAttribute("searchlist",searchlist);
-request.setAttribute("user1",user1);
+
 %>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
