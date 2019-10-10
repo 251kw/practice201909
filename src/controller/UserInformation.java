@@ -37,7 +37,6 @@ public class UserInformation extends HttpServlet {
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
 		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 		HttpSession session = request.getSession();//sessionインスタンスを作成
-		@SuppressWarnings("unchecked")
 		ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) session.getAttribute("searchlist");
 
 		String icon = null;//icon初期化
@@ -76,28 +75,43 @@ public class UserInformation extends HttpServlet {
 				for (String user2loginId : loginId) {
 
 					//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
-					user2 = dbm.getChangeUser2(user2loginId);// userNameを受け取り、user2に情報を格納。
+					user1 = dbm.getChangeUser2(user2loginId);// userNameを受け取り、user2に情報を格納。
 
 					//user2のiconを取得し、対応したselectをuser2から取得
-					icon = user2.getIcon();
+					icon = user1.getIcon();
 
 					if ("icon-user".equals(icon)) {
-						user2.setSelected("selected");
+						user1.setSelected("selected");
 					} else if ("icon-user-female".equals(icon)) {
-						user2.setSelected1("selected");
+						user1.setSelected1("selected");
 					} else if ("icon-bell".equals(icon)) {
-						user2.setSelected2("selected");
+						user1.setSelected2("selected");
 					}
+					/*for (int i = 0; i < searchlist.size(); i++) {
+						String loginId2 = searchlist.get(i).getLoginId();
+						if (user2loginId.equals(loginId2)) {
+							String str = "loginId,checked";
+							loginId = str.split(",");
+							user1.setLoginId(loginId);
+							searchlist.set(i, user1);
+						}
+					}*/
+					for (int i = 0; i < searchlist.size(); i++) {
+						String loginId2 = searchlist.get(i).getLoginId();
+						if (user2loginId.equals(loginId2)) {
 
+							checked = "checked";
+							user1.setChecked(checked);
+							searchlist.set(i, user1);
+						}
 
+					}
 				}
-				for (int i = 0; i < loginId.length; i++) {
-					loginId[i]="loginId,checked";
-                    user2.setLoginId(loginId[i]);
-				}
+				request.setAttribute("searchlist", searchlist);
 
-				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser2として保存
-				session.setAttribute("user2", user2);
+				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser1として保存
+				request.setAttribute("user1", user1);
+				session.invalidate();
 				// ChangeUserInformation.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");
 				dispatcher.forward(request, response);

@@ -53,24 +53,24 @@ public class ChangeUserInformation2 extends HttpServlet {
 		} else if ("いいえ".equals(btn)) {
 
 			HttpSession session = request.getSession();//sessionの取得
-			UserDTO user2 =(UserDTO)session.getAttribute("user2");//UserDTOのインスタンスを作成
+			UserDTO user1 =(UserDTO)session.getAttribute("user1");//UserDTOのインスタンスを作成
 
 			if ("icon-user".equals(icon)) {
-				user2.setSelected("selected");
-				user2.setSelected1(null);
-				user2.setSelected2(null);
+				user1.setSelected("selected");
+				user1.setSelected1(null);
+				user1.setSelected2(null);
 			} else if ("icon-user-female".equals(icon)) {
-				user2.setSelected(null);
-				user2.setSelected1("selected");
-				user2.setSelected2(null);
+				user1.setSelected(null);
+				user1.setSelected1("selected");
+				user1.setSelected2(null);
 			} else if ("icon-bell".equals(icon)) {
-				user2.setSelected(null);
-				user2.setSelected1(null);
-				user2.setSelected2("selected");
+				user1.setSelected(null);
+				user1.setSelected1(null);
+				user1.setSelected2("selected");
 			}
 
 			//ユーザー情報をsessionにuser2として保存
-			session.setAttribute("user2", user2);
+			request.setAttribute("user1", user1);
 
 			// ChangeUserInformation.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");

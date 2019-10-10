@@ -407,7 +407,7 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null; // 検索結果
 
 		String sql = "SELECT * FROM users WHERE loginId=?";
-		UserDTO user2 = null; // 登録ユーザ情報
+		UserDTO user1 = null; // 登録ユーザ情報
 
 		try {
 			// データベース接続情報取得
@@ -421,12 +421,12 @@ public class DBManager extends SnsDAO {
 			// 検索結果があれば
 			if (rset.next()) {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
-				user2 = new UserDTO();
-				user2.setLoginId(rset.getString(2));
-				user2.setPassword(rset.getString(3));
-				user2.setUserName(rset.getString(4));
-				user2.setIcon(rset.getString(5));
-				user2.setProfile(rset.getString(6));
+				user1 = new UserDTO();
+				user1.setLoginId(rset.getString(2));
+				user1.setPassword(rset.getString(3));
+				user1.setUserName(rset.getString(4));
+				user1.setIcon(rset.getString(5));
+				user1.setProfile(rset.getString(6));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -437,7 +437,7 @@ public class DBManager extends SnsDAO {
 			close(conn);
 		}
 
-		return user2;
+		return user1;
 	}
 
 	// shoutIdを受け取り、shoutテーブルに一致したものがあるか検索(登録情報変更時)

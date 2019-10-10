@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dto.UserDTO;
 
@@ -41,11 +41,18 @@ public class ChangeUserInformation extends HttpServlet {
 
 		//戻るボタンが押された時
 		} else if ("戻る".equals(btn)) {
-			HttpSession session = request.getSession();//sessionの取得
+			/*HttpSession session = request.getSession();//sessionの取得
 			UserDTO user1 =(UserDTO)session.getAttribute("user1");//UserDTOのインスタンスを作成
+			ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) session.getAttribute("searchlist");
 
 			request.setAttribute("user1", user1);
+			request.setAttribute("searchlist", searchlist);*/
 			// SearchProcess.jsp に処理を転送
+			UserDTO user1 = (UserDTO) request.getAttribute("user1");
+			ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) request.getAttribute("searchlist");
+			request.setAttribute("searchlist",searchlist);
+			request.setAttribute("user1",user1);
+
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
 		}

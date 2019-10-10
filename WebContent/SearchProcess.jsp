@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dto.UserDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,12 @@
 	<%
 		request.setCharacterEncoding("UTF-8");
 	%>
+	 <%
+UserDTO user1 = (UserDTO) request.getAttribute("user1");
+ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) request.getAttribute("searchlist");
+request.setAttribute("searchlist",searchlist);
+request.setAttribute("user1",user1);
+%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>検索結果</h1>
