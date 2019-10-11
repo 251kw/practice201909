@@ -401,7 +401,7 @@ public class DBManager extends SnsDAO {
 	}
 
 	// userNameを受け取り、登録ユーザ一覧に一致したものがあるか検索(登録情報変更時)
-	public UserDTO getChangeUser2(String user2loginId) {
+	public UserDTO getChangeUser2(String loginId) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
@@ -415,7 +415,7 @@ public class DBManager extends SnsDAO {
 
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-			pstmt.setString(1, user2loginId);
+			pstmt.setString(1, loginId);
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば

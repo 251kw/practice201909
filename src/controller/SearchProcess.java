@@ -70,8 +70,8 @@ public class SearchProcess extends HttpServlet {
 			}else {
 
 			//DBからの検索結果をリクエストオブジェクトに保存
-			HttpSession session = request.getSession();
-			session.setAttribute("searchlist", searchlist);
+
+			request.setAttribute("searchlist", searchlist);
 
 			// SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");

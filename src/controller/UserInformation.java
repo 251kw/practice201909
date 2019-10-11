@@ -36,8 +36,9 @@ public class UserInformation extends HttpServlet {
 		String btn = request.getParameter("btn");//btnの値を取得
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
 		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
-		HttpSession session = request.getSession();//sessionインスタンスを作成
-		ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) session.getAttribute("searchlist");
+
+		String[] loginId2 = request.getParameterValues("loginId2");
+		ArrayList<UserDTO> searchlist = new ArrayList<>();//ArrayListのインスタンスを作成
 
 		String icon = null;//icon初期化
 		String message = null;//message初期化
@@ -72,10 +73,10 @@ public class UserInformation extends HttpServlet {
 				dispatcher.forward(request, response);
 			} else {
 
-				for (String user2loginId : loginId) {
+				for (int j = 0; j < loginId.length; j++) {
 
 					//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
-					user1 = dbm.getChangeUser2(user2loginId);// userNameを受け取り、user2に情報を格納。
+					user1 = dbm.getChangeUser2(loginId[j]);// userNameを受け取り、user2に情報を格納。
 
 					//user2のiconを取得し、対応したselectをuser2から取得
 					icon = user1.getIcon();
@@ -96,22 +97,22 @@ public class UserInformation extends HttpServlet {
 							searchlist.set(i, user1);
 						}
 					}*/
-					for (int i = 0; i < searchlist.size(); i++) {
-						String loginId2 = searchlist.get(i).getLoginId();
-						if (user2loginId.equals(loginId2)) {
+					for (int i = 0; i < loginId2.length; i++) {
+
+						if (loginId[j].equals(loginId2[i])) {
 
 							checked = "checked";
 							user1.setChecked(checked);
-							searchlist.set(i, user1);
+
 						}
 
 					}
 				}
-				request.setAttribute("searchlist", searchlist);
 
+				request.setAttribute("loginId2", loginId2);
 				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser1として保存
 				request.setAttribute("user1", user1);
-				session.invalidate();
+
 				// ChangeUserInformation.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");
 				dispatcher.forward(request, response);

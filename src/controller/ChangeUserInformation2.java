@@ -53,7 +53,7 @@ public class ChangeUserInformation2 extends HttpServlet {
 		} else if ("いいえ".equals(btn)) {
 
 			HttpSession session = request.getSession();//sessionの取得
-			UserDTO user1 =(UserDTO)session.getAttribute("user1");//UserDTOのインスタンスを作成
+			UserDTO user1 =(UserDTO)request.getAttribute("user1");//UserDTOのインスタンスを作成
 
 			if ("icon-user".equals(icon)) {
 				user1.setSelected("selected");
