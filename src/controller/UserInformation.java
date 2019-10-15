@@ -36,6 +36,7 @@ public class UserInformation extends HttpServlet {
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
 		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 		String[] loginId2 = request.getParameterValues("loginId2");//loginId取得
+		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 
 		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String icon = null;//icon初期化
@@ -137,6 +138,11 @@ public class UserInformation extends HttpServlet {
 		} else if ("全選択".equals(btn)) {
 			checked = "checked";
 			request.setAttribute("checked", checked);
+			for (String loginId1 : loginId2) {
+				user1 = dbm.getChangeUser2(loginId1);
+				searchlist.add(user1);
+			}
+			request.setAttribute("searchlist", searchlist);
 
 			//SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");

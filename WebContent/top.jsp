@@ -90,6 +90,14 @@
 			<%-- リストにある要素の数だけ繰り返し --%>
 				<form action="./SD" method="post">
                 <input class="btn btn-sm btn-error" name="btn" type="submit" value="チェックした叫びを削除">
+                <c:if
+                        test="${requestScope.alert != null && requestScope.alert != ''}">
+                        <tr>
+                            <%-- リクエストスコープの alert の値を出力 --%>
+                            <td colspan="2" class="color-error text-left"><c:out
+                                    value="${requestScope.alert}" /></td>
+                        </tr>
+                    </c:if>
 			<c:forEach var="shout" items="${shouts}">
 					<table class="table table-striped table-bordered">
 						<tr>

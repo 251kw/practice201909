@@ -22,7 +22,6 @@
 		UserDTO user1 = (UserDTO) request.getAttribute("user1");
 		ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) request.getAttribute("searchlist");
 
-
 	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
