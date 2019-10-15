@@ -26,11 +26,10 @@ public class SearchProcess2 extends HttpServlet {
 			throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
-		String userName = request.getParameter("userName");
-		String selected = request.getParameter("icon");
-		String profile = request.getParameter("profile");
+		String selected = request.getParameter("icon");//iconの値を取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
 
+		//SELECTBOXの値保持
 		if ("".equals(selected)) {
 			selected = "selected";
 			request.setAttribute("selected", selected);

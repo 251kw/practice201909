@@ -14,10 +14,8 @@
 </head>
 <body>
 	<%
-
 		UserDTO user1 = (UserDTO) request.getAttribute("user1");
 		ArrayList<UserDTO> searchlist = (ArrayList<UserDTO>) request.getAttribute("searchlist");
-
 	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
@@ -96,8 +94,9 @@
 						</tr>
 					</c:if>
 				</table>
+				
 				<c:forEach var="loginId2" items="${loginId2}">
-				<input type="hidden" name="loginId2" value="${loginId2}">
+					<input type="hidden" name="loginId2" value="${loginId2}">
 				</c:forEach>
 			</form>
 		</div>

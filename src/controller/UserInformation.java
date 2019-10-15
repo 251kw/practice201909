@@ -30,21 +30,18 @@ public class UserInformation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String[] loginId = request.getParameterValues("loginId");//userName取得
+		String[] loginId = request.getParameterValues("loginId");//loginId取得
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
-		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//btnの値を取得
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
 		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
+		String[] loginId2 = request.getParameterValues("loginId2");//loginId取得
 
-		String[] loginId2 = request.getParameterValues("loginId2");
-		ArrayList<UserDTO> searchlist = new ArrayList<>();//ArrayListのインスタンスを作成
-
+		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String icon = null;//icon初期化
 		String message = null;//message初期化
 		String checked = null;//checked初期化
 		UserDTO user3 = null;//user3初期化
-		UserDTO user2 = null;//user2初期化
 		UserDTO user1 = null;//user1初期化
 
 		//変更が押された場合
@@ -78,7 +75,7 @@ public class UserInformation extends HttpServlet {
 					//SearchProcess.JSPの登録情報変更ボタンが押されたときに動くメソッド
 					user1 = dbm.getChangeUser2(loginId[j]);// userNameを受け取り、user2に情報を格納。
 
-					//user2のiconを取得し、対応したselectをuser2から取得
+					//user1のiconを取得し、対応したselectをuser1から取得
 					icon = user1.getIcon();
 
 					if ("icon-user".equals(icon)) {
@@ -88,22 +85,12 @@ public class UserInformation extends HttpServlet {
 					} else if ("icon-bell".equals(icon)) {
 						user1.setSelected2("selected");
 					}
-					/*for (int i = 0; i < searchlist.size(); i++) {
-						String loginId2 = searchlist.get(i).getLoginId();
-						if (user2loginId.equals(loginId2)) {
-							String str = "loginId,checked";
-							loginId = str.split(",");
-							user1.setLoginId(loginId);
-							searchlist.set(i, user1);
-						}
-					}*/
+
+					//チェックボックスにチェックされたloginIdと検索時に取得したloginIdを比べ一致したらuser1にチェックをセットする
 					for (int i = 0; i < loginId2.length; i++) {
-
 						if (loginId[j].equals(loginId2[i])) {
-
 							checked = "checked";
 							user1.setChecked(checked);
-
 						}
 
 					}

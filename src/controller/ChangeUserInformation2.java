@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -51,10 +50,18 @@ public class ChangeUserInformation2 extends HttpServlet {
 
 			//いいえボタンが押された時
 		} else if ("いいえ".equals(btn)) {
+			UserDTO user1 = new UserDTO();//UserDTOのインスタンスを作成
 
-			HttpSession session = request.getSession();//sessionの取得
-			UserDTO user1 =(UserDTO)request.getAttribute("user1");//UserDTOのインスタンスを作成
+			//user1に登録情報
+			user1.setLoginId(request.getParameter("loginId"));
+			user1.setChecked(request.getParameter("Checked"));
+			user1.setPassword(request.getParameter("password"));
+			user1.setProfile(request.getParameter("profile"));
+			user1.setUserName(request.getParameter("userName"));
 
+
+
+			//選択されたアイコンをuser1に格納
 			if ("icon-user".equals(icon)) {
 				user1.setSelected("selected");
 				user1.setSelected1(null);
@@ -69,7 +76,7 @@ public class ChangeUserInformation2 extends HttpServlet {
 				user1.setSelected2("selected");
 			}
 
-			//ユーザー情報をsessionにuser2として保存
+			//ユーザー情報をsessionにuser1として保存
 			request.setAttribute("user1", user1);
 
 			// ChangeUserInformation.jsp に処理を転送

@@ -52,6 +52,7 @@
 						</tr>
 					</c:forEach>
 				</table>
+				<%--searchlistの中にあるloginIdをhiddenですべて送信 --%>
 				<c:forEach var="user1" items="${searchlist}">
 					<input type="hidden" name="loginId2" value="${user1.loginId}">
 				</c:forEach>
@@ -68,7 +69,6 @@
 				<%-- リクエストスコープの alert の値を出力 --%>
 				<td class="color-error text-center"><label><font
 						size="5"><c:out value="${requestScope.alert}" /></font></label></td>
-
 			</c:if>
 			<%--検索画面へ --%>
 			<form action="./SP2" method="post">

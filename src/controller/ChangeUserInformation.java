@@ -35,7 +35,7 @@ public class ChangeUserInformation extends HttpServlet {
 		String[] loginId2 = request.getParameterValues("loginId2");
 		String loginId = request.getParameter("loginId");
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
-		UserDTO user1 = new UserDTO();
+		UserDTO user1 = new UserDTO();//UserDTOのインスタンスを作成
 
 		//更新ボタンが押された時
 		if ("更新".equals(btn)) {

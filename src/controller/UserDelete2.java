@@ -37,6 +37,7 @@ public class UserDelete2 extends HttpServlet {
 		String loginId = user.getLoginId();//loginIdをuserDTOから取得
 
 		// sessionからdeletelistを取得
+		@SuppressWarnings("unchecked")
 		ArrayList<UserDTO> deletelist = (ArrayList<UserDTO>) session.getAttribute("deletelist");
 		// deletelistからuserdtoのloginIdを取得
 		// loginIdがログインしたユーザーと一致するまでforを回す
@@ -56,10 +57,6 @@ public class UserDelete2 extends HttpServlet {
 
 		} else {
 
-			/*ArrayList<UserDTO> searchlist1 = (ArrayList<UserDTO>)session.getAttribute("searchlist");
-
-			session.setAttribute("searchlist", searchlist1);*/
-			// Search.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("Search.jsp");
 			dispatcher.forward(request, response);
 		}
