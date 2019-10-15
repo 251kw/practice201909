@@ -48,15 +48,18 @@ public class ChangeUserInformation extends HttpServlet {
 
 			//戻るボタンが押された時
 		} else if ("戻る".equals(btn)) {
-
+			//searchlist初期化
 			ArrayList<UserDTO> searchlist = new ArrayList<>();
+			 //loginId2からuser1に情報格納
 			for (int j = 0; j < loginId2.length; j++) {
 
 				user1=dbm.getChangeUser2(loginId2[j]);
 
+				//searchlistとチェックされたユーザーのloginIdを比較して、同じものがあればuser1にcheckedを入れる
 				if (loginId.equals(loginId2[j])) {
 					user1.setChecked("checked");
 				}
+				//user1を検索リストに格納。
 				searchlist.add(user1);
 			}
 

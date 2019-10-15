@@ -130,7 +130,8 @@ public class UserInformation extends HttpServlet {
 
 				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser3として保存
 				session3.setAttribute("deletelist", deletelist);
-
+				//検索結果をloginIdの配列でリクエストオブジェクトに格納
+				request.setAttribute("loginId2", loginId2);
 				// UserDelete.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("UserDelete.jsp");
 				dispatcher.forward(request, response);

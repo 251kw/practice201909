@@ -41,6 +41,7 @@ public class ShoutDelete extends HttpServlet {
 		HttpSession session4 = request.getSession();//sessionインスタンスを作成
 
 		if(shoutsId==null) {
+
 			message = "削除する叫びを選択してください";
 
 			// エラーメッセージをリクエストオブジェクトに保存
