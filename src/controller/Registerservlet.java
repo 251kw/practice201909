@@ -47,7 +47,11 @@ public class Registerservlet extends HttpServlet {
 		} else {
 			// 取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
 			DBManager dbm = new DBManager();
-			boolean result = dbm.Determine(loginId);
+
+			/*Predicate<String> predicate = (Predicate)(loginId= request.getParameter("loginId")) -> */
+
+		    boolean result = dbm.Determine(loginId);
+
 			if (result == false) {
 				message = "ログインIDはすでに使用されています別のログインIDを入力してください";
 

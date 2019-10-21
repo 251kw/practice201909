@@ -2,6 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,31 +38,50 @@ public class UserInformation extends HttpServlet {
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 		String btn = request.getParameter("btn");//btnの値を取得
 		HttpSession session3 = request.getSession();//sessionインスタンスを作成
-		ArrayList<UserDTO> deletelist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
+
 		String[] loginId2 = request.getParameterValues("loginId2");//loginId取得
-		ArrayList<UserDTO> searchlist = new ArrayList<UserDTO>();//ArrayListのインスタンスを作成
 
-		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
-		String icon = null;//icon初期化
-		String message = null;//message初期化
-		String checked = null;//checked初期化
-		UserDTO user3 = null;//user3初期化
-		UserDTO user1 = null;//user1初期化
+		RequestDispatcher dispatcher;//RequestDispatcherの定義
+		String icon;//icon定義
+		String message;//message定義
+		String checked;//checked定義
+		UserDTO user1 =new UserDTO();//UserDTOクラスのインスタンス化
+		Optional<String[]> value;//配列のString型のOptionalを定義
 
+		//UserDTO型が入ってるArraylistが入ってるsupplierインターフェースを作成
+		Supplier<ArrayList<UserDTO>> supplier = ArrayList::new;
+		ArrayList<UserDTO> searchlist;
+
+		Supplier<ArrayList<UserDTO>> supplier1 = ArrayList::new;//ArrayListのインスタンスを作成
+		ArrayList<UserDTO> deletelist;
 		//変更が押された場合
 		if ("変更".equals(btn)) {
-
+			value=Optional.ofNullable(loginId);
 			// checkboxが未選択の場合
-			if (loginId == null) {
+			if (!value.isPresent()) {
 				// エラーメッセージを代入
 				message = "変更するユーザーを選択してください";
 
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
 
+				//searchlist初期化
+				searchlist = supplier.get();
+				 //loginId2からuser1に情報格納
+				for (int j = 0; j < loginId2.length; j++) {
+
+					user1=dbm.getChangeUser2(loginId2[j]);
+
+					//user1を検索リストに格納。
+					searchlist.add(user1);
+				}
+
+				request.setAttribute("searchlist", searchlist);
+
 				//SearchProcess.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 				dispatcher.forward(request, response);
+
 			} else if (loginId.length >= 2) {
 				// エラーメッセージを代入
 				message = "変更するユーザーを一人チェックしてください";
@@ -93,12 +116,10 @@ public class UserInformation extends HttpServlet {
 							checked = "checked";
 							user1.setChecked(checked);
 						}
-
 					}
 				}
-
 				request.setAttribute("loginId2", loginId2);
-				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser1として保存
+				//requestオブジェクトにuser1を保存
 				request.setAttribute("user1", user1);
 
 				// ChangeUserInformation.jsp に処理を転送
@@ -108,46 +129,97 @@ public class UserInformation extends HttpServlet {
 
 			//削除が押された場合
 		} else if ("削除".equals(btn)) {
-			if (loginId == null) {
+
+			value = Optional.ofNullable(loginId);
+
+			if (!value.isPresent()) {
+
 				// checkboxが未選択の場合
 				message = "削除するユーザーを選択してください";
 
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
 
+				//searchlistを取得
+				searchlist = supplier.get();
+				 //loginId2からuser1に情報格納
+				for (int j = 0; j < loginId2.length; j++) {
+
+					user1=dbm.getChangeUser2(loginId2[j]);
+
+					//user1を検索リストに格納。
+					searchlist.add(user1);
+				}
+
+				request.setAttribute("searchlist", searchlist);
 				//SearchProcess.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 				dispatcher.forward(request, response);
 			} else {
+				//deletelistを取得」
+				deletelist = supplier1.get();
 
 				for (String deleteloginId : loginId) {
+
 					// loginIdを受け取り、user3に情報を格納。
-					user3 = dbm.getdeleteUser(deleteloginId);
+					UserDTO user3 = dbm.getdeleteUser(deleteloginId);
 
 					//deletelistにuser3を格納
 					deletelist.add(user3);
 				}
+				//deletelistの中身の上限を3件にする
+				/*deletelist=(ArrayList<UserDTO>) deletelist.stream().limit(3).collect(Collectors.toList());*/
 
 				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser3として保存
-				session3.setAttribute("deletelist", deletelist);
+				session3.setAttribute("deletelist",deletelist );
 				//検索結果をloginIdの配列でリクエストオブジェクトに格納
 				request.setAttribute("loginId2", loginId2);
 				// UserDelete.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("UserDelete.jsp");
 				dispatcher.forward(request, response);
+
 			}
+
+			//全選択ボタンが押されたとき
 		} else if ("全選択".equals(btn)) {
+
+			//searchlistを取得
+			searchlist = supplier.get();
+
+			//チェックを代入
 			checked = "checked";
+			//requestオブジェクトにcheckedを代入
 			request.setAttribute("checked", checked);
+
+			//serchlistに検索結果(loginId2)を代入
 			for (String loginId1 : loginId2) {
 				user1 = dbm.getChangeUser2(loginId1);
 				searchlist.add(user1);
 			}
+			//requestオブジェクトにserchlistを代入
 			request.setAttribute("searchlist", searchlist);
 
 			//SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
+		}else if ("名前順に並び替え".equals(btn)) {
+			//searchlistを取得
+			searchlist = supplier.get();
+
+			//serchlistに検索結果(loginId2)を代入
+			for (String loginId1 : loginId2) {
+				user1 = dbm.getChangeUser2(loginId1);
+				searchlist.add(user1);
+			}
+			Comparator<UserDTO> comparator = Comparator.comparing(UserDTO::getUserName);
+			searchlist=(ArrayList<UserDTO>) searchlist.stream().sorted(comparator).collect(Collectors.toList());
+			//requestオブジェクトにserchlistを代入
+			request.setAttribute("searchlist", searchlist);
+
+			//SearchProcess.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
+			dispatcher.forward(request, response);
+
 		}
 	}
 

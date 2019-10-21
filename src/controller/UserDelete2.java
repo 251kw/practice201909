@@ -31,8 +31,8 @@ public class UserDelete2 extends HttpServlet {
 
 		HttpSession session = request.getSession();//sesstionを取得
 
-		String loginId3=null;// loginIdを初期化
-		RequestDispatcher dispatcher = null;
+		String loginId3=null;// loginId3を初期化
+		RequestDispatcher dispatcher;//RequestDispatcherを定義
 		UserDTO user = (UserDTO) session.getAttribute("user");//session	からuserDTOを取得
 		String loginId = user.getLoginId();//loginIdをuserDTOから取得
 

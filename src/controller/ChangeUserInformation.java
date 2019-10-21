@@ -39,9 +39,14 @@ public class ChangeUserInformation extends HttpServlet {
 
 		//更新ボタンが押された時
 		if ("更新".equals(btn)) {
+			//選択されたユーザーのloginIdからユーザー情報をuser1に代入
 			user1=dbm.getChangeUser2(loginId);
+			//user1にchekedを代入
 			user1.setChecked("checked");
+
+			//requestオブジェクトに情報を格納
 			request.setAttribute("user1",user1);
+			request.setAttribute("loginId2", loginId2);
 			//変更情報の確認画面へ
 			dispatcher = request.getRequestDispatcher("ChangeUserInformationCheck.jsp");
 			dispatcher.forward(request, response);

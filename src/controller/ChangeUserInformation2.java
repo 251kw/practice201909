@@ -35,6 +35,7 @@ public class ChangeUserInformation2 extends HttpServlet {
 		String profile = request.getParameter("profile");//profile取得
 		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//ボタン情報取得
+		String[] loginId2 = request.getParameterValues("loginId2");//loginId取得
 
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 
@@ -78,6 +79,7 @@ public class ChangeUserInformation2 extends HttpServlet {
 
 			//ユーザー情報をsessionにuser1として保存
 			request.setAttribute("user1", user1);
+			request.setAttribute("loginId2", loginId2);
 
 			// ChangeUserInformation.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("ChangeUserInformation.jsp");

@@ -60,6 +60,9 @@
 				<%-- 削除ボタン --%>
 				<input class="btn btn-sm btn-error" name="btn" type="submit"
 					value="削除">
+					<%-- 名前順に並び替えボタン --%>
+                <input class="btn btn-sm" name="btn" type="submit"
+                    value="名前順に並び替え">
 			</form>
 			<%-- リクエストスコープに alert があれば --%>
 			<c:if

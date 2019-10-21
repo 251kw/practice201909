@@ -136,40 +136,6 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	//取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
-	public boolean Determine(String loginId) {
-		Connection conn = null; // データベース接続情報
-		PreparedStatement pstmt = null; // SQL 管理情報
-		ResultSet rset = null; // 検索結果
-
-		String sql = "SELECT * FROM users WHERE loginId=?";
-		boolean result = true;
-		try {
-			// データベース接続情報取得
-			conn = getConnection();
-
-			// SELECT 文の登録と実行
-			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-			pstmt.setString(1, loginId);
-			rset = pstmt.executeQuery();
-
-			// 検索結果があれば
-			if (rset.next()) {
-				//
-				result = false;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(rset);
-			close(pstmt);
-			close(conn);
-		}
-
-		return result;
-
-	}
 
 	//会員情報をDBに登録
 	public boolean registerUser(
@@ -206,6 +172,40 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
+	//取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
+	public boolean Determine(String loginId) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		String sql = "SELECT * FROM users WHERE loginId=?";
+		boolean result = true;
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				//
+				result = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+
+	}
 	// userNameリストのゲッター
 	public ArrayList<UserDTO> getUserList(String userName, String icon, String profile) {
 		Connection conn = null;
