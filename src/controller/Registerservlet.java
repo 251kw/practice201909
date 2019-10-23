@@ -1,6 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.function.Predicate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,8 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dao.DBManager;
 
 /**
  * Servlet implementation class Registerservlet
@@ -46,13 +49,35 @@ public class Registerservlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		} else {
 			// 取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
-			DBManager dbm = new DBManager();
+			/*DBManager dbm = new DBManager();*/
+			/*boolean result=dbm.Determine(loginId);*/
 
-			/*Predicate<String> predicate = (Predicate)(loginId= request.getParameter("loginId")) -> */
+			//ラムダ式
+			Predicate<String> predicate = loginId -> {
 
-		    boolean result = dbm.Determine(loginId);
+			String sql = "SELECT * FROM users WHERE loginId=?";
+			boolean result = true;
+			try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);){
+				pstmt.setString(1, loginId);
 
-			if (result == false) {
+				try (ResultSet rset = pstmt.executeQuery();) {
+
+				// 検索結果があれば
+				if (rset.next()) {
+					//
+					result = false;
+				}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return result;
+
+			};
+
+			//取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
+			if ("false".equals(predicate)) {
 				message = "ログインIDはすでに使用されています別のログインIDを入力してください";
 
 				// エラーメッセージをリクエストオブジェクトに保存
@@ -67,6 +92,5 @@ public class Registerservlet extends HttpServlet {
 
 			}
 		}
-
 	}
 }
