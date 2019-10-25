@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -34,12 +35,12 @@ public class UserInformation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
-		String[] loginId = request.getParameterValues("loginId");//loginId取得
+		String[] loginId = request.getParameterValues("loginId");//loginIdを配列で取得
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 		String btn = request.getParameter("btn");//btnの値を取得
-		HttpSession session3 = request.getSession();//sessionインスタンスを作成
+		HttpSession session = request.getSession();//sessionインスタンスを作成
 
-		String[] loginId2 = request.getParameterValues("loginId2");//loginId取得
+		String[] loginId2 = request.getParameterValues("loginId2");//loginIdを配列で取得
 
 		RequestDispatcher dispatcher;//RequestDispatcherの定義
 		String icon;//icon定義
@@ -48,15 +49,22 @@ public class UserInformation extends HttpServlet {
 		UserDTO user1 =new UserDTO();//UserDTOクラスのインスタンス化
 		Optional<String[]> value;//配列のString型のOptionalを定義
 
-		//UserDTO型が入ってるArraylistが入ってるsupplierインターフェースを作成
+		//UserDTO型が入ってるArraylistが入ってるsupplierインターフェースを実装したArrayListを定義
 		Supplier<ArrayList<UserDTO>> supplier = ArrayList::new;
 		ArrayList<UserDTO> searchlist;
 
-		Supplier<ArrayList<UserDTO>> supplier1 = ArrayList::new;//ArrayListのインスタンスを作成
+		//UserDTO型が入ってるArraylistが入ってるsupplierインターフェースを実装したArrayListを定義
+		Supplier<ArrayList<UserDTO>> supplier1 = ArrayList::new;
 		ArrayList<UserDTO> deletelist;
+
 		//変更が押された場合
 		if ("変更".equals(btn)) {
+			//OptionalのofNullableでloginIdの中身を確認。valueに入れる
 			value=Optional.ofNullable(loginId);
+
+			//関数型インターフェースPredicateを実装した匿名クラスでtestメソッドをオーバーライドした。
+			Predicate<String[]> Pre = a -> a.length>=2;
+
 			// checkboxが未選択の場合
 			if (!value.isPresent()) {
 				// エラーメッセージを代入
@@ -75,19 +83,33 @@ public class UserInformation extends HttpServlet {
 					//user1を検索リストに格納。
 					searchlist.add(user1);
 				}
-
+                //searchlistをリクエストオブジェクトに格納
 				request.setAttribute("searchlist", searchlist);
 
 				//SearchProcess.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 				dispatcher.forward(request, response);
 
-			} else if (loginId.length >= 2) {
+				//配列の要素が2以上の時
+			} else if (Pre.test(loginId)) {
 				// エラーメッセージを代入
 				message = "変更するユーザーを一人チェックしてください";
 
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
+
+				//searchlistを取得
+				searchlist = supplier.get();
+				 //loginId2からuser1に情報格納
+				for (int j = 0; j < loginId2.length; j++) {
+
+					user1=dbm.getChangeUser2(loginId2[j]);
+
+					//user1を検索リストに格納。
+					searchlist.add(user1);
+				}
+				//searchlistをリクエストオブジェクトに格納
+				request.setAttribute("searchlist", searchlist);
 
 				//SearchProcess.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
@@ -118,6 +140,7 @@ public class UserInformation extends HttpServlet {
 						}
 					}
 				}
+				//loginId2をリクエストオブジェクトに格納
 				request.setAttribute("loginId2", loginId2);
 				//requestオブジェクトにuser1を保存
 				request.setAttribute("user1", user1);
@@ -129,7 +152,7 @@ public class UserInformation extends HttpServlet {
 
 			//削除が押された場合
 		} else if ("削除".equals(btn)) {
-
+			//OptionalのofNullableでloginIdの中身を確認。valueに入れる
 			value = Optional.ofNullable(loginId);
 
 			if (!value.isPresent()) {
@@ -150,7 +173,7 @@ public class UserInformation extends HttpServlet {
 					//user1を検索リストに格納。
 					searchlist.add(user1);
 				}
-
+				//searchlistをリクエストオブジェクトに格納
 				request.setAttribute("searchlist", searchlist);
 				//SearchProcess.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
@@ -167,11 +190,9 @@ public class UserInformation extends HttpServlet {
 					//deletelistにuser3を格納
 					deletelist.add(user3);
 				}
-				//deletelistの中身の上限を3件にする
-				/*deletelist=(ArrayList<UserDTO>) deletelist.stream().limit(3).collect(Collectors.toList());*/
 
 				//ユーザー情報をset 戻るときにも情報を残したいのでsessionにuser3として保存
-				session3.setAttribute("deletelist",deletelist );
+				session.setAttribute("deletelist",deletelist );
 				//検索結果をloginIdの配列でリクエストオブジェクトに格納
 				request.setAttribute("loginId2", loginId2);
 				// UserDelete.jsp に処理を転送
@@ -202,6 +223,7 @@ public class UserInformation extends HttpServlet {
 			//SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
+
 		}else if ("名前順に並び替え".equals(btn)) {
 			//searchlistを取得
 			searchlist = supplier.get();
@@ -211,9 +233,9 @@ public class UserInformation extends HttpServlet {
 				user1 = dbm.getChangeUser2(loginId1);
 				searchlist.add(user1);
 			}
-			Comparator<UserDTO> comparator = Comparator.comparing(UserDTO::getUserName);
-			searchlist=(ArrayList<UserDTO>) searchlist.stream().sorted(comparator).collect(Collectors.toList());
-			//requestオブジェクトにserchlistを代入
+            //searchlistに名前の順で入れ替えたUserDTO型が入ってるArrayListを格納
+			searchlist=(ArrayList<UserDTO>) searchlist.stream().sorted(Comparator.comparing(UserDTO::getUserName)).collect(Collectors.toList());
+			//requestオブジェクトにserchlistを格納
 			request.setAttribute("searchlist", searchlist);
 
 			//SearchProcess.jsp に処理を転送

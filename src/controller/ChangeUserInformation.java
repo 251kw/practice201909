@@ -32,8 +32,8 @@ public class ChangeUserInformation extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
 		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//ボタン情報取得
-		String[] loginId2 = request.getParameterValues("loginId2");
-		String loginId = request.getParameter("loginId");
+		String[] loginId2 = request.getParameterValues("loginId2");//検索結果のloginIdを配列で取得
+		String loginId = request.getParameter("loginId");//loginIdを取得
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 		UserDTO user1 = new UserDTO();//UserDTOのインスタンスを作成
 
@@ -68,8 +68,10 @@ public class ChangeUserInformation extends HttpServlet {
 				searchlist.add(user1);
 			}
 
+			//requestオブジェクトにsearchlistを格納
 			request.setAttribute("searchlist", searchlist);
 
+			//SearchProcessに処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");
 			dispatcher.forward(request, response);
 		}

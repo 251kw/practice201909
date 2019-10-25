@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,16 +32,19 @@ public class ShoutDelete extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); //文字化け対策
 		String[] shoutsId = request.getParameterValues("shoutsId");//shoutsIdを取得
-		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
+		RequestDispatcher dispatcher ;//RequestDispatcherを定義
 		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
 		ShoutDTO shouts = null;//ShoutDTOの初期化
 		ArrayList<ShoutDTO> shoutdeletelist = new ArrayList<>();//ArrayListのインスタンスを作成
 		String message = null;//message初期化
 
 		//ShoutIdからテーブルを検索しsessionに保存
-		HttpSession session4 = request.getSession();//sessionインスタンスを作成
+		HttpSession session = request.getSession();//Httpsessionインスタンスを作成
 
-		if(shoutsId==null) {
+		//optionalクラスのインスタンスを生成。ofNullableメソッドでshoutsIdがnullかを判定する。
+        Optional<String[]> value =Optional.ofNullable(shoutsId);
+
+		if(!value.isPresent()) {
 
 			message = "削除する叫びを選択してください";
 
@@ -57,7 +61,7 @@ public class ShoutDelete extends HttpServlet {
 		}
 
 		//sessionに保存
-		session4.setAttribute("shoutdeletelist", shoutdeletelist);
+		session.setAttribute("shoutdeletelist", shoutdeletelist);
 
 		// ShoutDelete.jsp に処理を転送
 		dispatcher = request.getRequestDispatcher("ShoutDelete.jsp");

@@ -63,7 +63,7 @@ public class UserDelete extends HttpServlet {
 				//user1を検索リストに格納。
 				searchlist.add(user1);
 			}
-
+            //searchlistをリクエストオブジェクトに格納
 			request.setAttribute("searchlist", searchlist);
 			// SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");

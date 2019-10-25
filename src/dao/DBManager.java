@@ -136,7 +136,6 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-
 	//会員情報をDBに登録
 	public boolean registerUser(
 			String loginId, String password, String userName, String icon, String profile) {
@@ -508,4 +507,5 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+
 }

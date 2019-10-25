@@ -37,8 +37,8 @@ public class Registerservlet2 extends HttpServlet {
 		String button1 = request.getParameter("button1");
 		String button2 = request.getParameter("button2");
 
-		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンスを作成
-		DBManager dbm = new DBManager();//DBMのインスタンスを生成
+		RequestDispatcher dispatcher = null;//RequestDispatcherのインスタンス生成
+		DBManager dbm = new DBManager();//DBManagerのインスタンスを生成
 
 		//はいボタンが押された時
 		if ("btn1".equals(button1)) {
@@ -53,6 +53,7 @@ public class Registerservlet2 extends HttpServlet {
 			//いいえボタンが押された時
 		} else if ("btn2".equals(button2)) {
 
+			//選択されたアイコンのselecte情報を保持
 			if("icon-user".equals(selected)) {
 				selected="selected";
 				request.setAttribute("selected", selected);
@@ -63,6 +64,7 @@ public class Registerservlet2 extends HttpServlet {
 				selected="selected";
 				request.setAttribute("selected2", selected);
 			}
+			//Register.jspに情報を転送
 			dispatcher = request.getRequestDispatcher("Register.jsp");
 			dispatcher.forward(request, response);
 		}

@@ -35,7 +35,7 @@ public class ShoutDelete2 extends HttpServlet {
 		RequestDispatcher dispatcher = null;//RequestDispatcherの初期化
 		String btn = request.getParameter("btn");//ボタン情報取得
 
-		DBManager dbm = new DBManager();//DBManagerのインスタンスを作成
+		DBManager dbm = new DBManager();//DBManagerのインスタンスを生成
 
 		//はいボタンが押された時、shoutを削除
 		if ("はい".equals(btn)) {
