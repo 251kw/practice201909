@@ -62,7 +62,7 @@ public class UserInformation extends HttpServlet {
 			//OptionalのofNullableでloginIdの中身を確認。valueに入れる
 			value=Optional.ofNullable(loginId);
 
-			//関数型インターフェースPredicateを実装した匿名クラスでtestメソッドをオーバーライドした。
+			//関数型インターフェースPredicateを実装した匿名クラスでtestメソッドをオーバーライド
 			Predicate<String[]> Pre = a -> a.length>=2;
 
 			// checkboxが未選択の場合

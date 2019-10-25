@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,7 +55,8 @@ public class ChangeUserInformation extends HttpServlet {
 			//戻るボタンが押された時
 		} else if ("戻る".equals(btn)) {
 			//searchlist初期化
-			ArrayList<UserDTO> searchlist = new ArrayList<>();
+			Supplier<ArrayList<UserDTO>> supplier = ArrayList::new;
+			ArrayList<UserDTO> searchlist = supplier.get();
 			 //loginId2からuser1に情報格納
 			for (int j = 0; j < loginId2.length; j++) {
 

@@ -15,6 +15,7 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
