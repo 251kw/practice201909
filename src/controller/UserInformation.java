@@ -227,7 +227,7 @@ public class UserInformation extends HttpServlet {
 		}else if ("名前順に並び替え".equals(btn)) {
 			//searchlistを取得
 			searchlist = supplier.get();
-
+           
 			//serchlistに検索結果(loginId2)を代入
 			for (String loginId1 : loginId2) {
 				user1 = dbm.getChangeUser2(loginId1);

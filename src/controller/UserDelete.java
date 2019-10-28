@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,20 +40,19 @@ public class UserDelete extends HttpServlet {
 
 		//はいボタンが押された時
 		if ("はい".equals(btn)) {
-			for (String user3loginId : loginId) {
-				// loginIdから検索して一致したユーザー削除
-				dbm.Delete(user3loginId);
-			}
+			Stream<String> stream = Arrays.stream(loginId);
+			stream.forEach(dbm::Delete);
+
 			// DeleteComplete.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("DeleteComplete.jsp");
 			dispatcher.forward(request, response);
 
 			//いいえボタンが押された時
 		} else if ("いいえ".equals(btn)) {
-            //searchlist初期化
+			//searchlist初期化
 			ArrayList<UserDTO> searchlist = new ArrayList<>();
 
-		    //loginId2からuser1に情報格納
+			//loginId2からuser1に情報格納
 			for (int j = 0; j < loginId2.length; j++) {
 				user1 = dbm.getChangeUser2(loginId2[j]);
 				for (int i = 0; i < loginId.length; i++) {
@@ -63,7 +64,7 @@ public class UserDelete extends HttpServlet {
 				//user1を検索リストに格納。
 				searchlist.add(user1);
 			}
-            //searchlistをリクエストオブジェクトに格納
+			//searchlistをリクエストオブジェクトに格納
 			request.setAttribute("searchlist", searchlist);
 			// SearchProcess.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("SearchProcess.jsp");

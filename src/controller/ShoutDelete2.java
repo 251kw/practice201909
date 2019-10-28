@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,10 +41,9 @@ public class ShoutDelete2 extends HttpServlet {
 
 		//はいボタンが押された時、shoutを削除
 		if ("はい".equals(btn)) {
-			for(String shoutsId1:shoutsId) {
-            //shoutsIdを渡して削除メソッドを実行
-			dbm.ShoutDelete(shoutsId1);
-			}
+			Stream<String> stream= Arrays.stream(shoutsId);
+			stream.forEach(dbm::ShoutDelete);
+			
 			//書き込み内容リストの getterを呼び出しlistに保存
 		   ArrayList<ShoutDTO> list = dbm.getShoutList();
 
