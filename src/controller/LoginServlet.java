@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
-
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -34,8 +35,11 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		RequestDispatcher dispatcher = null;
 		String message = null;
+		//関数型インターフェースを用いたif文の条件式
+		Predicate<String> Pre = a -> a.equals("");
+		Predicate<UserDTO> Pre1 = a -> a != null;
 
-		if (loginId.equals("") || password.equals("")) {
+		if (Pre.test(loginId) || Pre.test(password)) {
 			// ログインID かパスワードどちらか、もしくは双方未入力なら
 			message = "ログインIDとパスワードは必須入力です";
 
@@ -49,11 +53,12 @@ public class LoginServlet extends HttpServlet {
 			// ログイン認証を行い、ユーザ情報を取得
 			DBManager dbm = new DBManager();
 			UserDTO user = dbm.getLoginUser(loginId, password);
-
-			if (user != null) {
+			if (Pre1.test(user)) {
 				// ユーザ情報を取得できたら、書き込み内容リストを取得
-				ArrayList<ShoutDTO> list = dbm.getShoutList();
-				HttpSession session = request.getSession();
+				Supplier<ArrayList<ShoutDTO>> sup = dbm::getShoutList;
+				ArrayList<ShoutDTO> list = sup.get();
+				Supplier<HttpSession> sup1 = request::getSession;
+				HttpSession session = sup1.get();
 
 				// ログインユーザ情報、書き込み内容リストとしてセッションに保存
 				session.setAttribute("user", user);

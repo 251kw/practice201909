@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import javax.servlet.RequestDispatcher;
@@ -54,10 +56,13 @@ public class UserDelete extends HttpServlet {
 
 			//loginId2からuser1に情報格納
 			for (int j = 0; j < loginId2.length; j++) {
-				user1 = dbm.getChangeUser2(loginId2[j]);
+				Function<String,UserDTO> fun = dbm::getChangeUser2;
+				user1 = fun.apply(loginId2[j]);
 				for (int i = 0; i < loginId.length; i++) {
+					//関数型インターフェースを定義
+					BiPredicate<String,String> BiP = (a,b) -> a.equals(b);
 					//searchlistとチェックされたユーザーのloginIdを比較して、同じものがあればuser1にcheckedを入れる
-					if (loginId[i].equals(loginId2[j])) {
+					if (BiP.test(loginId[i],loginId2[j])) {
 						user1.setChecked("checked");
 					}
 				}

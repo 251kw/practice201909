@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Function;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,7 +57,9 @@ public class ShoutDelete extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		for (String shoutsId1 : shoutsId) {
-			shouts = dbm.getshout(shoutsId1);// shoutsIdを受け取り、shoutsに情報を格納
+			//関数型インターフェースを定義
+			Function<String,ShoutDTO> fun = dbm::getshout;
+			shouts = fun.apply(shoutsId1);// shoutsIdを受け取り、shoutsに情報を格納
 			shoutdeletelist.add(shouts);//shoutsをshoutsdeletelistに保存
 		}
 

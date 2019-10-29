@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.servlet.RequestDispatcher;
@@ -40,8 +41,10 @@ public class ChangeUserInformation extends HttpServlet {
 
 		//更新ボタンが押された時
 		if ("更新".equals(btn)) {
+			//関数型インターフェースを定義
+			Function<String,UserDTO> fun = dbm::getChangeUser2;
 			//選択されたユーザーのloginIdからユーザー情報をuser1に代入
-			user1=dbm.getChangeUser2(loginId);
+			user1=fun.apply(loginId);
 			//user1にchekedを代入
 			user1.setChecked("checked");
 
@@ -57,6 +60,7 @@ public class ChangeUserInformation extends HttpServlet {
 			//searchlist初期化
 			Supplier<ArrayList<UserDTO>> supplier = ArrayList::new;
 			ArrayList<UserDTO> searchlist = supplier.get();
+
 			 //loginId2からuser1に情報格納
 			for (int j = 0; j < loginId2.length; j++) {
 

@@ -43,8 +43,10 @@ public class Registerservlet2 extends HttpServlet {
 		//はいボタンが押された時
 		if ("btn1".equals(button1)) {
 
+			//関数型インターフェースを定義
+			FiveConsumer<String,String,String,String,String> fivecon = dbm::registerUser;
 			// ユーザー情報をDBに登録
-			dbm.registerUser(loginId, password, userName, icon, profile);
+			fivecon.accept(loginId, password, userName, icon, profile);
 
 			// RegistrationComplete.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("RegistrationComplete.jsp");

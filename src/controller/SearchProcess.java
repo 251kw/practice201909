@@ -52,8 +52,11 @@ public class SearchProcess extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("Search.jsp");
 			dispatcher.forward(request, response);
 		} else {
+			//引数３の戻り値１の関数型インターフェースを作成getUserListに適応させた
+			TriFunction<String,String,String,ArrayList<UserDTO>> trifun = dbm::getUserList;
+
 			//名前,アイコン,プロフィールをDBから検索
-			ArrayList<UserDTO> searchlist = dbm.getUserList(userName, icon, profile);
+			ArrayList<UserDTO> searchlist =trifun.apply(userName, icon, profile);
 
 			//UserDTOが入ってるArrayList型が入ってる関数型インターフェースPredicateを実装
 			//メソッド参照でtestの中身をisEmptyにオーバーライド

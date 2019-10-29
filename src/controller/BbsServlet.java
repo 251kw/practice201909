@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.BiPredicate;
+import java.util.function.Supplier;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,24 +36,30 @@ public class BbsServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String writing = request.getParameter("shout");
 		RequestDispatcher dispatcher;
-
+		Optional<String> value1 = Optional.ofNullable(writing);
 		// 書き込み内容があれば、リストに追加
-		if (!writing.equals("")) {
+		if (value1.isPresent()) {
 			HttpSession session = request.getSession();
 			// セッションからログインユーザ情報を取得
 			UserDTO user = (UserDTO) session.getAttribute("user");
+
 			//optionalクラスのインスタンスを生成。ofNullableメソッドでdbmがnullかを判定する。
 			Optional<DBManager> value = Optional.ofNullable(dbm);
+
 			// １度だけ DataManager オブジェクトを生成
 			if (!value.isPresent()) {
 				dbm = new DBManager();
 			}
 
+			//関数型インターフェースを定義
+			BiPredicate<UserDTO,String> Bip = dbm::setWriting;
 			// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
-			dbm.setWriting(user, writing);
+			Bip.test(user, writing);
 
+			//関数型インターフェースを定義
+			Supplier<ArrayList<ShoutDTO>> sup = dbm::getShoutList;
 			// 書き込み内容追加後のリストを取得
-			ArrayList<ShoutDTO> list = dbm.getShoutList();
+			ArrayList<ShoutDTO> list =sup.get();
 
 			// リストをセッションに保存
 			session.setAttribute("shouts", list);

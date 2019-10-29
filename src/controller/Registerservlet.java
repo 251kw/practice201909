@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,8 +35,9 @@ public class Registerservlet extends HttpServlet {
 		String password = request.getParameter("password");//password取得
 		RequestDispatcher dispatcher = null;//RequestDispatcher初期化
 		String message = null;//message初期化
+		Predicate<String> Pre = a -> a.equals("");//関数型インターフェースで条件式を定義
 
-		if (loginId.equals("") || password.equals("")) {
+		if (Pre.test(loginId) || Pre.test(password)) {
 			// ログインID かパスワードどちらか、もしくは双方未入力なら
 			message = "ログインIDとパスワードは必須入力です";
 
@@ -52,7 +54,7 @@ public class Registerservlet extends HttpServlet {
 			// 取得したログインIDをDBで検索し同じログインIDがある場合はデータ登録しない。
 			Optional<Boolean> result =Optional.ofNullable(dbm.Determine(loginId));
 
-			if (result.isPresent()) {
+			if (!result.isPresent()) {
 				message = "ログインIDはすでに使用されています別のログインIDを入力してください";
 
 				// エラーメッセージをリクエストオブジェクトに保存

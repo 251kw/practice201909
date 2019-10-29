@@ -42,8 +42,10 @@ public class ChangeUserInformation2 extends HttpServlet {
 		//はいボタンが押された時、DBに登録
 		if ("はい".equals(btn)) {
 
+			//関数型インターフェースを定義
+			FiveConsumer<String,String,String,String,String> fivecon = dbm::ChangeUserInformation;
 			//ユーザー情報更新
-			dbm.ChangeUserInformation(loginId, password, userName, icon, profile);
+			fivecon.accept(loginId, password, userName, icon, profile);
 
 			// ChangeUserInformationComplete.jsp に処理を転送
 			dispatcher = request.getRequestDispatcher("ChangeUserInformationComplete.jsp");
