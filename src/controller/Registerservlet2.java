@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.function.Predicate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,14 +56,18 @@ public class Registerservlet2 extends HttpServlet {
 			//いいえボタンが押された時
 		} else if ("btn2".equals(button2)) {
 
+			Predicate<String> Pre1 = a -> a.equals("icon-user");
+			Predicate<String> Pre2= a -> a.equals("icon-user-female");
+			Predicate<String> Pre3 = a -> a.equals("icon-bell");
+
 			//選択されたアイコンのselecte情報を保持
-			if("icon-user".equals(selected)) {
+			if(Pre1.test(selected)) {
 				selected="selected";
 				request.setAttribute("selected", selected);
-			}else if("icon-user-female".equals(selected)) {
+			}else if(Pre2.test(selected)) {
 				selected="selected";
 				request.setAttribute("selected1", selected);
-			}else if("icon-bell".equals(selected)) {
+			}else if(Pre3.test(selected)) {
 				selected="selected";
 				request.setAttribute("selected2", selected);
 			}

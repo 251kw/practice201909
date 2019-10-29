@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.function.Predicate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -62,18 +63,20 @@ public class ChangeUserInformation2 extends HttpServlet {
 			user1.setProfile(request.getParameter("profile"));
 			user1.setUserName(request.getParameter("userName"));
 
-
+			Predicate<String> Pre1 = a -> a.equals("icon-user");
+			Predicate<String> Pre2= a -> a.equals("icon-user-female");
+			Predicate<String> Pre3 = a -> a.equals("icon-bell");
 
 			//選択されたアイコンをuser1に格納
-			if ("icon-user".equals(icon)) {
+			if (Pre1.test(icon)) {
 				user1.setSelected("selected");
 				user1.setSelected1(null);
 				user1.setSelected2(null);
-			} else if ("icon-user-female".equals(icon)) {
+			} else if (Pre2.test(icon)) {
 				user1.setSelected(null);
 				user1.setSelected1("selected");
 				user1.setSelected2(null);
-			} else if ("icon-bell".equals(icon)) {
+			} else if (Pre3.test(icon)) {
 				user1.setSelected(null);
 				user1.setSelected1(null);
 				user1.setSelected2("selected");
